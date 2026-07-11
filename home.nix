@@ -101,7 +101,7 @@ programs.zsh = {
 
   # User Packages
   home.packages = with pkgs; [
-    wget google-chrome discord spotify git kitty fastfetch pciutils vinegar file-roller    
+    wget google-chrome discord spotify git kitty fastfetch pciutils file-roller    
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
     nerd-fonts.jetbrains-mono modrinth-app
     nodejs_22
