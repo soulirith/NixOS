@@ -69,11 +69,13 @@ programs.zsh = {
   initContent = ''
     fastfetch
     alias reb='(cd /etc/nixos && git add . && git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)" && git push && sudo nixos-rebuild switch --flake .)'
-    alias clean='(cd /etc/nixos && sudo nix-collect-garbage -d && sudo nixos-rebuild switch --flake .)'
+    alias upd='(cd /etc/nixos && nix flake update && git add . && git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)" && git push && sudo nixos-rebuild switch --flake .)'
+    alias clean='(cd /etc/nixos && sudo nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && sudo nix-store --gc)'
     alias gens='sudo nix-env --list-generations --profile /nix/var/nix/profiles/system'
     alias rollback='sudo nixos-rebuild switch --flake /etc/nixos#nixos --rollback'
   '';
 };
+
   # Zoxide, Kitty, and Cursor settings
   programs.zoxide = { enable = true; enableZshIntegration = true; };
   programs.kitty = {
