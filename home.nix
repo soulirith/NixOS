@@ -84,7 +84,7 @@ programs.zsh = {
       confirm_os_window_close = 0;
       font_family = "JetBrainsMono Nerd Font";
       font_size = "10.0";
-      background_opacity = "0.8";
+      background_opacity = "0.7";
       background_blur = "1";
      };
   };
