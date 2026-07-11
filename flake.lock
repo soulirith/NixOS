@@ -1,0 +1,90 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783744526,
+        "narHash": "sha256-yYVxW+uIbCx0Nt870fbErQbz+b2+3Gwpppe+JbIU+Co=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "2afec152df4e284d264f8489d16004c264aebf4c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1783549019,
+        "narHash": "sha256-0XnckG4ZhBmAsYa9mLuEIFowBG0fDGPLHduQGsbMS4A=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "74cc63f702f7d60a557e152a57b40fb1fd0f72ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783760391,
+        "narHash": "sha256-UlM3IQXwfBbLem5LmBkeCEuW327PW5o1Knnj/0z51BA=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "rev": "b6d8447e346d01c5fc3e8fd49a0bccaf29a41edd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "type": "github"
+      }
+    },
+    "noctalia-greeter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783629035,
+        "narHash": "sha256-ftSGIxo6db6f4SZk4OCuO/8K2yg2TEbESb1/FxGFYdg=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "rev": "1d3cd3fa94854cf7070200ae9f02f0a637eb67c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "noctalia": "noctalia",
+        "noctalia-greeter": "noctalia-greeter"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
