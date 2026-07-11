@@ -28,7 +28,7 @@
       };
     };
   };
-
+};
   # Theme Configuration: Forces Catppuccin GTK/Icons for apps like Nemo
   gtk = {
     enable = true;
