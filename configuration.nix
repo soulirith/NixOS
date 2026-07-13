@@ -59,7 +59,18 @@
 };
 
   # Nix settings
+  nix.settings = {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  auto-optimise-store = true;
+  max-jobs = "auto";
+  cores = 0;
+};
+
+  nix.gc = {
+  automatic = true;
+  dates = "weekly";
+  options = "--delete-older-than 7d";
+};
   
   # Greeter Settings
   programs.noctalia-greeter = {
