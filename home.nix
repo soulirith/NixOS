@@ -61,7 +61,7 @@
     };
   };
 
-  # Zsh Configuration
+  #  ZSH config, aliases, bat replacement
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -83,7 +83,17 @@
   };
 
   # Prompt, fuzzy search, monitoring, cat replacement
-  programs.starship.enable = true;
+    programs.starship = {
+    enable = true;
+    settings = {
+      palette = "catppuccin_mocha";
+      right_format = "$time";
+      time = {
+        disabled = false;
+        format = "[$time]($style) ";
+      };
+    };
+  };
   programs.bat.enable = true;
   programs.fzf = {
     enable = true;
@@ -133,7 +143,7 @@
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
     nerd-fonts.jetbrains-mono modrinth-app vinegar
     nodejs_22
-    mangohud btop
+    mangohud btop zellij
   ];
 
   programs.home-manager.enable = true;
