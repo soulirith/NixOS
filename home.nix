@@ -91,7 +91,7 @@
   programs.starship.enable = true;
   programs.bat.enable = true;
   programs.fzf = {
-    enable = true;
+    enable = false;
     enableZshIntegration = true;
   };
 
