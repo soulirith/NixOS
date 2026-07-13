@@ -112,6 +112,7 @@
       background_blur = "1";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
+      window_padding_width = 16;
     };
   };
 
@@ -138,6 +139,33 @@
     gtk.enable = true;
     x11.enable = true;
   };
+  # Fastfetch 
+  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
+  logo = {
+    type = "small";
+    padding = { top = 1; };
+  };
+  display = { separator = " "; };
+  modules = [
+    { type = "title"; format = "{user-name-colored}@{host-name-colored}"; }
+    "separator"
+    { type = "os"; key = " OS"; keyColor = "mauve"; }
+    { type = "kernel"; key = " Kernel"; keyColor = "mauve"; }
+    { type = "packages"; key = " Packages"; keyColor = "mauve"; }
+    { type = "display"; key = " Display"; keyColor = "mauve"; }
+    { type = "wm"; key = " WM"; keyColor = "mauve"; }
+    { type = "terminal"; key = " Terminal"; keyColor = "mauve"; }
+    "separator"
+    { type = "cpu"; key = " CPU"; keyColor = "blue"; }
+    { type = "gpu"; key = " GPU"; keyColor = "blue"; }
+    { type = "memory"; key = " Memory"; keyColor = "blue"; }
+    { type = "swap"; key = " Swap"; keyColor = "blue"; }
+    { type = "disk"; key = " Disk"; keyColor = "blue"; }
+    { type = "uptime"; key = " Uptime"; keyColor = "blue"; }
+    "break"
+    { type = "colors"; symbol = "circle"; }
+  ];
+};
 
   # User Packages
   home.packages = with pkgs; [
