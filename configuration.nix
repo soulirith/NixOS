@@ -100,9 +100,6 @@
   
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "processor.max_cstate=1" ];  
-  environment.sessionVariables = {
-    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
-    "GBM_BACKEND" = "nvidia-drm";
   };
    
   # XDG Portal: Prioritizes GTK to enforce Nemo associations
