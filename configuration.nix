@@ -101,18 +101,6 @@
     config.common.default = [ "gtk" ];
   };
 
-  nixpkgs.overlays = [
-  (final: prev: {
-    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-      (pyFinal: pyPrev: {
-        catppuccin = pyPrev.catppuccin.overridePythonAttrs (old: {
-          doCheck = false;
-        });
-      })
-    ];
-  })
-];
-
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
   nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;

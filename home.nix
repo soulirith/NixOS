@@ -38,7 +38,6 @@
       package = pkgs.catppuccin-gtk.override {
         accents = [ "mauve" ];
         variant = "mocha";
-	python3 = pkgs.python313;
       };
     };
     iconTheme = {
