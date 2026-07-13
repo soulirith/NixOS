@@ -22,7 +22,7 @@
         enabled = true;
         default.path = "/home/soulirith/Pictures/wallpaper.png";
         backdrop = {
-          enabled = true;
+          enabled = false;
           blur_intensity = 0.5;
           tint_intensity = 0.3;
         };
