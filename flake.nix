@@ -29,12 +29,6 @@
           home-manager.backupFileExtension = "bak";
           home-manager.users.soulirith = import ./home.nix;
           home-manager.extraSpecialArgs = { inherit inputs; };
-
-         nixpkgs.config.packageOverrides = pkgs: {
-  catppuccin = pkgs.catppuccin.overridePythonAttrs (old: {
-    doCheck = false;
-  });
-};
         }
       ];
     };
