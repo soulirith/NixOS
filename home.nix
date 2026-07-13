@@ -140,7 +140,7 @@
     x11.enable = true;
   };
   # Fastfetch 
-  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
+xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
     type = "small";
     padding = { top = 1; };
@@ -149,24 +149,23 @@
   modules = [
     { type = "title"; format = "{user-name-colored}@{host-name-colored}"; }
     "separator"
-    { type = "os"; key = " OS"; keyColor = "mauve"; }
-    { type = "kernel"; key = " Kernel"; keyColor = "mauve"; }
-    { type = "packages"; key = " Packages"; keyColor = "mauve"; }
-    { type = "display"; key = " Display"; keyColor = "mauve"; }
-    { type = "wm"; key = " WM"; keyColor = "mauve"; }
-    { type = "terminal"; key = " Terminal"; keyColor = "mauve"; }
+    { type = "os"; key = " OS"; keyColor = "#cba6f7"; }
+    { type = "kernel"; key = " Kernel"; keyColor = "#cba6f7"; }
+    { type = "packages"; key = " Packages"; keyColor = "#cba6f7"; }
+    { type = "display"; key = " Display"; keyColor = "#cba6f7"; }
+    { type = "wm"; key = " WM"; keyColor = "#cba6f7"; }
+    { type = "terminal"; key = " Terminal"; keyColor = "#cba6f7"; }
     "separator"
-    { type = "cpu"; key = " CPU"; keyColor = "blue"; }
-    { type = "gpu"; key = " GPU"; keyColor = "blue"; }
-    { type = "memory"; key = " Memory"; keyColor = "blue"; }
-    { type = "swap"; key = " Swap"; keyColor = "blue"; }
-    { type = "disk"; key = " Disk"; keyColor = "blue"; }
-    { type = "uptime"; key = " Uptime"; keyColor = "blue"; }
+    { type = "cpu"; key = " CPU"; keyColor = "#89b4fa"; }
+    { type = "gpu"; key = " GPU"; keyColor = "#89b4fa"; }
+    { type = "memory"; key = " Memory"; keyColor = "#89b4fa"; }
+    { type = "swap"; key = " Swap"; keyColor = "#89b4fa"; }
+    { type = "disk"; key = " Disk"; keyColor = "#89b4fa"; }
+    { type = "uptime"; key = " Uptime"; keyColor = "#89b4fa"; }
     "break"
     { type = "colors"; symbol = "circle"; }
   ];
 };
-
   # User Packages
   home.packages = with pkgs; [
     wget google-chrome discord git kitty fastfetch pciutils file-roller
