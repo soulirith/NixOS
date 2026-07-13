@@ -33,6 +33,7 @@
   # Catppuccin theming (applies to any enabled program it supports: kitty, btop, bat, fzf, starship, etc.)
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "mocha";
     accent = "mauve";
   };
