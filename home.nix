@@ -24,7 +24,7 @@
         backdrop = {
           enabled = true;
           blur_intensity = 0.5;
-          tint_intensity = 0.3;
+          tint_intensity = 0.0;
         };
       };
     };
