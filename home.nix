@@ -9,13 +9,6 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
-  # Catppuccin theming (applies to any enabled program it supports: kitty, btop, bat, fzf, starship, etc.)
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "mauve";
-  };
-
   # Noctalia Home Manager Configuration
   programs.noctalia = {
     enable = true;
@@ -37,7 +30,12 @@
     };
   };
 
-  # Theme Configuration: Forces Catppuccin GTK/Icons for apps like Nemo
+  # Catppuccin theming (applies to any enabled program it supports: kitty, btop, bat, fzf, starship, etc.)
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+  };
   gtk = {
     enable = true;
     theme = {
@@ -46,10 +44,6 @@
         accents = [ "mauve" ];
         variant = "mocha";
       };
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
       package = pkgs.catppuccin-cursors.mochaDark;
