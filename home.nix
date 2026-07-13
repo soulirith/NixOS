@@ -100,7 +100,6 @@
       font_size = "10.0";
       background_opacity = "0.5";
       background_blur = "1";
-      programs.starship.settings.palette = "catppuccin_mocha";
     };
   };
 
