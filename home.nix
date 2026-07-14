@@ -143,10 +143,6 @@
   # Fastfetch 
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-  type = "kitty";
-  source = "/home/soulirith/Downloads/nix-ansi-main/nix.txt";
-  width = 22;
-  height = 22;
   padding = { top = 1; right = 2;  };
   };
   display = {
