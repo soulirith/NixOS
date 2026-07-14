@@ -149,7 +149,7 @@
     key = { type = "both"; };
   };
   modules = [
-    { type = "custom"; format = "{#magenta} {user-name-colored}@{host-name-colored}{#}"; }
+    { type = "title"; color = { user = "#cba6f7"; at = "#cba6f7"; host = "#cba6f7"; }; }
     { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
     { type = "os"; keyColor = "#cba6f7"; }
     { type = "kernel"; keyColor = "#cba6f7"; }
