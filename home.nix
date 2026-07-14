@@ -149,16 +149,18 @@
     key = { type = "both"; };
   };
   modules = [
-    { type = "custom"; format = "╭──────────────────────╮"; outputColor = "#cba6f7"; }
-    { type = "title"; }
-    { type = "custom"; format = "╰──────────────────────╯"; outputColor = "#cba6f7"; }
+    { type = "custom"; format = "{#magenta}╭──────────────────╮{#}"; }
+    { type = "title"; format = "{#magenta}│{#} {user-name-colored}@{host-name-colored} {#magenta}│{#}"; }
+    { type = "custom"; format = "{#magenta}╰──────────────────╯{#}"; }
     { type = "os"; keyColor = "#cba6f7"; }
     { type = "kernel"; keyColor = "#cba6f7"; }
     { type = "packages"; keyColor = "#cba6f7"; }
     { type = "display"; keyColor = "#cba6f7"; }
     { type = "wm"; keyColor = "#cba6f7"; }
     { type = "terminal"; keyColor = "#cba6f7"; }
-    { type = "custom"; format = "──────────────────────"; outputColor = "#89b4fa"; }
+    { type = "terminalfont"; keyColor = "#cba6f7"; }
+    { type = "cursor"; keyColor = "#cba6f7"; }
+    { type = "custom"; format = "{#blue}──────────────────{#}"; }
     { type = "cpu"; keyColor = "#89b4fa"; }
     { type = "gpu"; keyColor = "#89b4fa"; }
     { type = "memory"; keyColor = "#89b4fa"; }
@@ -168,7 +170,6 @@
     { type = "colors"; symbol = "circle"; }
   ];
 };
-
   # User Packages
   home.packages = with pkgs; [
     wget google-chrome discord git kitty fastfetch pciutils file-roller
