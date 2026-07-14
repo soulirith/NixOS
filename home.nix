@@ -143,7 +143,7 @@
   # Fastfetch 
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-  source = "/home/soulirith/Downloads/nix-ansi-main/nix_large.txt";
+  source = "/home/soulirith/Downloads/nix-ansi-main/nix.txt";
   padding = { top = 1; };
   };
   display = {
