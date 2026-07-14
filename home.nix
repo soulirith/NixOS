@@ -175,7 +175,7 @@
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
     nerd-fonts.jetbrains-mono modrinth-app vinegar
     nodejs_22
-    mangohud btop zellij
+    mangohud zellij
   ];
 
   programs.home-manager.enable = true;
