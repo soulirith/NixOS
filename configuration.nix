@@ -118,6 +118,7 @@
   programs.gamemode.enable = true;
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
+  services.tailscale.enable = true;
   environment.systemPackages = [ pkgs.catppuccin-cursors.mochaDark ];
   system.stateVersion = "26.05";
 }
