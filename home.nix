@@ -144,7 +144,7 @@
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
   type = "kitty";
-  source = "NixOS";
+  source = "nixos_old";
   width = 24;
   height = 24;
     padding = { top = 1; };
@@ -153,7 +153,7 @@
     key = { type = "both"; };
   };
   modules = [
-    { type = "title"; color = { user = "#cba6f7"; at = "#cba6f7"; host = "#cba6f7"; }; }
+    { type = "title"; color = { user = "#89b4fa"; at = "#6c7086"; host = "#cba6f7"; }; }
     { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
     { type = "os"; keyColor = "#cba6f7"; }
     { type = "kernel"; keyColor = "#cba6f7"; }
