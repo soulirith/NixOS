@@ -168,7 +168,7 @@
     { type = "colors"; symbol = "circle"; }
   ];
 };
-};
+
   # User Packages
   home.packages = with pkgs; [
     wget google-chrome discord git kitty fastfetch pciutils file-roller
