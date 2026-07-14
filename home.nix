@@ -143,11 +143,8 @@
   # Fastfetch 
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-  type = "kitty";
-  source = "TempleOS";
-  width = 24;
-  height = 24;
-    padding = { top = 1; };
+  source = "nixos_old";
+  padding = { top = 1; };
   };
   display = {
     key = { type = "both"; };
