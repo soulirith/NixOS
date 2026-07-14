@@ -149,9 +149,8 @@
     key = { type = "both"; };
   };
   modules = [
-    { type = "custom"; format = "{#magenta}╭──────────────────╮{#}"; }
-    { type = "title"; format = "{#magenta}│{#} {user-name-colored}@{host-name-colored} {#magenta}│{#}"; }
-    { type = "custom"; format = "{#magenta}╰──────────────────╯{#}"; }
+    { type = "custom"; format = "{#magenta}{#bold} {user-name-colored}@{host-name-colored}{#}"; }
+    { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
     { type = "os"; keyColor = "#cba6f7"; }
     { type = "kernel"; keyColor = "#cba6f7"; }
     { type = "packages"; keyColor = "#cba6f7"; }
@@ -160,7 +159,7 @@
     { type = "terminal"; keyColor = "#cba6f7"; }
     { type = "terminalfont"; keyColor = "#cba6f7"; }
     { type = "cursor"; keyColor = "#cba6f7"; }
-    { type = "custom"; format = "{#blue}──────────────────{#}"; }
+    { type = "custom"; format = "{#blue}────────────────────────────────{#}"; }
     { type = "cpu"; keyColor = "#89b4fa"; }
     { type = "gpu"; keyColor = "#89b4fa"; }
     { type = "memory"; keyColor = "#89b4fa"; }
