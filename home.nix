@@ -143,7 +143,7 @@
   # Fastfetch 
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-  padding = { top = 1; right = 2;  };
+  padding = { top = 1; };
   };
   display = {
     key = { type = "both"; };
