@@ -140,31 +140,34 @@
     x11.enable = true;
   };
   # Fastfetch 
-xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
+  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-    type = "small";
     padding = { top = 1; };
   };
-  display = { separator = " "; };
+  display = {
+    separator = " ";
+    key = { type = "icon"; };
+  };
   modules = [
-    { type = "title"; format = "{user-name-colored}@{host-name-colored}"; }
+    { type = "title"; }
     "separator"
-    { type = "os"; key = " OS"; keyColor = "#cba6f7"; }
-    { type = "kernel"; key = " Kernel"; keyColor = "#cba6f7"; }
-    { type = "packages"; key = " Packages"; keyColor = "#cba6f7"; }
-    { type = "display"; key = " Display"; keyColor = "#cba6f7"; }
-    { type = "wm"; key = " WM"; keyColor = "#cba6f7"; }
-    { type = "terminal"; key = " Terminal"; keyColor = "#cba6f7"; }
+    { type = "os"; keyColor = "#cba6f7"; }
+    { type = "kernel"; keyColor = "#cba6f7"; }
+    { type = "packages"; keyColor = "#cba6f7"; }
+    { type = "display"; keyColor = "#cba6f7"; }
+    { type = "wm"; keyColor = "#cba6f7"; }
+    { type = "terminal"; keyColor = "#cba6f7"; }
     "separator"
-    { type = "cpu"; key = " CPU"; keyColor = "#89b4fa"; }
-    { type = "gpu"; key = " GPU"; keyColor = "#89b4fa"; }
-    { type = "memory"; key = " Memory"; keyColor = "#89b4fa"; }
-    { type = "swap"; key = " Swap"; keyColor = "#89b4fa"; }
-    { type = "disk"; key = " Disk"; keyColor = "#89b4fa"; }
-    { type = "uptime"; key = " Uptime"; keyColor = "#89b4fa"; }
+    { type = "cpu"; keyColor = "#89b4fa"; }
+    { type = "gpu"; keyColor = "#89b4fa"; }
+    { type = "memory"; keyColor = "#89b4fa"; }
+    { type = "swap"; keyColor = "#89b4fa"; }
+    { type = "disk"; keyColor = "#89b4fa"; }
+    { type = "uptime"; keyColor = "#89b4fa"; }
     "break"
     { type = "colors"; symbol = "circle"; }
   ];
+};
 };
   # User Packages
   home.packages = with pkgs; [
