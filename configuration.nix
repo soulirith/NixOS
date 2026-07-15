@@ -108,28 +108,6 @@
     config.common.default = [ "gtk" ];
   };
    
-  # Tailscape, SSH, service sync, auth keys
-  services.tailscale.enable = true;
-
-services.openssh = {
-  enable = true;
-  settings = {
-    PasswordAuthentication = false;
-    PermitRootLogin = "no";
-  };
-};
-
-services.syncthing = {
-  enable = true;
-  user = "soulirith";
-  dataDir = "/home/soulirith";
-  configDir = "/home/soulirith/.config/syncthing";
-};
-
-users.users.soulirith.openssh.authorizedKeys.keys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA2jShIUDPL/F8oMQpXRMRwoa9F+UJsx+1tUwk+uREAw soulirith-phone"
-];
-
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
   nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;
