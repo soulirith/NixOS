@@ -172,7 +172,7 @@
   home.packages = with pkgs; [
     wget google-chrome discord git kitty fastfetch pciutils file-roller
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
-    nerd-fonts.jetbrains-mono modrinth-app vinegar
+    nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop
     nodejs_22
     mangohud
   ];
