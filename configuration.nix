@@ -102,7 +102,7 @@
   boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "processor.max_cstate=1" ];  
 
   # GTA 5 Enhanced DNS
-  etworking.extraHosts = ''
+  networking.extraHosts = ''
   0.0.0.0 ://battleye.com
   0.0.0.0 ://battleye.com
   0.0.0.0 ://battleye.com
