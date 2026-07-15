@@ -61,7 +61,7 @@
     };
   };
 
-  #  ZSH config, aliases, bat replacement
+  #  ZSH config, aliases
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -70,7 +70,6 @@
     shellAliases = {
       ls = "eza --icons=always --group-directories-first";
       ll = "eza -la --icons=always --group-directories-first";
-      cat = "bat";
     };
     initContent = ''
       fastfetch
