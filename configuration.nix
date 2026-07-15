@@ -100,6 +100,13 @@
   
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "processor.max_cstate=1" ];  
+
+  # GTA 5 Enhanced DNS
+  etworking.extraHosts = ''
+  0.0.0.0 ://battleye.com
+  0.0.0.0 ://battleye.com
+  0.0.0.0 ://battleye.com
+'';
    
   # XDG Portal: Prioritizes GTK to enforce Nemo associations
   xdg.portal = {
