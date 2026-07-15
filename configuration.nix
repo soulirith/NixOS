@@ -119,6 +119,8 @@
   nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;
   services.gvfs.enable = true;
+  services.fstrim.enable = true;
+  boot.tmp.cleanOnBoot = true;
   programs.steam.enable = true;
   programs.niri.enable = true;
   programs.xwayland.enable = true;
