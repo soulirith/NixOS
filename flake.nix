@@ -7,7 +7,7 @@
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    claude-code.url = "github:sadjow/claude-code-nix";   
+    claude-desktop.url = "github:patrickjaja/claude-desktop-bin";
     
     noctalia.url = "github:noctalia-dev/noctalia";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
