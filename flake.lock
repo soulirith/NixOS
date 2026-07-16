@@ -18,22 +18,22 @@
         "type": "github"
       }
     },
-    "claude-code": {
+    "claude-desktop": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1784157477,
-        "narHash": "sha256-eluLGU+dZ7AzGowwsNjNZ4R9lHcs3eZnof3XHKwSWeM=",
-        "owner": "sadjow",
-        "repo": "claude-code-nix",
-        "rev": "1c3cb70c212d7f2ea4decab4a65697b6f6268442",
+        "lastModified": 1784206649,
+        "narHash": "sha256-aZEO/3dj68Sds8KVj+97/m/Z9lW0OEtdvkYJwSy5Ffg=",
+        "owner": "patrickjaja",
+        "repo": "claude-desktop-bin",
+        "rev": "e1d481954fa3bc578e82d6a02e908426ccb2508d",
         "type": "github"
       },
       "original": {
-        "owner": "sadjow",
-        "repo": "claude-code-nix",
+        "owner": "patrickjaja",
+        "repo": "claude-desktop-bin",
         "type": "github"
       }
     },
@@ -91,16 +91,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1784115452,
-        "narHash": "sha256-BoYPdqk6jlKXy+DyUzyGV/CtRGfAhk2MmIgBhsemTGI=",
+        "lastModified": 1784120854,
+        "narHash": "sha256-KesHgItiZPgGX740axSiQLcIQ8D24MDqNpkKYWIek8k=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "35d3407a3816f3b341d8cf1d60abaf2b7b8166ac",
+        "rev": "753cc8a3a87467296ddd1fa93f0cc3e81120ee46",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -177,7 +177,7 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
-        "claude-code": "claude-code",
+        "claude-desktop": "claude-desktop",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_3",
         "noctalia": "noctalia",
