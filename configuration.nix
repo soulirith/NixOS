@@ -67,6 +67,8 @@
 
   # Nix settings
   nix.settings = {
+  nix.settings.substituters = [ "https://cache.nixos.org" "https://nix-community.cachix.org" ];
+  nix.settings.trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
   experimental-features = [ "nix-command" "flakes" ];
   auto-optimise-store = true;
   max-jobs = "auto";
@@ -96,6 +98,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
     powerManagement.enable = true;
+    finegrained = true;
     open = false;
     nvidiaSettings = true;
     prime = {
@@ -106,7 +109,7 @@
   };
   
   boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "processor.max_cstate=1" ];  
+  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" ];  
 
   # GTA 5 Enhanced DNS
   networking.extraHosts = ''
@@ -115,6 +118,9 @@
   0.0.0.0 ://battleye.com
 '';
    
+  # Electron and wayland compat
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # XDG Portal: Prioritizes GTK to enforce Nemo associations
   xdg.portal = {
     enable = true;

@@ -37,21 +37,26 @@
     flavor = "mocha";
     accent = "mauve";
   };
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Catppuccin-Mocha-Standard-Mauve-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "mauve" ];
-        variant = "mocha";
-      };
-    };
-    cursorTheme = {
-      package = pkgs.catppuccin-cursors.mochaDark;
-      name = "catppuccin-mocha-dark-cursors";
-      size = 24;
+
+ gtk = {
+  enable = true;
+  theme = {
+    name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+    package = pkgs.catppuccin-gtk.override {
+      accents = [ "mauve" ];
+      variant = "mocha";
     };
   };
+  iconTheme = {
+    name = "Papirus-Dark";
+    package = pkgs.papirus-icon-theme;
+  };
+  cursorTheme = {
+    package = pkgs.catppuccin-cursors.mochaDark;
+    name = "catppuccin-mocha-dark-cursors";
+    size = 24;
+  };
+};
 
   # MIME Associations: Explicitly sets Nautilus as the default for directories
   xdg.mimeApps = {
@@ -170,7 +175,7 @@
 };
   # User Packages
   home.packages = with pkgs; [
-    wget google-chrome git kitty fastfetch pciutils file-roller
+    wget google-chrome git kitty fastfetch pciutils file-roller firefox	
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
     nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
     nodejs_22
