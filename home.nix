@@ -191,10 +191,9 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   home.packages = with pkgs; [
     wget google-chrome git kitty fastfetch pciutils file-roller firefox	
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
-    nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph claude-monitor
+    nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
     nodejs_22 
     mangohud
-    inputs.claude-desktop.packages.${pkgs.system}.default
   ];
 
   programs.home-manager.enable = true;
