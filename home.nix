@@ -139,13 +139,15 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   xdg.configFile."Claude/claude_desktop_config.json".text = builtins.toJSON {
   mcpServers = {
     Roblox_Studio = {
-      # Points to Vinegar's packaged wine wrapper or your system wine
-      command = "${pkgs.wineWow64Packages.stable}/bin/wine"; 
+      # Use zsh to pass the executable directly into Vinegar's native player runtime
+      command = "${pkgs.zsh}/bin/zsh";
       args = [
-        "/home/[soulirith]/.local/share/vinegar/versions/version-ed7d8193e8564b1f/StudioMCP.exe"
+        "-c"
+        "exec vinegarplayer /home/soulirith/.local/share/vinegar/versions/version-ed7d8193e8564b1f/StudioMCP.exe"
       ];
       env = {
-        WINEPREFIX = "/home/[soulirith]/.local/share/vinegar/prefixes/studio";
+        WINEPREFIX = "/home/soulirith/.local/share/vinegar/prefixes/studio";
+        WINEARCH = "win64";
       };
     };
   };
