@@ -49,6 +49,13 @@
   programs.zsh.enable = true;
   programs.dconf.enable = true;
   services.dbus.enable = true;
+  
+  # Fallback fonts
+  fonts.packages = with pkgs; [
+  noto-fonts
+  noto-fonts-cjk-sans
+  noto-fonts-emoji
+];
 
   # ZRAM
   zramSwap = {
