@@ -134,6 +134,23 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   toggle_hud=Shift_R+F12
   no_display=0
 '';
+
+  # Claude and Vinegar MCP
+  xdg.configFile."Claude/claude_desktop_config.json".text = builtins.toJSON {
+  mcpServers = {
+    Roblox_Studio = {
+      # Points to Vinegar's packaged wine wrapper or your system wine
+      command = "${pkgs.wineWow64Packages.stable}/bin/wine"; 
+      args = [
+        "/home/[soulirith]/.local/share/vinegar/versions/version-ed7d8193e8564b1f/StudioMCP.exe"
+      ];
+      env = {
+        WINEPREFIX = "/home/[soulirith]/.local/share/vinegar/prefixes/studio";
+      };
+    };
+  };
+};
+ 
   # Spotify
   programs.spicetify =
     let
