@@ -135,24 +135,6 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   no_display=0
 '';
 
-  # Claude and Vinegar MCP
-  xdg.configFile."Claude/claude_desktop_config.json".text = builtins.toJSON {
-  mcpServers = {
-    Roblox_Studio = {
-      # Use zsh to pass the executable directly into Vinegar's native player runtime
-      command = "${pkgs.zsh}/bin/zsh";
-      args = [
-        "-c"
-        "exec vinegarplayer /home/soulirith/.local/share/vinegar/versions/version-ed7d8193e8564b1f/StudioMCP.exe"
-      ];
-      env = {
-        WINEPREFIX = "/home/soulirith/.local/share/vinegar/prefixes/studio";
-        WINEARCH = "win64";
-      };
-    };
-  };
-};
- 
   # Spotify
   programs.spicetify =
     let
@@ -211,7 +193,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
     wget google-chrome git kitty fastfetch pciutils file-roller firefox	
     zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
     nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
-    nodejs_22 inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs 
+    nodejs_22 
     mangohud
   ];
 
