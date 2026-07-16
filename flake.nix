@@ -12,7 +12,9 @@
     
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
-
+    
+    claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
+    
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     catppuccin.url = "github:catppuccin/nix";
   };
