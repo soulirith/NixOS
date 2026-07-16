@@ -37,8 +37,8 @@
     flavor = "mocha";
     accent = "mauve";
   };
-
- gtk = {
+  
+gtk = {
   enable = true;
   theme = {
     name = "Catppuccin-Mocha-Standard-Mauve-Dark";
@@ -46,10 +46,6 @@
       accents = [ "mauve" ];
       variant = "mocha";
     };
-  };
-  iconTheme = {
-    name = "Papirus-Dark";
-    package = pkgs.papirus-icon-theme;
   };
   cursorTheme = {
     package = pkgs.catppuccin-cursors.mochaDark;
@@ -119,6 +115,40 @@
       window_padding_width = 16;
     };
   };
+
+  # MangoHUD
+  xdg.configFile."MangoHud/MangoHud.conf".text = ''
+  gpu_stats
+  gpu_temp
+  gpu_core_clock
+  cpu_stats
+  cpu_temp
+  cpu_mhz
+  ram
+  vram
+  fps
+  frametime
+  frame_timing
+  engine_version
+  gpu_name
+  cpu_power
+  gpu_power
+
+  round_corners=10
+  background_alpha=0.4
+  background_color=1e1e2e
+  text_color=cdd6f4
+  gpu_color=cba6f7
+  cpu_color=89b4fa
+  vram_color=a6e3a1
+  ram_color=f9e2af
+  engine_color=f5c2e7
+  frametime_color=f38ba8
+  font_size=20
+  position=top-left
+  toggle_hud=Shift_R+F12
+  no_display=0
+'';
 
   # Spotify
   programs.spicetify =
