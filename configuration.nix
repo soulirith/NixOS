@@ -87,7 +87,7 @@
     package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
       cursor = { theme = "catppuccin-mocha-dark-cursors"; size = 24; };
-      keyboard = { layout = "us"; };
+     # keyboard = { layout = "us"; };
     };
   };
 
@@ -123,13 +123,6 @@
   # Electron and wayland compat
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # XDG Portal: Prioritizes GTK to enforce Nemo associations
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = [ "gtk" ];
-  };
-   
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
   nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;
@@ -142,6 +135,6 @@
   programs.gamemode.enable = true;
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
-  environment.systemPackages = [ pkgs.catppuccin-cursors.mochaDark ];
+ # environment.systemPackages = [ pkgs.catppuccin-cursors.mochaDark ];
   system.stateVersion = "26.05";
 }

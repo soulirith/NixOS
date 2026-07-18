@@ -54,13 +54,23 @@ gtk = {
   };
 };
 
-  # MIME Associations: Explicitly sets Nautilus as the default for directories
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "inode/directory" = "org.gnome.Nautilus.desktop";
-    };
+  # MIME Associations: Explicitly sets Yazi as the default for directories
+  xdg.desktopEntries.yazi = {
+  name = "Yazi";
+  exec = "kitty yazi %U";
+  terminal = false;
+  type = "Application";
+  mimeType = [ "inode/directory" ];
+  categories = [ "System" "FileManager" ];
+};
+
+# Set yazi as default
+xdg.mimeApps = {
+  enable = true;
+  defaultApplications = {
+    "inode/directory" = "yazi.desktop";
   };
+};
 
   #  ZSH config, aliases
   programs.zsh = {
@@ -195,7 +205,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
     nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
     nodejs_22 
     mangohud
-  ];
+  	];
 
   programs.home-manager.enable = true;
   programs.zellij.enable = true;
