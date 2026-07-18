@@ -190,8 +190,8 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
 };
   # User Packages
   home.packages = with pkgs; [
-    wget google-chrome git kitty fastfetch pciutils file-roller firefox	
-    zoxide eza heroic xwayland-satellite prismlauncher gamemode nautilus gnome-text-editor
+    wget google-chrome git kitty fastfetch pciutils firefox	
+    zoxide eza heroic xwayland-satellite prismlauncher gamemode yazi vscodium
     nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
     nodejs_22 
     mangohud
