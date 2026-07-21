@@ -30,11 +30,17 @@
     };
   };
 
+    #
+    dconf.settings."org/gnome/desktop/interface" = {
+    gtk-theme = "Adwaita-dark";
+    color-scheme = "prefer-dark";
+  };
+
   # Cursor
   home.pointerCursor = {
     enable = true;
-    name = "catppuccin-mocha-dark-cursors";
-    package = pkgs.catppuccin-cursors.mochaDark;
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
     size = 24;
     gtk.enable = true;
     x11.enable = true;
@@ -93,8 +99,8 @@
       confirm_os_window_close = 0;
       font_family = "JetBrainsMono Nerd Font";
       font_size = "10.0";
-      background_opacity = "0.5";
-      background_blur = "1";
+      background_opacity = "0.35";
+      background_blur = "2";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
       window_padding_width = 16;
