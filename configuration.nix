@@ -126,6 +126,7 @@
 
   # System-wide packages
   environment.systemPackages = with pkgs; [
+  catppuccin-cursors.mochaDark
   catppuccin-gtk
 ];
 
@@ -141,6 +142,5 @@
   programs.gamemode.enable = true;
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
-  environment.systemPackages = [ pkgs.catppuccin-cursors.mochaDark ];
   system.stateVersion = "26.05";
 }
