@@ -63,7 +63,7 @@
     enable = true;
     package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
-      cursor = { theme = "Bibata-Modern-Ice"; size = 24; };
+      cursor = { theme = "catppuccin-mocha-dark-cursors"; size = 24; };
     };
   };
 
@@ -123,7 +123,7 @@
 
   # System-wide so the greeter can find the cursor before login
   environment.systemPackages = with pkgs; [
-    bibata-cursors
+    catppuccin-cursors.mochaDark
   ];
 
   system.stateVersion = "26.05";

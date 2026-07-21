@@ -30,17 +30,11 @@
     };
   };
 
-    #
-    dconf.settings."org/gnome/desktop/interface" = {
-    gtk-theme = "Adwaita-dark";
-    color-scheme = "prefer-dark";
-  };
-
   # Cursor
   home.pointerCursor = {
     enable = true;
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
+    name = "catppuccin-mocha-dark-cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
     size = 24;
     gtk.enable = true;
     x11.enable = true;
