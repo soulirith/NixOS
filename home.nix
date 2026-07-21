@@ -144,7 +144,12 @@
 
   # Fetch on shell start
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
-    logo.padding.top = 1;
+        logo = {
+      source = "Home/Downloads/nix-snowflake-colours.svg";
+      type = "kitty-direct";
+      height = 15;
+      padding.top = 1;
+    };
     display.key.type = "both";
     modules = [
       { type = "title"; color = { user = "#89b4fa"; at = "#6c7086"; host = "#cba6f7"; }; }
