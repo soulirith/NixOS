@@ -54,25 +54,15 @@ gtk = {
   };
 };
 
-  # MIME Associations: Explicitly sets Yazi as the default for directories
-  xdg.desktopEntries.yazi = {
-  name = "Yazi";
-  exec = "kitty yazi %U";
-  terminal = false;
-  type = "Application";
-  mimeType = [ "inode/directory" ];
-  categories = [ "System" "FileManager" ];
-};
-
 # Set yazi as default
 xdg.mimeApps = {
   enable = true;
   defaultApplications = {
-    "inode/directory" = "yazi.desktop";
+    "inode/directory" = "nemo.desktop";
   };
 };
 
-  #  ZSH config, aliases
+  # ZSH config, aliases
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -92,7 +82,7 @@ xdg.mimeApps = {
     '';
   };
 
-  # Prompt, fuzzy search, monitoring, cat replacement
+  # Prompt, fuzzy search, monitoring
     programs.starship = {
     enable = true;
     settings = {
@@ -200,8 +190,8 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
 };
   # User Packages
   home.packages = with pkgs; [
-    wget google-chrome git kitty fastfetch pciutils firefox	
-    zoxide eza heroic xwayland-satellite prismlauncher gamemode yazi vscodium
+    wget google-chrome git kitty fastfetch pciutils brave nemo	
+    zoxide eza heroic xwayland-satellite prismlauncher gamemode vscodium
     nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
     nodejs_22 
     mangohud
