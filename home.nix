@@ -40,7 +40,7 @@
  #   color-scheme = "prefer-dark";
   #  cursor-theme = "catppuccin-mocha-dark-cursors";
    # cursor-size = 24;
-  };  
+#  };  
 
   # Cursor
   home.pointerCursor = {
