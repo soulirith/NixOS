@@ -45,6 +45,7 @@ gtk = {
     package = pkgs.catppuccin-gtk.override {
       accents = [ "mauve" ];
       variant = "mocha";
+      home.sessionVariables.GTK_THEME = "Catppuccin-Mocha-Standard-Mauve-Dark";
     };
   };
   cursorTheme = {
