@@ -176,6 +176,7 @@
     heroic prismlauncher modrinth-app gamemode mangohud vinegar      # gaming
     vesktop qpwgraph xwayland-satellite                              # desktop
     nerd-fonts.jetbrains-mono                                        # fonts
+    home.sessionVariables.LIBDECOR_PLUGIN_DIR = "${pkgs.libdecor}/lib/libdecor/plugins-1";
   ];
 
   programs.home-manager.enable = true;
