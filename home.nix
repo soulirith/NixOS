@@ -10,14 +10,10 @@
   ];
 
   # Shell/panel + theming source of truth (GTK/Qt/Niri). Never add a `gtk` block here, it locks Noctalia out.
+  # Palette lives in the GUI (~/.config/noctalia/settings.json), which wins over anything set here.
   programs.noctalia = {
     enable = true;
     settings = {
-      theme = {
-        mode = "dark";
-        source = "community";
-        community = "Kanagawa";
-      };
       wallpaper = {
         enabled = true;
         default.path = "/home/soulirith/Pictures/wallpaper.png";
@@ -30,7 +26,13 @@
     };
   };
 
-  # Cursor
+  # Base widget theme; Noctalia's CSS recolors it. Without this GTK falls back to Raleigh.
+  dconf.settings."org/gnome/desktop/interface" = {
+    gtk-theme = "Adwaita-dark";
+    color-scheme = "prefer-dark";
+  };
+
+  # Cursor. Env vars needed too, niri doesn't read the GTK setting.
   home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
@@ -38,6 +40,11 @@
     size = 24;
     gtk.enable = true;
     x11.enable = true;
+  };
+
+  home.sessionVariables = {
+    XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
+    XCURSOR_SIZE = "24";
   };
 
   # Default file manager
@@ -122,37 +129,40 @@
 
     round_corners=8
     background_alpha=0.3
-    background_color=1f1f28
-    text_color=dcd7ba
-    gpu_color=957fb8
-    cpu_color=7e9cd8
+    background_color=1e1e2e
+    text_color=cdd6f4
+    gpu_color=cba6f7
+    cpu_color=89b4fa
     font_size=16
     position=top-left
     toggle_hud=Shift_R+F12
     no_display=0
   '';
 
-  # Fetch on shell start. Hex is manual, same reason as MangoHud.
+  # Fetch on shell start. Warm accents to match the sunset wallpaper; logo recolored off NixOS blue.
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
-    logo.padding.top = 1;
+    logo = {
+      padding.top = 1;
+      color = { "1" = "magenta"; "2" = "red"; };
+    };
     display.key.type = "both";
     modules = [
-      { type = "title"; color = { user = "#7e9cd8"; at = "#727169"; host = "#957fb8"; }; }
+      { type = "title"; color = { user = "#fab387"; at = "#6c7086"; host = "#f38ba8"; }; }
       { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
-      { type = "os"; keyColor = "#957fb8"; }
-      { type = "kernel"; keyColor = "#957fb8"; }
-      { type = "packages"; keyColor = "#957fb8"; }
-      { type = "display"; keyColor = "#957fb8"; }
-      { type = "wm"; keyColor = "#957fb8"; }
-      { type = "terminal"; keyColor = "#957fb8"; }
-      { type = "terminalfont"; keyColor = "#957fb8"; }
-      { type = "cursor"; keyColor = "#957fb8"; }
-      { type = "custom"; format = "{#blue}────────────────────────────────{#}"; }
-      { type = "cpu"; keyColor = "#7e9cd8"; }
-      { type = "gpu"; keyColor = "#7e9cd8"; }
-      { type = "memory"; keyColor = "#7e9cd8"; }
-      { type = "disk"; keyColor = "#7e9cd8"; }
-      { type = "uptime"; keyColor = "#7e9cd8"; }
+      { type = "os"; keyColor = "#f38ba8"; }
+      { type = "kernel"; keyColor = "#f38ba8"; }
+      { type = "packages"; keyColor = "#f38ba8"; }
+      { type = "display"; keyColor = "#f38ba8"; }
+      { type = "wm"; keyColor = "#f38ba8"; }
+      { type = "terminal"; keyColor = "#f38ba8"; }
+      { type = "terminalfont"; keyColor = "#f38ba8"; }
+      { type = "cursor"; keyColor = "#f38ba8"; }
+      { type = "custom"; format = "{#red}────────────────────────────────{#}"; }
+      { type = "cpu"; keyColor = "#fab387"; }
+      { type = "gpu"; keyColor = "#fab387"; }
+      { type = "memory"; keyColor = "#fab387"; }
+      { type = "disk"; keyColor = "#fab387"; }
+      { type = "uptime"; keyColor = "#fab387"; }
       "break"
       { type = "colors"; symbol = "circle"; }
     ];
