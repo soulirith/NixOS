@@ -5,20 +5,20 @@
     inputs.noctalia-greeter.nixosModules.default
   ];
 
-  # Boot. zen kernel for desktop latency, nouveau blacklisted so nvidia loads.
+  # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.tmp.cleanOnBoot = true;
   boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" ];  # psi=1 for oomd
+  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" ];
 
   # Networking
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
 
-  # Services. gvfs = trash/mounts in nautilus, fstrim = weekly SSD trim.
+  # Services
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
   services.fstrim.enable = true;
@@ -26,12 +26,12 @@
   services.flatpak.enable = true;
   services.dbus.enable = true;
 
-  # Locale & keymap
+  # Locale
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
   services.xserver.xkb = { layout = "us"; variant = ""; };
 
-  # Audio. Pipewire replaces pulse, 32-bit alsa for Steam.
+  # Audio
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -49,14 +49,19 @@
     shell = pkgs.zsh;
   };
 
-  # Session. OZONE_WL makes Electron apps run native Wayland.
+  # Session
   programs.niri.enable = true;
   programs.xwayland.enable = true;
   programs.zsh.enable = true;
   programs.dconf.enable = true;
   programs.steam.enable = true;
   programs.gamemode.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";                              # Electron apps run native Wayland
+    XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
+    XCURSOR_SIZE = "24";
+  };
 
   # Login screen
   programs.noctalia-greeter = {
@@ -67,14 +72,14 @@
     };
   };
 
-  # Fallback fonts (CJK + emoji coverage)
+  # Fonts (CJK + emoji fallback)
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];
 
-  # Memory. zram over disk swap, oomd kills before the system locks up.
+  # Memory
   zramSwap = {
     enable = true;
     algorithm = "zstd";
@@ -84,7 +89,7 @@
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
 
-  # NVIDIA. Prime offload: iGPU by default, `nvidia-offload <cmd>` for dGPU.
+  # NVIDIA. Prime offload: iGPU default, `nvidia-offload <cmd>` for dGPU.
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -92,7 +97,7 @@
     modesetting.enable = true;
     powerManagement = {
       enable = true;
-      finegrained = true;  # powers dGPU down when idle
+      finegrained = true;
     };
     open = false;
     nvidiaSettings = true;
@@ -103,7 +108,7 @@
     };
   };
 
-  # Nix. cores=0 means use all, weekly GC of anything older than 7d.
+  # Nix
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
@@ -121,7 +126,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
 
-  # System-wide so the greeter can find the cursor before login
+  # Cursor must be system-wide for the greeter
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.mochaDark
   ];

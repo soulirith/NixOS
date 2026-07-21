@@ -9,8 +9,7 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
-  # Shell/panel + theming source of truth (GTK/Qt/Niri). Never add a `gtk` block here, it locks Noctalia out.
-  # Palette lives in the GUI (~/.config/noctalia/settings.json), which wins over anything set here.
+  # Shell/panel. Owns GTK/Qt/Niri theming, palette set in its GUI.
   programs.noctalia = {
     enable = true;
     settings = {
@@ -26,13 +25,10 @@
     };
   };
 
-  # Base widget theme; Noctalia's CSS recolors it. Without this GTK falls back to Raleigh.
-  dconf.settings."org/gnome/desktop/interface" = {
-    gtk-theme = "Adwaita-dark";
-    color-scheme = "prefer-dark";
-  };
+  # Dark mode for nautilus
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  # Cursor. Env vars needed too, niri doesn't read the GTK setting.
+  # Cursor
   home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
@@ -40,11 +36,6 @@
     size = 24;
     gtk.enable = true;
     x11.enable = true;
-  };
-
-  home.sessionVariables = {
-    XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
-    XCURSOR_SIZE = "24";
   };
 
   # Default file manager
@@ -55,7 +46,7 @@
     };
   };
 
-  # Shell + aliases
+  # Shell
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -68,7 +59,6 @@
       rollback = "sudo nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
       clean = "(cd /etc/nixos && sudo nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && sudo nix-store --gc)";
     };
-    # reb/upd live here, not in shellAliases, because of the nested quoting
     initContent = ''
       fastfetch
       alias reb='(cd /etc/nixos && git add . && git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)" && git push && sudo nixos-rebuild switch --flake .)'
@@ -76,7 +66,7 @@
     '';
   };
 
-  # Prompt (colors come from the terminal, not set here)
+  # Prompt
   programs.starship = {
     enable = true;
     settings = {
@@ -88,12 +78,11 @@
     };
   };
 
-  # Fuzzy find + smart cd + multiplexer
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
   programs.zellij.enable = true;
 
-  # Terminal. HM owns kitty.conf, so leave the Kitty template off in Noctalia.
+  # Terminal
   programs.kitty = {
     enable = true;
     settings = {
@@ -108,19 +97,20 @@
     };
   };
 
-  # Spotify + adblock
+  # Spotify. Flags force native Wayland (no XWayland titlebar).
   programs.spicetify =
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
     in {
       enable = true;
+      spotifyLaunchFlags = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
       enabledExtensions = with spicePkgs.extensions; [
         adblock
         hidePodcasts
       ];
     };
 
-  # Game overlay, Shift_R+F12 to toggle. Hex is manual, no Noctalia template exists.
+  # Game overlay, Shift_R+F12
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
     fps
     frame_timing
@@ -139,30 +129,27 @@
     no_display=0
   '';
 
-  # Fetch on shell start. Warm accents to match the sunset wallpaper; logo recolored off NixOS blue.
+  # Fetch on shell start
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
-    logo = {
-      padding.top = 1;
-      color = { "1" = "magenta"; "2" = "red"; };
-    };
+    logo.padding.top = 1;
     display.key.type = "both";
     modules = [
-      { type = "title"; color = { user = "#fab387"; at = "#6c7086"; host = "#f38ba8"; }; }
+      { type = "title"; color = { user = "#89b4fa"; at = "#6c7086"; host = "#cba6f7"; }; }
       { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
-      { type = "os"; keyColor = "#f38ba8"; }
-      { type = "kernel"; keyColor = "#f38ba8"; }
-      { type = "packages"; keyColor = "#f38ba8"; }
-      { type = "display"; keyColor = "#f38ba8"; }
-      { type = "wm"; keyColor = "#f38ba8"; }
-      { type = "terminal"; keyColor = "#f38ba8"; }
-      { type = "terminalfont"; keyColor = "#f38ba8"; }
-      { type = "cursor"; keyColor = "#f38ba8"; }
-      { type = "custom"; format = "{#red}────────────────────────────────{#}"; }
-      { type = "cpu"; keyColor = "#fab387"; }
-      { type = "gpu"; keyColor = "#fab387"; }
-      { type = "memory"; keyColor = "#fab387"; }
-      { type = "disk"; keyColor = "#fab387"; }
-      { type = "uptime"; keyColor = "#fab387"; }
+      { type = "os"; keyColor = "#cba6f7"; }
+      { type = "kernel"; keyColor = "#cba6f7"; }
+      { type = "packages"; keyColor = "#cba6f7"; }
+      { type = "display"; keyColor = "#cba6f7"; }
+      { type = "wm"; keyColor = "#cba6f7"; }
+      { type = "terminal"; keyColor = "#cba6f7"; }
+      { type = "terminalfont"; keyColor = "#cba6f7"; }
+      { type = "cursor"; keyColor = "#cba6f7"; }
+      { type = "custom"; format = "{#blue}────────────────────────────────{#}"; }
+      { type = "cpu"; keyColor = "#89b4fa"; }
+      { type = "gpu"; keyColor = "#89b4fa"; }
+      { type = "memory"; keyColor = "#89b4fa"; }
+      { type = "disk"; keyColor = "#89b4fa"; }
+      { type = "uptime"; keyColor = "#89b4fa"; }
       "break"
       { type = "colors"; symbol = "circle"; }
     ];
