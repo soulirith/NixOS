@@ -96,8 +96,8 @@
       confirm_os_window_close = 0;
       font_family = "JetBrainsMono Nerd Font";
       font_size = "10.0";
-      background_opacity = "0.25";
-      background_blur = "2";
+      background_opacity = "0.10";
+      background_blur = "1";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
       window_padding_width = 16;
