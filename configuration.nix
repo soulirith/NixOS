@@ -122,12 +122,10 @@
    
   # Session Variables
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.GTK_THEME = "Catppuccin-Mocha-Standard-Mauve-Dark";
 
   # System-wide packages
   environment.systemPackages = with pkgs; [
   catppuccin-cursors.mochaDark
-  catppuccin-gtk
 ];
 
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];

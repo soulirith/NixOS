@@ -54,11 +54,11 @@ gtk = {
   };
 };
 
-# Set yazi as default
+# Set nautilus as default
 xdg.mimeApps = {
   enable = true;
   defaultApplications = {
-    "inode/directory" = "nemo.desktop";
+    "inode/directory" = "nautilus.desktop";
   };
 };
 
@@ -190,7 +190,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
 };
   # User Packages
   home.packages = with pkgs; [
-    wget google-chrome git kitty fastfetch pciutils brave nemo	
+    wget google-chrome git kitty fastfetch pciutils brave nautilus 	
     zoxide eza heroic xwayland-satellite prismlauncher gamemode vscodium
     nerd-fonts.jetbrains-mono modrinth-app vinegar vesktop qpwgraph
     nodejs_22 
