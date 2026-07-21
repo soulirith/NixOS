@@ -135,6 +135,6 @@
   programs.gamemode.enable = true;
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
- # environment.systemPackages = [ pkgs.catppuccin-cursors.mochaDark ];
+  environment.systemPackages = [ pkgs.catppuccin-cursors.mochaDark ];
   system.stateVersion = "26.05";
 }
