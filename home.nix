@@ -35,13 +35,6 @@
     gtk-application-prefer-dark-theme=1
   '';
 
-  # Dark mode for nautilus
-#    dconf.settings."org/gnome/desktop/interface" = {
- #   color-scheme = "prefer-dark";
-  #  cursor-theme = "catppuccin-mocha-dark-cursors";
-   # cursor-size = 24;
-#  };  
-
   # Cursor
   home.pointerCursor = {
     enable = true;
@@ -145,7 +138,7 @@
   # Fetch on shell start
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
         logo = {
-      source = "Home/Downloads/nix-snowflake-colours.svg";
+      source = "/home/soulirith/Pictures/nixos-logo.png";
       type = "kitty-direct";
       height = 15;
       padding.top = 1;
