@@ -107,7 +107,6 @@
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
     in {
       enable = true;
-      colorScheme = "mocha";
       enabledExtensions = with spicePkgs.extensions; [
         adblock
         hidePodcasts
