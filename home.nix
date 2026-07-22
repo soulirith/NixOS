@@ -29,10 +29,6 @@
       wallpaper = {
         enabled = true;
         default.path = "/home/soulirith/Pictures/wallpaper.png";
-        backdrop = {
-          enabled = true;
-          blur_intensity = 1;
-          tint_intensity = 0.1;
         };
       };
     };
@@ -178,7 +174,7 @@
     zed-editor nodejs_22
     heroic prismlauncher modrinth-app gamemode mangohud vinegar
     vesktop qpwgraph xwayland-satellite
-    nerd-fonts.jetbrains-mono
+    nerd-fonts.jetbrains-mono adw-gtk3
   ];
 
   programs.home-manager.enable = true;
