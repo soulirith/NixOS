@@ -13,6 +13,19 @@
   programs.noctalia = {
     enable = true;
     settings = {
+      theme = {
+        mode = "dark";
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
+
+      shell = {
+        polkit_agent = true;              # needed for greeter sync prompts
+        password_style = "random";
+        panel.transparency_mode = "glass";
+        greeter_sync.auto_sync = true;
+      };
+
       wallpaper = {
         enabled = true;
         default.path = "/home/soulirith/Pictures/wallpaper.png";
