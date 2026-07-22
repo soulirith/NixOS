@@ -49,7 +49,7 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = "com.system76.CosmicFiles.desktop";;
+    "inode/directory" = "com.system76.CosmicFiles.desktop";
     };
   };
 
