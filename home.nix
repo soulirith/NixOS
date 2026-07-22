@@ -28,7 +28,7 @@
 
       wallpaper = {
         enabled = true;
-        default.path = "/home/soulirith/Pictures/dark-forest.jpg";
+        default.path = "/home/soulirith/Pictures/";
         };
       };
     };
