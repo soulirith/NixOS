@@ -32,7 +32,6 @@
         };
       };
     };
-  };
 
    # libdecor reads the theme from here, fastfetch reads the cursor
   xdg.configFile."gtk-3.0/settings.ini".text = ''
