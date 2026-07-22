@@ -35,9 +35,6 @@
     gtk-application-prefer-dark-theme=1
   '';
 
-  # Set default theme to papirus dark for cosmic
-  dconf.settings."org/gnome/desktop/interface".icon-theme = "Papirus-Dark";
-
   # Cursor
   home.pointerCursor = {
     enable = true;
@@ -172,11 +169,11 @@
   home.packages = with pkgs; [
     brave google-chrome
     kitty git wget eza zoxide fastfetch pciutils
-    cosmic-files ffmpegthumbnailer                     
+    yazi ffmpegthumbnailer                     
     zed-editor nodejs_22
     heroic prismlauncher modrinth-app gamemode mangohud vinegar
     vesktop qpwgraph xwayland-satellite
-    nerd-fonts.jetbrains-mono adwaita-icon-theme papirus-icon-theme
+    nerd-fonts.jetbrains-mono
   ];
 
   programs.home-manager.enable = true;
