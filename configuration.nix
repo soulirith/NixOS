@@ -86,7 +86,15 @@
     enable = true;
     package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
-      cursor = { theme = "catppuccin-mocha-dark-cursors"; size = 24; };
+      cursor = {
+        theme = "catppuccin-mocha-dark-cursors";
+        size = 24;
+        path = "${pkgs.catppuccin-cursors.mochaDark}/share/icons";
+      };
+      appearance = {
+        password_style = "random";
+        hide_logo = true;
+      };
     };
   };
 
