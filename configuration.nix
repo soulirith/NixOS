@@ -91,10 +91,6 @@
         size = 24;
         path = "${pkgs.catppuccin-cursors.mochaDark}/share/icons";
       };
-      appearance = {
-        password_style = "random";
-        hide_logo = true;
-      };
     };
   };
 

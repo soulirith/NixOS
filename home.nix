@@ -170,7 +170,7 @@
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
     yazi ffmpegthumbnailer                     
-    zed-editor nodejs_22
+    zed-editor nodejs_22 gpu-screen-recorder
     heroic prismlauncher modrinth-app gamemode mangohud vinegar
     vesktop qpwgraph xwayland-satellite
     nerd-fonts.jetbrains-mono adw-gtk3
