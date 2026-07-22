@@ -28,7 +28,7 @@
 
       wallpaper = {
         enabled = true;
-        default.path = "/home/soulirith/Pictures/";
+        default.path = "/home/soulirith/Pictures";
         };
       };
     };
