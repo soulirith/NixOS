@@ -181,7 +181,7 @@
     zed-editor nodejs_22 gpu-screen-recorder
     heroic prismlauncher modrinth-app gamemode mangohud vinegar
     vesktop qpwgraph xwayland-satellite
-    nerd-fonts.jetbrains-mono adw-gtk3
+    nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
 
   programs.home-manager.enable = true;
