@@ -169,7 +169,7 @@
   home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
-    yazi ffmpegthumbnailer                     
+    nemo ffmpegthumbnailer                     
     zed-editor nodejs_22 gpu-screen-recorder
     heroic prismlauncher modrinth-app gamemode mangohud vinegar
     vesktop qpwgraph xwayland-satellite
