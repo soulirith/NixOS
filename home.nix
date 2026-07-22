@@ -124,10 +124,9 @@
     };
 
   # Game overlay, Shift_R+F12
-  xdg.configFile."MangoHud/MangoHud.conf".text = ''
+    xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
 
-    # Layout
     round_corners=10
     background_alpha=0.4
     position=top-left
@@ -135,18 +134,11 @@
     background_color=1e1e2e
     text_color=cdd6f4
 
-    # Stats — fps, ping, vram, temps only
     fps
     fps_color_change
-    gpu_temp
-    cpu_temp
-    vram
-    network
+    frame_timing
 
-    # Colors (Catppuccin Mocha)
     gpu_color=f38ba8
-    cpu_color=89b4fa
-    vram_color=a6e3a1
     text_outline
 
     toggle_hud=Shift_R+F12
