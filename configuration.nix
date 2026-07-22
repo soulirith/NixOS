@@ -40,6 +40,13 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  
+  # XDG Portal
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
+  };
 
   # User
   users.users."soulirith" = {
