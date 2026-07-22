@@ -45,14 +45,6 @@
     x11.enable = true;
   };
 
-  # Default file manager
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-    "inode/directory" = "com.system76.CosmicFiles.desktop";
-    };
-  };
-
   # Shell
   programs.zsh = {
     enable = true;
