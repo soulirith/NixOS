@@ -167,7 +167,7 @@
   };
 
   home.packages = with pkgs; [
-    brave google-chrome
+    librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
     yazi ffmpegthumbnailer                     
     zed-editor nodejs_22
