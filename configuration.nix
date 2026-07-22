@@ -48,6 +48,17 @@
     config.common.default = [ "gtk" ];
   };
 
+  # doas replaces sudo
+  security.sudo.enable = false;
+  security.doas = {
+    enable = true;
+    extraRules = [{
+      users = [ "soulirith" ];
+      keepEnv = true;
+      persist = true;
+    }];
+  };
+
   # User
   users.users."soulirith" = {
     isNormalUser = true;

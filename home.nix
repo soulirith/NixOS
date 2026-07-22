@@ -62,14 +62,14 @@
     shellAliases = {
       ls = "eza --icons=always --group-directories-first";
       ll = "eza -la --icons=always --group-directories-first";
-      gens = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
-      rollback = "sudo nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
-      clean = "(cd /etc/nixos && sudo nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && sudo nix-store --gc)";
+      gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
+      rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
+      clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
     };
     initContent = ''
       fastfetch
-      alias reb='(cd /etc/nixos && git add . && git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)" && git push && sudo nixos-rebuild switch --flake .)'
-      alias upd='(cd /etc/nixos && nix flake update && git add . && git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)" && git push && sudo nixos-rebuild switch --flake .)'
+      alias reb='(cd /etc/nixos && git add . && git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)" && git push && doas nixos-rebuild switch --flake .)'
+      alias upd='(cd /etc/nixos && nix flake update && git add . && git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)" && git push && doas nixos-rebuild switch --flake .)'
     '';
   };
 
