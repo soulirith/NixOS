@@ -16,7 +16,7 @@
   # Networking
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = false;
 
   # Services
   services.power-profiles-daemon.enable = true;

@@ -95,7 +95,6 @@
 
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
-  programs.zellij.enable = true;
 
   # Terminal
   programs.kitty = {
@@ -126,19 +125,30 @@
 
   # Game overlay, Shift_R+F12
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
-    fps
-    frame_timing
-    cpu_stats
-    gpu_stats
+    legacy_layout=0
 
-    round_corners=8
-    background_alpha=0.3
+    # Layout
+    round_corners=10
+    background_alpha=0.4
+    position=top-left
+    font_size=20
     background_color=1e1e2e
     text_color=cdd6f4
-    gpu_color=cba6f7
+
+    # Stats — fps, ping, vram, temps only
+    fps
+    fps_color_change
+    gpu_temp
+    cpu_temp
+    vram
+    network
+
+    # Colors (Catppuccin Mocha)
+    gpu_color=f38ba8
     cpu_color=89b4fa
-    font_size=16
-    position=top-left
+    vram_color=a6e3a1
+    text_outline
+
     toggle_hud=Shift_R+F12
     no_display=0
   '';
@@ -179,7 +189,7 @@
     kitty git wget eza zoxide fastfetch pciutils
     nemo ffmpegthumbnailer                     
     zed-editor nodejs_22 gpu-screen-recorder
-    heroic prismlauncher modrinth-app gamemode mangohud vinegar
+    heroic prismlauncher modrinth-app mangohud vinegar mangohud
     vesktop qpwgraph xwayland-satellite
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
