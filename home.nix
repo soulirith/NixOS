@@ -49,7 +49,7 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = "org.gnome.Nautilus.desktop";
+      "inode/directory" = "com.system76.CosmicFiles.desktop";;
     };
   };
 
@@ -167,13 +167,13 @@
   };
 
   home.packages = with pkgs; [
-    brave google-chrome                                              # browsers
-    kitty git wget eza zoxide fastfetch pciutils                     # cli
-    nautilus ffmpegthumbnailer                                       # files + video thumbs
-    vscodium nodejs_22                                               # dev
-    heroic prismlauncher modrinth-app gamemode mangohud vinegar      # gaming
-    vesktop qpwgraph xwayland-satellite                              # desktop
-    nerd-fonts.jetbrains-mono                                        # fonts
+    brave google-chrome
+    kitty git wget eza zoxide fastfetch pciutils
+    cosmic-files ffmpegthumbnailer                     
+    zed-editor nodejs_22
+    heroic prismlauncher modrinth-app gamemode mangohud vinegar
+    vesktop qpwgraph xwayland-satellite
+    nerd-fonts.jetbrains-mono
   ];
 
   programs.home-manager.enable = true;
