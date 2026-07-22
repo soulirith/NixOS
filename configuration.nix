@@ -43,11 +43,13 @@
   
   # XDG Portal
   xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = [ "gtk" ];
-  };
+      enable = true;
+      extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
+    ];
 
+    config.common.default = [ "gtk" ];
   # doas replaces sudo
   security.sudo.enable = false;
   security.doas = {
