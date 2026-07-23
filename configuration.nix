@@ -29,7 +29,7 @@
   # Locale
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
-  services.xserver.xkb = { layout = "us"; variant = ""; };
+  services.xserver.xkb = { layout = "us"; variant = ""; layout = "lv"; variant = ""; };
 
   # Audio
   services.pulseaudio.enable = false;
