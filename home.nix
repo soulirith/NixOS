@@ -180,7 +180,7 @@
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
     nemo ffmpegthumbnailer                     
-    zed-editor nodejs_22 gpu-screen-recorder mpv
+    zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher modrinth-app mangohud vinegar mangohud
     vesktop qpwgraph xwayland-satellite
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
