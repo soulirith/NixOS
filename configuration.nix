@@ -29,9 +29,10 @@
   # Locale
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
-    services.xserver.xkb = {
+  services.xserver.xkb = {
     layout = "us,lv";
     variant = "";
+    options = "grp:alt_shift_toggle";
   };
 
   # Audio
