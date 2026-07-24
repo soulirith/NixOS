@@ -9,39 +9,32 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
-  # Shell/panel. Owns GTK/Qt/Niri theming, palette set in its GUI.
+  # Shell/panel. Palette source set in GUI (currently Wallpaper-derived).
   programs.noctalia = {
     enable = true;
     settings = {
-      theme = {
-        mode = "dark";
-        source = "builtin";
-        builtin = "Catppuccin";
-      };
-
       shell = {
-        polkit_agent = true;              # needed for greeter sync prompts
+        polkit_agent = true;
         password_style = "random";
         panel.transparency_mode = "glass";
         greeter_sync.auto_sync = true;
       };
 
+      # FIX: point at the actual file, not the folder
       wallpaper = {
         enabled = true;
-        default.path = "/home/soulirith/Pictures";
-        };
+        default.path = "/home/soulirith/Pictures/fuji-sunset.jpg"; # <-- rename to your real filename
       };
     };
+  };
 
-   # MIME association
-   xdg.mimeApps = {
+  xdg.mimeApps = {
     enable = true;
     defaultApplications = {
       "inode/directory" = "nemo.desktop";
     };
   };
 
-   # libdecor reads the theme from here, fastfetch reads the cursor
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-theme-name=adw-gtk3-dark
@@ -51,7 +44,6 @@
     gtk-application-prefer-dark-theme=1
   '';
 
-  # Cursor
   home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
@@ -61,7 +53,6 @@
     x11.enable = true;
   };
 
-  # Shell
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -81,7 +72,6 @@
     '';
   };
 
-  # Prompt
   programs.starship = {
     enable = true;
     settings = {
@@ -96,14 +86,14 @@
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
-  # Terminal
+  # Terminal — bumped opacity slightly, this wallpaper is busier than the forest one
   programs.kitty = {
     enable = true;
     settings = {
       confirm_os_window_close = 0;
       font_family = "JetBrainsMono Nerd Font";
       font_size = "10.0";
-      background_opacity = "0.35";
+      background_opacity = "0.45";
       background_blur = "1";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
@@ -111,7 +101,6 @@
     };
   };
 
-  # Spotify. Flags force native Wayland (no XWayland titlebar).
   programs.spicetify =
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -123,54 +112,52 @@
       ];
     };
 
-  # Game overlay, Shift_R+F12
-    xdg.configFile."MangoHud/MangoHud.conf".text = ''
+  # Game overlay — recolored to the sunset palette
+  xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
 
     round_corners=10
     background_alpha=0.4
     position=top-left
     font_size=20
-    background_color=1e1e2e
-    text_color=cdd6f4
+    background_color=2b1a17
+    text_color=ffe8d6
 
     fps
     fps_color_change
     frame_timing
 
-    gpu_color=f38ba8
+    gpu_color=ff9e7d
     text_outline
 
     toggle_hud=Shift_R+F12
     no_display=0
   '';
 
-  # Fetch on shell start
+  # Fetch — real NixOS ASCII (no PNG logo), recolored warm
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
-        logo = {
-      source = "/home/soulirith/Pictures/nixos-logo.png";
-      type = "kitty-direct";
-      height = 15;
+    logo = {
       padding.top = 1;
+      color = { "1" = "#ff9e7d"; "2" = "#ffc98b"; };
     };
     display.key.type = "both";
     modules = [
-      { type = "title"; color = { user = "#89b4fa"; at = "#6c7086"; host = "#cba6f7"; }; }
-      { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
-      { type = "os"; keyColor = "#cba6f7"; }
-      { type = "kernel"; keyColor = "#cba6f7"; }
-      { type = "packages"; keyColor = "#cba6f7"; }
-      { type = "display"; keyColor = "#cba6f7"; }
-      { type = "wm"; keyColor = "#cba6f7"; }
-      { type = "terminal"; keyColor = "#cba6f7"; }
-      { type = "terminalfont"; keyColor = "#cba6f7"; }
-      { type = "cursor"; keyColor = "#cba6f7"; }
-      { type = "custom"; format = "{#blue}────────────────────────────────{#}"; }
-      { type = "cpu"; keyColor = "#89b4fa"; }
-      { type = "gpu"; keyColor = "#89b4fa"; }
-      { type = "memory"; keyColor = "#89b4fa"; }
-      { type = "disk"; keyColor = "#89b4fa"; }
-      { type = "uptime"; keyColor = "#89b4fa"; }
+      { type = "title"; color = { user = "#ffc98b"; at = "#8a7566"; host = "#ff9e7d"; }; }
+      { type = "custom"; format = "{#208}────────────────────────────────{#}"; }
+      { type = "os"; keyColor = "#ff9e7d"; }
+      { type = "kernel"; keyColor = "#ff9e7d"; }
+      { type = "packages"; keyColor = "#ff9e7d"; }
+      { type = "display"; keyColor = "#ff9e7d"; }
+      { type = "wm"; keyColor = "#ff9e7d"; }
+      { type = "terminal"; keyColor = "#ff9e7d"; }
+      { type = "terminalfont"; keyColor = "#ff9e7d"; }
+      { type = "cursor"; keyColor = "#ff9e7d"; }
+      { type = "custom"; format = "{#215}────────────────────────────────{#}"; }
+      { type = "cpu"; keyColor = "#ffc98b"; }
+      { type = "gpu"; keyColor = "#ffc98b"; }
+      { type = "memory"; keyColor = "#ffc98b"; }
+      { type = "disk"; keyColor = "#ffc98b"; }
+      { type = "uptime"; keyColor = "#ffc98b"; }
       "break"
       { type = "colors"; symbol = "circle"; }
     ];
@@ -179,13 +166,12 @@
   home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
-    nemo ffmpegthumbnailer                     
+    nemo ffmpegthumbnailer
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
-    heroic prismlauncher modrinth-app mangohud vinegar mangohud
+    heroic prismlauncher modrinth-app mangohud vinegar
     vesktop qpwgraph xwayland-satellite
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
 
   programs.home-manager.enable = true;
 }
-
