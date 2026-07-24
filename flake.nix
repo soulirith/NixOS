@@ -3,9 +3,9 @@
 
   # `follows` on every input keeps one nixpkgs in the lock instead of several
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-   # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-26.05";
+   # nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     noctalia.url = "github:noctalia-dev/noctalia/cachix";    
