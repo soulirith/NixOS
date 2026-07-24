@@ -20,10 +20,12 @@ Edit hardware-configuration.nix (run nixos-generate-config to regenerate):
 
 NVIDIA/AMD GPU: adjust hardware.nvidia.prime PCI IDs in configuration.nix
 CPU: kernel params in boot.kernelParams are tuned for Ryzen + NVIDIA
+
 Locale: change time.timeZone and keyboard layout in configuration.nix
+
 Known Gotchas
 
- Home-manager may sometimes create .bak files on conflicts. Clear them:
+Home-manager may sometimes create .bak files on conflicts. Clear them:
 
 find ~/.config -name "*.bak" -delete
 
