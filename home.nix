@@ -60,6 +60,8 @@
     tab_bar_style powerline
     tab_powerline_style slanted
     window_padding_width 16
+    allow_remote_control socket-only
+    listen_on unix:/tmp/kitty-{kitty_pid}
   '';
 
   home.pointerCursor = {
