@@ -93,7 +93,8 @@
     NIXOS_OZONE_WL = "1";                              # Electron apps run native Wayland
     XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
     XCURSOR_SIZE = "24";
-  };
+    QT_QPA_PLATFORMTHEME=qt6ct  
+};
 
   # Login screen
   programs.noctalia-greeter = {
