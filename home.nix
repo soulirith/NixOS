@@ -9,7 +9,24 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
-  programs.noctalia.enable = true;
+  # Shell/panel. Palette source set in GUI (currently Wallpaper-derived).
+  programs.noctalia = {
+    enable = true;
+    settings = {
+      shell = {
+        polkit_agent = true;
+        password_style = "random";
+        panel.transparency_mode = "glass";
+        greeter_sync.auto_sync = true;
+      };
+
+      # FIX: point at the actual file, not the folder
+      wallpaper = {
+        enabled = true;
+        default.path = "/home/soulirith/Pictures/fuji-sunset.jpg"; # <-- rename to your real filename
+      };
+    };
+  };
 
   xdg.mimeApps = {
     enable = true;
@@ -18,7 +35,6 @@
     };
   };
 
-  # Fastfetch cursor / libdecor theme source
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-theme-name=adw-gtk3-dark
@@ -56,10 +72,35 @@
     '';
   };
 
+  programs.starship = {
+    enable = true;
+    settings = {
+      right_format = "$time";
+      time = {
+        disabled = false;
+        format = "[$time]($style) ";
+      };
+    };
+  };
+
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
-  # Wayland titlebar
+  # Terminal — bumped opacity slightly, this wallpaper is busier than the forest one
+  programs.kitty = {
+    enable = true;
+    settings = {
+      confirm_os_window_close = 0;
+      font_family = "JetBrainsMono Nerd Font";
+      font_size = "10.0";
+      background_opacity = "0.45";
+      background_blur = "1";
+      tab_bar_style = "powerline";
+      tab_powerline_style = "slanted";
+      window_padding_width = 16;
+    };
+  };
+
   programs.spicetify =
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -71,45 +112,51 @@
       ];
     };
 
-  # Shift_R+F12
+  # Game overlay — recolored to the sunset palette
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
+
     round_corners=10
     background_alpha=0.4
     position=top-left
     font_size=20
     background_color=2b1a17
     text_color=ffe8d6
+
     fps
     fps_color_change
     frame_timing
+
     gpu_color=ff9e7d
     text_outline
+
     toggle_hud=Shift_R+F12
     no_display=0
   '';
 
-  # Named ANSI colors, tracks kitty theme via template
+  # Fetch — real NixOS ASCII (no PNG logo), recolored warm
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
-    logo.padding.top = 1;
+    logo = {
+      padding.top = 1;
+    };
     display.key.type = "both";
     modules = [
-      { type = "title"; color = { user = "yellow"; at = "white"; host = "red"; }; }
-      { type = "custom"; format = "{#red}────────────────────────────────{#}"; }
-      { type = "os"; keyColor = "red"; }
-      { type = "kernel"; keyColor = "red"; }
-      { type = "packages"; keyColor = "red"; }
-      { type = "display"; keyColor = "red"; }
-      { type = "wm"; keyColor = "red"; }
-      { type = "terminal"; keyColor = "red"; }
-      { type = "terminalfont"; keyColor = "red"; }
-      { type = "cursor"; keyColor = "red"; }
-      { type = "custom"; format = "{#yellow}────────────────────────────────{#}"; }
-      { type = "cpu"; keyColor = "yellow"; }
-      { type = "gpu"; keyColor = "yellow"; }
-      { type = "memory"; keyColor = "yellow"; }
-      { type = "disk"; keyColor = "yellow"; }
-      { type = "uptime"; keyColor = "yellow"; }
+      { type = "title"; color = { user = "#ffc98b"; at = "#8a7566"; host = "#ff9e7d"; }; }
+      { type = "custom"; format = "{#208}────────────────────────────────{#}"; }
+      { type = "os"; keyColor = "#ff9e7d"; }
+      { type = "kernel"; keyColor = "#ff9e7d"; }
+      { type = "packages"; keyColor = "#ff9e7d"; }
+      { type = "display"; keyColor = "#ff9e7d"; }
+      { type = "wm"; keyColor = "#ff9e7d"; }
+      { type = "terminal"; keyColor = "#ff9e7d"; }
+      { type = "terminalfont"; keyColor = "#ff9e7d"; }
+      { type = "cursor"; keyColor = "#ff9e7d"; }
+      { type = "custom"; format = "{#215}────────────────────────────────{#}"; }
+      { type = "cpu"; keyColor = "#ffc98b"; }
+      { type = "gpu"; keyColor = "#ffc98b"; }
+      { type = "memory"; keyColor = "#ffc98b"; }
+      { type = "disk"; keyColor = "#ffc98b"; }
+      { type = "uptime"; keyColor = "#ffc98b"; }
       "break"
       { type = "colors"; symbol = "circle"; }
     ];
