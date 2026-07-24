@@ -85,25 +85,22 @@
       ];
     };
 
-  xdg.configFile."MangoHud/MangoHud.conf".text = ''
+xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
+    no_display=0
 
-    round_corners=10
-    background_alpha=0.4
     position=top-left
-    font_size=20
-    background_color=2b1a17
-    text_color=ffe8d6
+    font_size=14
 
     fps
     fps_color_change
     frame_timing
 
     gpu_color=ff9e7d
+    background_alpha=0
     text_outline
 
     toggle_hud=Shift_R+F12
-    no_display=0
   '';
 
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
