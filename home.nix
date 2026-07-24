@@ -41,7 +41,7 @@
     gtk-cursor-theme-size=24
     gtk-application-prefer-dark-theme=1
   '';
-  
+
   home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
