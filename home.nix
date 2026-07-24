@@ -168,7 +168,7 @@
     nemo ffmpegthumbnailer
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher modrinth-app mangohud vinegar
-    vesktop qpwgraph xwayland-satellite
+    vesktop qpwgraph xwayland-satellite gimp
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
 
