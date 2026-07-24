@@ -134,7 +134,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
-    nemo ffmpegthumbnailer
+    nemo ffmpegthumbnailer cava cmatrix
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher modrinth-app mangohud vinegar
     vesktop qpwgraph xwayland-satellite starship
