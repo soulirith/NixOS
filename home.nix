@@ -9,7 +9,6 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
-  # Shell/panel. Palette source set in GUI (currently Wallpaper-derived).
   programs.noctalia = {
     enable = true;
     settings = {
@@ -20,10 +19,9 @@
         greeter_sync.auto_sync = true;
       };
 
-      # FIX: point at the actual file, not the folder
       wallpaper = {
         enabled = true;
-        default.path = "/home/soulirith/Pictures/fuji-sunset.jpg"; # <-- rename to your real filename
+        default.path = "/home/soulirith/Pictures/fuji-sunset.jpg";
       };
     };
   };
@@ -72,21 +70,9 @@
     '';
   };
 
-  programs.starship = {
-    enable = true;
-    settings = {
-      right_format = "$time";
-      time = {
-        disabled = false;
-        format = "[$time]($style) ";
-      };
-    };
-  };
-
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
-  # Terminal — bumped opacity slightly, this wallpaper is busier than the forest one
   programs.kitty = {
     enable = true;
     settings = {
@@ -112,7 +98,6 @@
       ];
     };
 
-  # Game overlay — recolored to the sunset palette
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
 
@@ -134,10 +119,10 @@
     no_display=0
   '';
 
-  # Fetch — real NixOS ASCII (no PNG logo), recolored warm
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
     logo = {
       padding.top = 1;
+      height = 12;
     };
     display.key.type = "both";
     modules = [
