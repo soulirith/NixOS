@@ -42,28 +42,6 @@
     gtk-application-prefer-dark-theme=1
   '';
 
-    xdg.configFile."starship.toml".text = ''
-    palette = "noctalia"
-    right_format = "$time"
-    [time]
-    disabled = false
-    format = "[$time]($style) "
-  '';
-
-  xdg.configFile."kitty/kitty.conf".text = ''
-    include themes/noctalia.conf
-    confirm_os_window_close 0
-    font_family JetBrainsMono Nerd Font
-    font_size 10.0
-    background_opacity 0.45
-    background_blur 1
-    tab_bar_style powerline
-    tab_powerline_style slanted
-    window_padding_width 16
-    allow_remote_control socket-only
-    listen_on unix:/tmp/kitty
-  '';
-
   home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
