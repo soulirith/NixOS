@@ -132,7 +132,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   };
 
   home.packages = with pkgs; [
-    librewolf google-chrome
+    librewolf google-chrome flameshot
     kitty git wget eza zoxide fastfetch pciutils
     nemo ffmpegthumbnailer cava cmatrix
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
