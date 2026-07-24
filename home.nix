@@ -51,7 +51,7 @@
   '';
 
   xdg.configFile."kitty/kitty.conf".text = ''
-#    include themes/noctalia.conf
+    include themes/noctalia.conf
     confirm_os_window_close 0
     font_family JetBrainsMono Nerd Font
     font_size 10.0
