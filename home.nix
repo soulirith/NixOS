@@ -138,7 +138,6 @@
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
     logo = {
       padding.top = 1;
-      color = { "1" = "#ff9e7d"; "2" = "#ffc98b"; };
     };
     display.key.type = "both";
     modules = [
