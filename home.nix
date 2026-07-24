@@ -95,20 +95,6 @@
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
-  programs.kitty = {
-    enable = true;
-    settings = {
-      confirm_os_window_close = 0;
-      font_family = "JetBrainsMono Nerd Font";
-      font_size = "10.0";
-      background_opacity = "0.45";
-      background_blur = "1";
-      tab_bar_style = "powerline";
-      tab_powerline_style = "slanted";
-      window_padding_width = 16;
-    };
-  };
-
   programs.spicetify =
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
