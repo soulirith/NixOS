@@ -113,22 +113,22 @@
     };
     display.key.type = "both";
     modules = [
-      { type = "title"; color = { user = "#ffc98b"; at = "#8a7566"; host = "#ff9e7d"; }; }
-      { type = "custom"; format = "{#208}────────────────────────────────{#}"; }
-      { type = "os"; keyColor = "#ff9e7d"; }
-      { type = "kernel"; keyColor = "#ff9e7d"; }
-      { type = "packages"; keyColor = "#ff9e7d"; }
-      { type = "display"; keyColor = "#ff9e7d"; }
-      { type = "wm"; keyColor = "#ff9e7d"; }
-      { type = "terminal"; keyColor = "#ff9e7d"; }
-      { type = "terminalfont"; keyColor = "#ff9e7d"; }
-      { type = "cursor"; keyColor = "#ff9e7d"; }
-      { type = "custom"; format = "{#215}────────────────────────────────{#}"; }
-      { type = "cpu"; keyColor = "#ffc98b"; }
-      { type = "gpu"; keyColor = "#ffc98b"; }
-      { type = "memory"; keyColor = "#ffc98b"; }
-      { type = "disk"; keyColor = "#ffc98b"; }
-      { type = "uptime"; keyColor = "#ffc98b"; }
+      { type = "title"; color = { user = "magenta"; at = "white"; host = "blue"; }; }
+      { type = "custom"; format = "{#magenta}────────────────────────────────{#}"; }
+      { type = "os"; keyColor = "magenta"; }
+      { type = "kernel"; keyColor = "magenta"; }
+      { type = "packages"; keyColor = "magenta"; }
+      { type = "display"; keyColor = "magenta"; }
+      { type = "wm"; keyColor = "magenta"; }
+      { type = "terminal"; keyColor = "magenta"; }
+      { type = "terminalfont"; keyColor = "magenta"; }
+      { type = "cursor"; keyColor = "magenta"; }
+      { type = "custom"; format = "{#blue}────────────────────────────────{#}"; }
+      { type = "cpu"; keyColor = "blue"; }
+      { type = "gpu"; keyColor = "blue"; }
+      { type = "memory"; keyColor = "blue"; }
+      { type = "disk"; keyColor = "blue"; }
+      { type = "uptime"; keyColor = "blue"; }
       "break"
       { type = "colors"; symbol = "circle"; }
     ];
