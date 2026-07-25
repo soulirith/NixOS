@@ -64,12 +64,11 @@
       clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
     };
     initContent = ''
-      fastfetch
-      alias reb='(cd /etc/nixos && git add . && git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)" && git push && doas nixos-rebuild switch --flake .)'
-      alias upd='(cd /etc/nixos && nix flake update && git add . && git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)" && git push && doas nixos-rebuild switch --flake .)'
-      eval "$(starship init zsh)"
-    '';
-  };
+  fastfetch
+  alias reb='(cd /etc/nixos && doas nixos-rebuild switch --flake . && git add -A && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
+  alias upd='(cd /etc/nixos && nix flake update && doas nixos-rebuild switch --flake . && git add -A && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
+  eval "$(starship init zsh)"
+'';
 
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
