@@ -85,6 +85,21 @@
       ];
     };
 
+  programs.neovim = {
+  enable = true;
+  defaultEditor = true;
+  viAlias = true;
+  vimAlias = true;
+  extraConfig = ''
+    set number
+    set relativenumber
+    set expandtab
+    set shiftwidth=2
+    set tabstop=2
+  '';
+};
+
+
 xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
     no_display=0
