@@ -69,6 +69,8 @@
   alias upd='(cd /etc/nixos && nix flake update && doas nixos-rebuild switch --flake . && git add -A && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
   eval "$(starship init zsh)"
 '';
+};
+
 
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
