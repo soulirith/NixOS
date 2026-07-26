@@ -8,7 +8,8 @@
     inputs.noctalia.homeModules.default
     inputs.spicetify-nix.homeManagerModules.default
   ];
-
+  
+  # Noctalia
   programs.noctalia = {
     enable = true;
     settings = {
@@ -26,13 +27,15 @@
     };
   };
 
+  # Default file manager
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
       "inode/directory" = "nemo.desktop";
     };
   };
-
+  
+  # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-theme-name=adw-gtk3-dark
@@ -41,7 +44,8 @@
     gtk-cursor-theme-size=24
     gtk-application-prefer-dark-theme=1
   '';
-
+ 
+  # Cursor
   home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
@@ -50,7 +54,8 @@
     gtk.enable = true;
     x11.enable = true;
   };
-
+  
+  # Zsh
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -75,6 +80,7 @@
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
+  # Spicetify
   programs.spicetify =
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -86,7 +92,7 @@
       ];
     };
 
-
+# MangoHUD
 xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
     no_display=0
@@ -105,6 +111,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
     toggle_hud=Shift_R+F12
   '';
 
+  # Fastfetch
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
     logo = {
       padding.top = 1;
@@ -131,8 +138,9 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
       "break"
       { type = "colors"; symbol = "circle"; }
     ];
-  };
+  };  
 
+  # Home packages
   home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils

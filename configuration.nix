@@ -168,7 +168,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
+  #nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
 
   # Cursor must be system-wide for the greeter
   environment.systemPackages = with pkgs; [
