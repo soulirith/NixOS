@@ -71,8 +71,8 @@
     };
     initContent = ''
   fastfetch
-  alias reb='(cd /etc/nixos && doas nixos-rebuild switch --flake . && git add -A && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
-  alias upd='(cd /etc/nixos && nix flake update && doas nixos-rebuild switch --flake . && git add -A && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
+  alias reb='(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
+  alias upd='(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
   eval "$(starship init zsh)"
 '';
 };
