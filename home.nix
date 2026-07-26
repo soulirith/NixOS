@@ -82,6 +82,7 @@
       rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
       clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
     };
+
     initContent = ''
   fastfetch
   alias reb='(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
@@ -95,17 +96,28 @@
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
   # Spicetify
-  programs.spicetify =
-    let
-      spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-    in {
-      enable = true;
-      enabledExtensions = with spicePkgs.extensions; [
-        adblock
-        hidePodcasts
-      ];
-    };
-
+  programs.spicetify = let
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
+  enable = true;
+  enabledExtensions = with spicePkgs.extensions; [
+    adblock
+    hidePodcasts
+  ];
+  theme = {
+  name = "Comfy";
+  src = pkgs.fetchFromGitHub {
+    owner = "Comfy-Themes";
+    repo = "Spicetify";
+    rev = "main";
+    hash = "sha256-sqvmSXJMLE2in/cB8ZIJE/t4J5D0PKRddWECdYJjgX0=";
+  };
+  injectCss = true;
+  replaceColors = true;
+  overwriteAssets = true;
+  injectThemeJs = true;
+  };
+};
 # MangoHUD
 xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
@@ -158,7 +170,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
-    nemo ffmpegthumbnailer unimatrix btop pipes cbonsai
+    nemo ffmpegthumbnailer unimatrix btop pipes
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher modrinth-app mangohud vinegar
     vesktop qpwgraph xwayland-satellite starship mpvpaper
