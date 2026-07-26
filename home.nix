@@ -118,7 +118,7 @@
       overwriteAssets = true;
       injectThemeJs = true;
     };
-    colorScheme = "sunset";
+    colorScheme = "dream";
   };
 
 # ManogHUD
