@@ -104,21 +104,11 @@ in {
     adblock
     hidePodcasts
   ];
-  theme = {
-  name = "Comfy";
-  src = pkgs.fetchFromGitHub {
-    owner = "Comfy-Themes";
-    repo = "Spicetify";
-    rev = "main";
-    hash = "sha256-sqvmSXJMLE2in/cB8ZIJE/t4J5D0PKRddWECdYJjgX0=";
-  };
-  injectCss = true;
-  replaceColors = true;
-  overwriteAssets = true;
-  injectThemeJs = true;
-  };
+  theme = spicePkgs.themes.catppuccin;
+  colorScheme = "mocha";
 };
-# MangoHUD
+
+# ManogHUD
 xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
     no_display=0
