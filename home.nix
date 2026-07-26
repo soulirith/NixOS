@@ -61,6 +61,7 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    autosuggestion.highlight = "fg=#8899aa";
     shellAliases = {
       ls = "eza --icons=always --group-directories-first";
       ll = "eza -la --icons=always --group-directories-first";
