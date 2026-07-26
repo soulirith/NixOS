@@ -34,6 +34,19 @@
       "inode/directory" = "nemo.desktop";
     };
   };
+
+  # Vim replaces nano
+  programs.vim = {
+  enable = true;
+  defaultEditor = true;
+  settings = {
+    number = true;
+    relativenumber = true;
+    expandtab = true;
+    shiftwidth = 2;
+    tabstop = 2;
+  };
+};
   
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
