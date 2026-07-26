@@ -158,12 +158,11 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide fastfetch pciutils
-    nemo ffmpegthumbnailer unimatrix
+    nemo ffmpegthumbnailer unimatrix btop pipes cbonsai
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher modrinth-app mangohud vinegar
     vesktop qpwgraph xwayland-satellite starship mpvpaper
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
-
   programs.home-manager.enable = true;
 }
