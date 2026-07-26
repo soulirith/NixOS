@@ -96,17 +96,30 @@
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
   # Spicetify
+  # Spicetify
   programs.spicetify = let
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in {
-  enable = true;
-  enabledExtensions = with spicePkgs.extensions; [
-    adblock
-    hidePodcasts
-  ];
-  theme = spicePkgs.themes.catppuccin;
-  colorScheme = "mocha";
-};
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
+    enable = true;
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      hidePodcasts
+    ];
+    theme = {
+      name = "Retroblur";
+      src = pkgs.fetchFromGitHub {
+        owner = "Motschen";
+        repo = "Retroblur";
+        rev = "fresh";
+        hash = "sha256-EbCMyhZwkss0OSppR+cy0reYsRyBscKjDClWqkA3ync";
+      };
+      injectCss = true;
+      replaceColors = true;
+      overwriteAssets = true;
+      injectThemeJs = true;
+    };
+    colorScheme = "sunset";
+  };
 
 # ManogHUD
 xdg.configFile."MangoHud/MangoHud.conf".text = ''
