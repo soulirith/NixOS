@@ -94,6 +94,8 @@ programs.neovim = {
   vimAlias = true;
 };
 
+xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
+
 
 xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
