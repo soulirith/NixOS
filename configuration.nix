@@ -144,6 +144,9 @@
     };
   };
 
+  # Smartd daemon
+  services.smartd.enable = true;
+
   # Nix
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
