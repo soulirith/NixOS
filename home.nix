@@ -173,7 +173,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
     kitty git wget eza zoxide fastfetch pciutils
     nemo ffmpegthumbnailer unimatrix btop pipes
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
-    heroic prismlauncher modrinth-app mangohud vinegar smartmontools
+    heroic prismlauncher mangohud vinegar smartmontools
     vesktop qpwgraph xwayland-satellite starship mpvpaper
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
