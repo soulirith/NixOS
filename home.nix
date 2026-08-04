@@ -174,7 +174,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
     nemo ffmpegthumbnailer unimatrix btop pipes
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher mangohud vinegar smartmontools
-    vesktop qpwgraph xwayland-satellite starship mpvpaper
+    vesktop qpwgraph xwayland-satellite starship mpvpaper keepassxc
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
   programs.home-manager.enable = true;
