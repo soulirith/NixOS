@@ -144,6 +144,9 @@
     };
   };
 
+  # KDE Connect
+  programs.kdeconnect.enable = true;
+
   # Smartd daemon
   services.smartd.enable = true;
 
