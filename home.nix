@@ -27,13 +27,18 @@
     };
   };
 
-  # Default file manager
+  # Browser MIME association
   xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "inode/directory" = "nemo.desktop";
-    };
+  enable = true;
+  defaultApplications = {
+    "inode/directory" = "nemo.desktop";
+    "x-scheme-handler/http" = "google-chrome.desktop";
+    "x-scheme-handler/https" = "google-chrome.desktop";
+    "x-scheme-handler/about" = "google-chrome.desktop";
+    "x-scheme-handler/unknown" = "google-chrome.desktop";
+    "text/html" = "google-chrome.desktop";
   };
+};
 
   # Vim replaces nano
   programs.vim = {
