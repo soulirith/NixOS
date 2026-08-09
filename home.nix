@@ -180,7 +180,7 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
     zed-editor nodejs_22 gpu-screen-recorder mpv libreoffice
     heroic prismlauncher mangohud vinegar smartmontools easyeffects
     vesktop qpwgraph xwayland-satellite starship mpvpaper keepassxc
-    nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme modrinth-app
+    nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme
   ];
   programs.home-manager.enable = true;
 }
