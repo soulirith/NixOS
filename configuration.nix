@@ -11,7 +11,7 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.tmp.cleanOnBoot = true;
   boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" ];
+  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "nvme_core.default_ps_max_latency_us=0" ]; 
 
   # Networking
   networking.hostName = "nixos";
@@ -144,13 +144,7 @@
     };
   };
 
-  # KDE Connect
-  programs.kdeconnect.enable = true;
-
-  # Smartd daemon
-  services.smartd.enable = true;
-
-  # Nix
+    # Nix
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
@@ -173,7 +167,7 @@
     options = "--delete-older-than 7d";
   };
 
-  nixpkgs.config.allowUnfree = true;
+   nixpkgs.config.allowUnfree = true;
   #nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
 
   # Cursor must be system-wide for the greeter
