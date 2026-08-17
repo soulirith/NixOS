@@ -9,6 +9,12 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
   
+  # Environment Variables
+  home.sessionVariables = {
+    # Helps Nemo handle Wayland structures and layouts correctly outside of Cinnamon
+    XDG_CURRENT_DESKTOP = "X-Cinnamon";
+  };
+
   # Noctalia
   programs.noctalia = {
     enable = true;
@@ -29,29 +35,29 @@
 
   # Browser MIME association
   xdg.mimeApps = {
-  enable = true;
-  defaultApplications = {
-    "inode/directory" = "nemo.desktop";
-    "x-scheme-handler/http" = "google-chrome.desktop";
-    "x-scheme-handler/https" = "google-chrome.desktop";
-    "x-scheme-handler/about" = "google-chrome.desktop";
-    "x-scheme-handler/unknown" = "google-chrome.desktop";
-    "text/html" = "google-chrome.desktop";
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = "nemo.desktop";
+      "x-scheme-handler/http" = "google-chrome.desktop";
+      "x-scheme-handler/https" = "google-chrome.desktop";
+      "x-scheme-handler/about" = "google-chrome.desktop";
+      "x-scheme-handler/unknown" = "google-chrome.desktop";
+      "text/html" = "google-chrome.desktop";
+    };
   };
-};
 
   # Vim replaces nano
   programs.vim = {
-  enable = true;
-  defaultEditor = true;
-  settings = {
-    number = true;
-    relativenumber = false; 
-    expandtab = true;
-    shiftwidth = 2;
-    tabstop = 2;
+    enable = true;
+    defaultEditor = true;
+    settings = {
+      number = true;
+      relativenumber = false; 
+      expandtab = true;
+      shiftwidth = 2;
+      tabstop = 2;
+    };
   };
-};
   
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
@@ -89,43 +95,42 @@
     };
 
     initContent = ''
-  fastfetch
-  alias reb='(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
-  alias upd='(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
-  eval "$(starship init zsh)"
-'';
-};
-
+      fastfetch
+      alias reb='(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
+      alias upd='(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
+      eval "$(starship init zsh)"
+    '';
+  };
 
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
   # Spicetify
   programs.spicetify = let
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in {
-  enable = true;
-  enabledExtensions = with spicePkgs.extensions; [
-    adblock
-    hidePodcasts
-  ];
-  theme = {
-    name = "Hazy";
-    src = pkgs.fetchFromGitHub {
-      owner = "Astromations";
-      repo = "Hazy";
-      rev = "main";
-      hash = "sha256-2D8hcPaAqsXv7krzd8n77LqxaQzf2GMCqiDuq1YHLks=";
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
+    enable = true;
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      hidePodcasts
+    ];
+    theme = {
+      name = "Hazy";
+      src = pkgs.fetchFromGitHub {
+        owner = "Astromations";
+        repo = "Hazy";
+        rev = "main";
+        hash = "sha256-2D8hcPaAqsXv7krzd8n77LqxaQzf2GMCqiDuq1YHLks=";
+      };
+      injectCss = true;
+      replaceColors = true;
+      overwriteAssets = true;
+      injectThemeJs = true;
     };
-    injectCss = true;
-    replaceColors = true;
-    overwriteAssets = true;
-    injectThemeJs = true;
   };
-};
   
-# ManogHUD
-xdg.configFile."MangoHud/MangoHud.conf".text = ''
+  # MangoHUD
+  xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
     no_display=0
 
@@ -184,3 +189,4 @@ xdg.configFile."MangoHud/MangoHud.conf".text = ''
   ];
   programs.home-manager.enable = true;
 }
+
