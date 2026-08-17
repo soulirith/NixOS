@@ -44,15 +44,20 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  
-  # XDG Portal
+
+    # XDG Portal
   xdg.portal = {
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-xapp # Fixed package attribute syntax path
     ];
-    config.common.default = [ "gtk" "wlr" ];
+    config.common = {
+      default = [ "gtk" "wlr" ];
+      # Explicitly forces Nemo to act as your system-wide file picker dialog
+      "org.freedesktop.impl.portal.FileChooser" = [ "xapp" ];
+    };
   };
 
   # doas replaces sudo
