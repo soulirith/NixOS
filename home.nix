@@ -46,8 +46,9 @@
     };
   };
 
+ 
   # Neovim replaces nano
-  programs.neovim = {
+programs.neovim = {
   enable = true;
   defaultEditor = true;
   viAlias = true;
@@ -74,11 +75,23 @@
       { "RRethy/base16-nvim" },
     })
 
+    local function apply_custom_highlights()
+      vim.api.nvim_set_hl(0, 'Comment', { fg = '#a89a8a', italic = true })
+      vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#f3f2f2', bg = '#452e21' })
+      vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = '#716761', bg = '#291b14' })
+    end
+
     require('matugen').setup()
+    apply_custom_highlights()
+
+    local signal = vim.uv.new_signal()
+    signal:start('sigusr1', vim.schedule_wrap(function()
+      apply_custom_highlights()
+    end))
   '';
 };
 
- # GTK 3.0
+  # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-theme-name=adw-gtk3-dark
