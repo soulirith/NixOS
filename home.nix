@@ -146,28 +146,31 @@
   '';
 
   # Fastfetch
-  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
+xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
     padding.top = 1;
     padding.left = 2;
-    height = 12;
+    height = 9;
+    width = 18;
   };
   display.key.type = "both";
   modules = [
     { type = "title"; color = { user = "magenta"; at = "white"; host = "blue"; }; }
-    { type = "custom"; format = "{#magenta}─────── system ───────{#}"; }
-    { type = "os"; key = "󰣇 os"; keyColor = "magenta"; }
-    { type = "kernel"; key = " kernel"; keyColor = "magenta"; }
-    { type = "packages"; key = " pkgs"; keyColor = "magenta"; }
-    { type = "wm"; key = "󰧨 wm"; keyColor = "magenta"; }
-    { type = "terminal"; key = " term"; keyColor = "magenta"; }
-    { type = "shell"; key = " shell"; keyColor = "magenta"; }
-    { type = "custom"; format = "{#blue}─────── hardware ───────{#}"; }
-    { type = "cpu"; key = " cpu"; keyColor = "blue"; }
-    { type = "gpu"; key = "󰢮 gpu"; keyColor = "blue"; }
-    { type = "memory"; key = " mem"; keyColor = "blue"; }
-    { type = "disk"; key = " disk"; keyColor = "blue"; }
-    { type = "uptime"; key = " up"; keyColor = "blue"; }
+    { type = "custom"; format = "{#magenta}┌───────── system ─────────┐{#}"; }
+    { type = "os"; key = "│ os"; keyColor = "magenta"; }
+    { type = "kernel"; key = "│ kernel"; keyColor = "magenta"; }
+    { type = "packages"; key = "│ pkgs"; keyColor = "magenta"; }
+    { type = "wm"; key = "│ wm"; keyColor = "magenta"; }
+    { type = "terminal"; key = "│ term"; keyColor = "magenta"; }
+    { type = "shell"; key = "│ shell"; keyColor = "magenta"; }
+    { type = "custom"; format = "{#magenta}└───────────────────────────┘{#}"; }
+    { type = "custom"; format = "{#blue}┌──────── hardware ────────┐{#}"; }
+    { type = "cpu"; key = "│ cpu"; keyColor = "blue"; }
+    { type = "gpu"; key = "│ gpu"; keyColor = "blue"; }
+    { type = "memory"; key = "│ mem"; keyColor = "blue"; }
+    { type = "disk"; key = "│ disk"; keyColor = "blue"; }
+    { type = "uptime"; key = "│ up"; keyColor = "blue"; }
+    { type = "custom"; format = "{#blue}└───────────────────────────┘{#}"; }
     "break"
     { type = "colors"; symbol = "circle"; }
   ];
