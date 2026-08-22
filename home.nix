@@ -70,6 +70,7 @@ programs.neovim = {
     vim.opt.expandtab = true
     vim.opt.shiftwidth = 2
     vim.opt.tabstop = 2
+    vim.opt.laststatus = 3
 
     require("lazy").setup({
       { "RRethy/base16-nvim" },
