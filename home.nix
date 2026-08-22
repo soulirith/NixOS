@@ -150,30 +150,20 @@
   logo = {
     source = "NixOS_small";
     padding = {
-      top = 2;
-      left = 2;
+      top = 1;
+      left = 1;
     };
   };
   display = {
-    key.type = "icon";
+    separator = " ";
   };
   modules = [
-    { type = "custom"; format = "── system ──"; }
-    { type = "os"; keyColor = "magenta"; }
-    { type = "kernel"; keyColor = "magenta"; }
-    { type = "packages"; keyColor = "magenta"; }
-    { type = "wm"; keyColor = "magenta"; }
-    { type = "terminal"; keyColor = "magenta"; }
-    { type = "shell"; keyColor = "magenta"; }
-    "break"
-    { type = "custom"; format = "── hardware ──"; }
-    { type = "cpu"; keyColor = "blue"; }
-    { type = "gpu"; keyColor = "blue"; }
-    { type = "memory"; keyColor = "blue"; }
-    { type = "disk"; keyColor = "blue"; }
-    { type = "uptime"; keyColor = "blue"; }
-    "break"
-    { type = "colors"; symbol = "circle"; }
+    { type = "os"; format = "{3} {2}"; }
+    { type = "uptime"; }
+    { type = "wm"; }
+    { type = "kernel"; }
+    { type = "gpu"; format = "{name}"; }
+    { type = "memory"; format = "{percentage}"; }
   ];
 };
 
