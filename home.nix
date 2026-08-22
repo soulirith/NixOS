@@ -146,23 +146,26 @@
   '';
 
   # Fastfetch
-xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
+  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-    padding.top = 1;
+    padding.top = 4;
     padding.left = 2;
-    height = 8;
-    width = 16;
+    height = 6;
+    width = 14;
   };
   display = {
     key.type = "icon";
   };
   modules = [
+    { type = "custom"; format = "── system ──"; }
     { type = "os"; keyColor = "magenta"; }
     { type = "kernel"; keyColor = "magenta"; }
     { type = "packages"; keyColor = "magenta"; }
     { type = "wm"; keyColor = "magenta"; }
     { type = "terminal"; keyColor = "magenta"; }
     { type = "shell"; keyColor = "magenta"; }
+    "break"
+    { type = "custom"; format = "── hardware ──"; }
     { type = "cpu"; keyColor = "blue"; }
     { type = "gpu"; keyColor = "blue"; }
     { type = "memory"; keyColor = "blue"; }
