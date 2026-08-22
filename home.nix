@@ -148,10 +148,11 @@
   # Fastfetch
   xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
-    padding.top = 4;
-    padding.left = 2;
-    height = 6;
-    width = 14;
+    source = "NixOS_small";
+    padding = {
+      top = 2;
+      left = 2;
+    };
   };
   display = {
     key.type = "icon";
