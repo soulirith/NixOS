@@ -147,33 +147,33 @@
 
   # Fastfetch
   programs.fastfetch = {
-    enable = true;
-    settings = {
-      logo = {
-        type = "NixOS_small";
-      };
-      display = {
-        separator = " : ";
-      };
-      modules = [
-        "title"
-        "separator"
-        "os"
-        "host"
-        "kernel"
-        "uptime"
-        "packages"
-        "shell"
-        "de"
-        "wm"
-        "terminal"
-        "cpu"
-        "gpu"
-        "memory"
-        "colors"
-      ];
+  enable = true;
+  settings = {
+    logo = {
+      type = "nixos";
     };
+    display = {
+      separator = " : ";
+    };
+    modules = [
+      "title"
+      "separator"
+      "os"
+      "host"
+      "kernel"
+      "uptime"
+      "packages"
+      "shell"
+      "de"
+      "wm"
+      "terminal"
+      "cpu"
+      "gpu"
+      "memory"
+      "colors"
+    ];
   };
+};
 
   # Home packages
   home.packages = with pkgs;[
