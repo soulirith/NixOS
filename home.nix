@@ -150,7 +150,7 @@
   enable = true;
   settings = {
     logo = {
-      type = "nixos";
+    source = "nixos";
     };
     display = {
       separator = " : ";
