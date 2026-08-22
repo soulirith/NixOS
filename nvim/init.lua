@@ -25,13 +25,24 @@ local function apply_custom_highlights()
   local c = base16.colorscheme
 
   local groups = {
-    Comment              = { fg = c.base05, italic = true, blend = 40 },
-    ["@comment"]          = { fg = c.base05, italic = true, blend = 40 },
-    ["@punctuation.special"] = { fg = c.base0D, bold = true },
-    ["@punctuation.bracket"] = { fg = c.base0D },
-    ["@string"]           = { fg = c.base0B },
-    StatusLine            = { fg = c.base05, bg = c.base01 },
-    StatusLineNC          = { fg = c.base03, bg = c.base00 },
+    Normal                      = { fg = c.base05, bg = c.base00 },
+    Comment                     = { fg = c.base05, italic = true, blend = 40 },
+    ["@comment"]                 = { fg = c.base05, italic = true, blend = 40 },
+    ["@punctuation.special"]     = { fg = c.base0D, bold = true },
+    ["@punctuation.bracket"]     = { fg = c.base0D },
+    ["@punctuation.delimiter"]   = { fg = c.base05 },
+    ["@string"]                  = { fg = c.base0B },
+    ["@keyword"]                  = { fg = c.base0E, bold = true },
+    ["@function"]                 = { fg = c.base0D },
+    ["@variable"]                 = { fg = c.base05 },
+    ["@type"]                     = { fg = c.base0A },
+    ["@constant"]                  = { fg = c.base09 },
+    ["@number"]                    = { fg = c.base09 },
+    ["@boolean"]                   = { fg = c.base09 },
+    ["@operator"]                  = { fg = c.base05 },
+    ["@property"]                  = { fg = c.base05 },
+    LineNr                        = { fg = c.base03 },
+    CursorLineNr                  = { fg = c.base0A, bold = true },
   }
 
   for group, opts in pairs(groups) do
