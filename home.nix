@@ -46,43 +46,15 @@
     };
   };
 
- 
-  # Neovim replaces nano
-programs.neovim = {
-  enable = true;
-  defaultEditor = true;
-  viAlias = true;
-  vimAlias = true;
-  extraLuaConfig = ''
-    -- Bootstrap lazy.nvim
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-    if not vim.loop.fs_stat(lazypath) then
-      vim.fn.system({
-        "git", "clone", "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", lazypath,
-      })
-    end
-    vim.opt.rtp:prepend(lazypath)
+    # Neovim replaces nano
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
 
-    vim.opt.number = true
-    vim.opt.relativenumber = false
-    vim.opt.expandtab = true
-    vim.opt.shiftwidth = 2
-    vim.opt.tabstop = 2
-    vim.opt.laststatus = 3
-
-    require("lazy").setup({
-  { "RRethy/base16-nvim" },
-})
-
-local function apply_custom_highlights()
-local signal = vim.uv.new_signal()
-signal:start('sigusr1', vim.schedule_wrap(function()
-  apply_custom_highlights()
-end))
-'';
-};
+  xdg.configFile."nvim/init.lua".source = ./nvim/init.lua; 
 
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
