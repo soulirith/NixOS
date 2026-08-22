@@ -146,34 +146,40 @@
   '';
 
   # Fastfetch
-  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
-  logo = {
-    source = "NixOS_small";
-    padding = {
-      top = 1;
-      left = 2;
+  programs.fastfetch = {
+    enable = true;
+    settings = {
+      logo = {
+        type = "nixos";
+        color = "blue";
+      };
+      display = {
+        separator = " : ";
+      };
+      modules = [
+        "title"
+        "separator"
+        "os"
+        "host"
+        "kernel"
+        "uptime"
+        "packages"
+        "shell"
+        "de"
+        "wm"
+        "terminal"
+        "cpu"
+        "gpu"
+        "memory"
+        "colors"
+      ];
     };
   };
-  display = {
-    separator = ": ";
-  };
-  modules = [
-    { type = "os"; format = "{name} {version}"; }
-    { type = "uptime"; }
-    { type = "wm"; }
-    { type = "kernel"; }
-    { type = "gpu"; format = "{name}"; }
-    {
-      type = "memory";
-      format = "{used}/{total} ({percentage-used})";
-    }
-  ];
-};
 
   # Home packages
-  home.packages = with pkgs; [
+  home.packages = with pkgs;[
     librewolf google-chrome
-    kitty git wget eza zoxide fastfetch pciutils
+    kitty git wget eza zoxide pciutils
     nemo ffmpegthumbnailer unimatrix btop pipes
     zed-editor nodejs_22 gpu-screen-recorder mpv
     heroic prismlauncher mangohud vinegar smartmontools easyeffects
