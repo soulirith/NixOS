@@ -151,19 +151,22 @@
     source = "NixOS_small";
     padding = {
       top = 1;
-      left = 1;
+      left = 2;
     };
   };
   display = {
-    separator = " ";
+    separator = ": ";
   };
   modules = [
-    { type = "os"; format = "{3} {2}"; }
+    { type = "os"; format = "{name} {version}"; }
     { type = "uptime"; }
     { type = "wm"; }
     { type = "kernel"; }
     { type = "gpu"; format = "{name}"; }
-    { type = "memory"; format = "{percentage}"; }
+    {
+      type = "memory";
+      format = "{used}/{total} ({percentage-used})";
+    }
   ];
 };
 
