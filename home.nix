@@ -150,8 +150,7 @@
     enable = true;
     settings = {
       logo = {
-        type = "nixos";
-        color = "blue";
+        type = "NixOS_small";
       };
       display = {
         separator = " : ";
