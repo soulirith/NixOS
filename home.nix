@@ -146,28 +146,28 @@
   '';
 
   # Fastfetch
-  xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
+xdg.configFile."fastfetch/config.jsonc".text = builtins.toJSON {
   logo = {
     padding.top = 1;
     padding.left = 2;
-    height = 9;
-    width = 18;
+    height = 8;
+    width = 16;
   };
-  display.key.type = "icon";
+  display = {
+    key.type = "icon";
+  };
   modules = [
-    { type = "custom"; format = "{#magenta}┌───────────────────────────┐{#}"; }
-    { type = "os"; key = "│ "; keyColor = "magenta"; }
-    { type = "kernel"; key = "│ "; keyColor = "magenta"; }
-    { type = "packages"; key = "│ 󰏖"; keyColor = "magenta"; }
-    { type = "wm"; key = "│ "; keyColor = "magenta"; }
-    { type = "terminal"; key = "│ "; keyColor = "magenta"; }
-    { type = "shell"; key = "│ "; keyColor = "magenta"; }
-    { type = "cpu"; key = "│ "; keyColor = "blue"; }
-    { type = "gpu"; key = "│ 󰢮"; keyColor = "blue"; }
-    { type = "memory"; key = "│ "; keyColor = "blue"; }
-    { type = "disk"; key = "│ "; keyColor = "blue"; }
-    { type = "uptime"; key = "│ "; keyColor = "blue"; }
-    { type = "custom"; format = "{#magenta}└───────────────────────────┘{#}"; }
+    { type = "os"; keyColor = "magenta"; }
+    { type = "kernel"; keyColor = "magenta"; }
+    { type = "packages"; keyColor = "magenta"; }
+    { type = "wm"; keyColor = "magenta"; }
+    { type = "terminal"; keyColor = "magenta"; }
+    { type = "shell"; keyColor = "magenta"; }
+    { type = "cpu"; keyColor = "blue"; }
+    { type = "gpu"; keyColor = "blue"; }
+    { type = "memory"; keyColor = "blue"; }
+    { type = "disk"; keyColor = "blue"; }
+    { type = "uptime"; keyColor = "blue"; }
     "break"
     { type = "colors"; symbol = "circle"; }
   ];
