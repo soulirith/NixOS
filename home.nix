@@ -150,10 +150,13 @@ programs.fastfetch = {
   enable = true;
   settings = {
     logo = {
-      source = "nixos_small";
+      source = "nixos";
+      padding = {
+        top = 2;
+      };
     };
     display = {
-      separator = " ";
+      key.type = "icon";
     };
     modules = [
       { type = "os"; format = "{name} {version}"; }
@@ -161,7 +164,7 @@ programs.fastfetch = {
       { type = "wm"; }
       { type = "kernel"; }
       { type = "gpu"; format = "{name}"; }
-      { type = "memory"; format = "{used}/{total} ({percentage-used})"; }
+      { type = "memory"; format = "{used}/{total} ({used_percent}%)"; }
     ];
   };
 };
