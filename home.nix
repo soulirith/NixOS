@@ -150,7 +150,7 @@
   enable = true;
   settings = {
     logo = {
-    source = "nixos";
+      source = "nixos";
     };
     display = {
       separator = " : ";
@@ -174,6 +174,7 @@
     ];
   };
 };
+
 
   # Home packages
   home.packages = with pkgs;[
