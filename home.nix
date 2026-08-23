@@ -146,35 +146,25 @@
   '';
 
   # Fastfetch
-  programs.fastfetch = {
+programs.fastfetch = {
   enable = true;
   settings = {
     logo = {
-      source = "nixos";
+      source = "nixos_small";
     };
     display = {
-      separator = " : ";
+      separator = " ";
     };
     modules = [
-      "title"
-      "separator"
-      "os"
-      "host"
-      "kernel"
-      "uptime"
-      "packages"
-      "shell"
-      "de"
-      "wm"
-      "terminal"
-      "cpu"
-      "gpu"
-      "memory"
-      "colors"
+      { type = "os"; format = "{name} {version}"; }
+      { type = "uptime"; }
+      { type = "wm"; }
+      { type = "kernel"; }
+      { type = "gpu"; format = "{name}"; }
+      { type = "memory"; format = "{used}/{total} ({percentage-used})"; }
     ];
   };
 };
-
 
   # Home packages
   home.packages = with pkgs;[
