@@ -174,7 +174,7 @@
   };
 };
 
-# Home packages
+  # Home packages
   home.packages = with pkgs;[
     librewolf google-chrome
     kitty git wget eza zoxide pciutils
