@@ -150,7 +150,7 @@
   enable = true;
   settings = {
     logo = {
-      source = "nixos_small";
+      source = "NixOS";
       padding = {
         top = 1;
       };
