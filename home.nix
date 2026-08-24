@@ -150,7 +150,7 @@ programs.fastfetch = {
   enable = true;
   settings = {
     logo = {
-      type = "small";
+      type = "nixos_old";
     };
     display = {
       separator = "  ";
