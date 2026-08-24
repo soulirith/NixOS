@@ -146,13 +146,13 @@
   '';
 
   # Fastfetch
-  programs.fastfetch = {
+programs.fastfetch = {
   enable = true;
   settings = {
     logo = {
-      source = "NixOS";
+      type = "small";
       padding = {
-        top = 1;
+        top = 3;
       };
     };
     display = {
@@ -165,15 +165,16 @@
       { type = "os"; }
       { type = "kernel"; }
       { type = "wm"; }
+      { type = "uptime"; }
+      "break"
       { type = "gpu"; }
       { type = "memory"; }
       { type = "packages"; }
-      { type = "uptime"; }
+      "break"
       { type = "battery"; }
     ];
   };
 };
-
   # Home packages
   home.packages = with pkgs;[
     librewolf google-chrome
