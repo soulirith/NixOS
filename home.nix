@@ -146,13 +146,13 @@
   '';
 
   # Fastfetch
-programs.fastfetch = {
+ programs.fastfetch = {
   enable = true;
   settings = {
     logo = {
-      type = "small";
+      source = "NixOS";
       padding = {
-        top = 3;
+        top = 2;
       };
     };
     display = {
@@ -165,17 +165,15 @@ programs.fastfetch = {
       { type = "os"; }
       { type = "kernel"; }
       { type = "wm"; }
-      { type = "uptime"; }
-      "break"
       { type = "gpu"; }
-      { type = "memory"; }
-      { type = "packages"; }
-      "break"
       { type = "battery"; }
+      { type = "packages"; }
+      { type = "memory"; }
+      { type = "uptime"; }
     ];
   };
 };
-  # Home packages
+# Home packages
   home.packages = with pkgs;[
     librewolf google-chrome
     kitty git wget eza zoxide pciutils
