@@ -125,7 +125,17 @@
       injectThemeJs = true;
     };
   };
-  
+
+  # MPV
+  programs.mpv = {
+  enable = true;
+  config = {
+    hwdec = "auto-safe";
+    vo = "gpu-next";
+    video-sync = "display-resample";
+  };
+};
+
   # MangoHUD
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
@@ -178,7 +188,7 @@
     librewolf google-chrome
     kitty git wget eza zoxide pciutils
     nemo ffmpegthumbnailer unimatrix btop pipes
-    zed-editor nodejs_22 gpu-screen-recorder mpv
+    zed-editor nodejs_22 gpu-screen-recorder
     heroic prismlauncher mangohud vinegar smartmontools easyeffects
     vesktop xwayland-satellite starship mpvpaper keepassxc bottles yt-dlp
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
