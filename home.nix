@@ -150,22 +150,26 @@ programs.fastfetch = {
   enable = true;
   settings = {
     logo = {
-      source = "nixos";
+      type = "small";
     };
     display = {
-      separator = " ";
+      separator = "  ";
+      key = {
+        type = "icon";
+      };
     };
     modules = [
+      { type = "title"; color = { user = "magenta"; at = "white"; host = "blue"; }; }
       { type = "os"; }
-      { type = "uptime"; }
-      { type = "wm"; }
       { type = "kernel"; }
+      { type = "wm"; }
       { type = "gpu"; }
       { type = "memory"; }
+      { type = "packages"; }
+      { type = "uptime"; }
     ];
   };
 };
-
   # Home packages
   home.packages = with pkgs;[
     librewolf google-chrome
