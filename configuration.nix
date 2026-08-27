@@ -82,7 +82,7 @@
   users.users."soulirith" = {
     isNormalUser = true;
     description = "soulirith";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" ];
     shell = pkgs.zsh;
   };
 
@@ -148,6 +148,9 @@
       amdgpuBusId = "PCI:5:0:0";
     };
   };
+  
+    virtualisation.libvirtd.enable = true;
+programs.virt-manager.enable = true;
 
     # Nix
   nix.settings = {
