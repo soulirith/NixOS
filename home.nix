@@ -190,7 +190,7 @@
 
   # Home packages
   home.packages = with pkgs;[
-    librewolf google-chrome virt-manager
+    librewolf google-chrome
     kitty git wget eza zoxide pciutils
     nemo ffmpegthumbnailer unimatrix btop pipes
     zed-editor nodejs_22 gpu-screen-recorder
