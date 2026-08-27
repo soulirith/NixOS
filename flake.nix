@@ -16,8 +16,7 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
-
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -27,11 +26,19 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "bak";  # HM renames conflicting files instead of failing
+          home-manager.backupFileExtension = "bak";
           home-manager.users.soulirith = import ./home.nix;
           home-manager.extraSpecialArgs = { inherit inputs; };
         }
       ];
     };
+
+    homeConfigurations."soulirith" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs = { inherit inputs; };
+      modules = [ ./home.nix ];
+    };
   };
-}
+
+    }
+
