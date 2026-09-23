@@ -2,16 +2,15 @@
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.noctalia-greeter.nixosModules.default
   ];
 
   # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages;
   boot.tmp.cleanOnBoot = true;
   boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "nvme_core.default_ps_max_latency_us=0" ]; 
+  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "nvme_core.default_ps_max_latency_us=0" ];
 
   # Networking
   networking.hostName = "nixos";
@@ -45,17 +44,16 @@
     pulse.enable = true;
   };
 
-    # XDG Portal
+  # XDG Portal
   xdg.portal = {
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-xapp # Fixed package attribute syntax path
+      pkgs.xdg-desktop-portal-xapp
     ];
     config.common = {
       default = [ "gtk" "wlr" ];
-      # Explicitly forces Nemo to act as your system-wide file picker dialog
       "org.freedesktop.impl.portal.FileChooser" = [ "xapp" ];
     };
   };
@@ -71,7 +69,7 @@
     }];
   };
 
-    security.wrappers.gsr-kms-server = {
+  security.wrappers.gsr-kms-server = {
     source = "${pkgs.gpu-screen-recorder}/bin/gsr-kms-server";
     capabilities = "cap_sys_admin+ep";
     owner = "root";
@@ -93,25 +91,16 @@
   programs.dconf.enable = true;
   programs.steam.enable = true;
   programs.gamemode.enable = true;
-
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";                              # Electron apps run native Wayland
+    NIXOS_OZONE_WL = "1";
     XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
     XCURSOR_SIZE = "24";
-};
+  };
 
   # Login screen
-  programs.noctalia-greeter = {
-    enable = true;
-    package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    settings = {
-      cursor = {
-        theme = "catppuccin-mocha-dark-cursors";
-        size = 24;
-        path = "${pkgs.catppuccin-cursors.mochaDark}/share/icons";
-      };
-    };
-  };
+
+  services.displayManager.sddm.enable = true;
+services.displayManager.sddm.wayland.enable = true;
 
   # Fonts (CJK + emoji fallback)
   fonts.packages = with pkgs; [
@@ -132,10 +121,12 @@
 
   # NVIDIA. Prime offload: iGPU default, `nvidia-offload <cmd>` for dGPU.
   services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
+
     powerManagement = {
       enable = true;
       finegrained = true;
@@ -148,11 +139,8 @@
       amdgpuBusId = "PCI:5:0:0";
     };
   };
-  
-    virtualisation.libvirtd.enable = true;
-programs.virt-manager.enable = true;
 
-    # Nix
+  # Nix
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
@@ -175,12 +163,16 @@ programs.virt-manager.enable = true;
     options = "--delete-older-than 7d";
   };
 
-   nixpkgs.config.allowUnfree = true;
-  #nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnsupportedSystem = true;
+    #permittedInsecurePackages = [ "pnpm-10.29.2" ];
+  };
 
   # Cursor must be system-wide for the greeter
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.mochaDark
+    git
   ];
 
   system.stateVersion = "26.05";

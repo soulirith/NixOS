@@ -8,7 +8,7 @@
     inputs.noctalia.homeModules.default
     inputs.spicetify-nix.homeManagerModules.default
   ];
-  
+
   # Environment Variables
   home.sessionVariables = {
     # Helps Nemo handle Wayland structures and layouts correctly outside of Cinnamon
@@ -46,7 +46,7 @@
     };
   };
 
-    # Neovim replaces nano
+  # Neovim replaces nano
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -54,7 +54,7 @@
     vimAlias = true;
   };
 
-  xdg.configFile."nvim/init.lua".source = ./nvim/init.lua; 
+  xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
 
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
@@ -65,7 +65,7 @@
     gtk-cursor-theme-size=24
     gtk-application-prefer-dark-theme=1
   '';
- 
+
   # Cursor
   home.pointerCursor = {
     enable = true;
@@ -75,7 +75,7 @@
     gtk.enable = true;
     x11.enable = true;
   };
-  
+
   # Zsh
   programs.zsh = {
     enable = true;
@@ -117,7 +117,7 @@
         owner = "Astromations";
         repo = "Hazy";
         rev = "main";
-        hash = "sha256-2D8hcPaAqsXv7krzd8n77LqxaQzf2GMCqiDuq1YHLks=";
+        hash = "sha256-K0EUIsYXrt0Nr8rPuj+V4IF6vyDJ3ZX+WUulo9nP+Lk=";
       };
       injectCss = true;
       replaceColors = true;
@@ -128,13 +128,13 @@
 
   # MPV
   programs.mpv = {
-  enable = true;
-  config = {
-    hwdec = "auto-safe";
-    vo = "gpu-next";
-    video-sync = "display-resample";
+    enable = true;
+    config = {
+      hwdec = "auto-safe";
+      vo = "gpu-next";
+      video-sync = "display-resample";
+    };
   };
-};
 
   # MangoHUD
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
@@ -157,39 +157,39 @@
 
   # Fastfetch
   programs.fastfetch = {
-  enable = true;
-  settings = {
-    logo = {
-      source = "NixOS";
-      padding = {
-        top = 1;
+    enable = true;
+    settings = {
+      logo = {
+        source = "NixOS_small";
+        padding = {
+          top = 1;
+        };
       };
-    };
-    display = {
-      separator = "  ";
-      key = {
-        type = "icon";
+      display = {
+        separator = "  ";
+        key = {
+          type = "icon";
+        };
       };
+      modules = [
+        { type = "os"; }
+        { type = "kernel"; }
+        { type = "wm"; }
+        { type = "shell"; }
+        { type = "terminal"; }
+        { type = "cpu"; }
+        { type = "gpu"; }
+        { type = "memory"; }
+        { type = "disk"; }
+        { type = "packages"; }
+        { type = "battery"; }
+        { type = "uptime"; }
+      ];
     };
-    modules = [
-      { type = "os"; }
-      { type = "kernel"; }
-      { type = "wm"; }
-      { type = "shell"; }
-      { type = "terminal"; }
-      { type = "cpu"; }
-      { type = "gpu"; }
-      { type = "memory"; }
-      { type = "disk"; }
-      { type = "packages"; }
-      { type = "battery"; }
-      { type = "uptime"; }
-    ];
   };
-};
 
   # Home packages
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     librewolf google-chrome
     kitty git wget eza zoxide pciutils
     nemo ffmpegthumbnailer unimatrix btop pipes
@@ -200,4 +200,3 @@
   ];
   programs.home-manager.enable = true;
 }
-
