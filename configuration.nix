@@ -99,8 +99,8 @@
 
   # Login screen
 
-  services.displayManager.sddm.enable = true;
-services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = false;
+services.displayManager.sddm.wayland.enable = false;
 
   # Fonts (CJK + emoji fallback)
   fonts.packages = with pkgs; [
