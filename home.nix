@@ -76,6 +76,7 @@
     x11.enable = true;
   };
 
+
   # Zsh
   programs.zsh = {
     enable = true;

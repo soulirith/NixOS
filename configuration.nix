@@ -97,10 +97,22 @@
     XCURSOR_SIZE = "24";
   };
 
-  # Login screen
-
+  # SDDM fallback and noctlaia greeter
   services.displayManager.sddm.enable = false;
-services.displayManager.sddm.wayland.enable = false;
+  services.displayManager.sddm.wayland.enable = false;
+
+  # Noctalia greeter
+  services.displayManager.noctalia-greeter = {
+  enable = true;
+  settings = {
+    cursor.size = 24;
+    keyboard.layout = "us";
+  };
+  cursorTheme = {
+      package = pkgs.catppuccin-cursors.mochaDark;
+      name = "catppuccin-mocha-dark-cursors";
+  };
+};
 
   # Fonts (CJK + emoji fallback)
   fonts.packages = with pkgs; [
