@@ -30,14 +30,6 @@
         enabled = true;
         default.path = "/home/soulirith/Pictures/fuji-sunset.jpg";
       };
-
-      # Custom Neovim template mapping
-      templates = {
-        neovim = {
-          input_path = "~/.config/noctalia/templates/neovim.lua.template";
-          output_path = "~/.config/nvim/lua/noctalia-colors.lua";
-        };
-      };
     };
   };
 
@@ -62,7 +54,7 @@
     vimAlias = true;
   };
 
-  # Inline Neovim config (prevents E166 / read-only filesystem issues)
+  # Inline Neovim config
   xdg.configFile."nvim/init.lua".text = ''
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
@@ -88,14 +80,17 @@
     })
 
     local function apply_custom_highlights()
-      local ok, base16 = pcall(require, 'base16-colorscheme')
-      local c = (ok and base16.colorscheme) or {}
+      -- Try loading Noctalia's native matugen file
+      local has_matugen, matugen = pcall(require, 'matugen')
+      local has_base16, base16 = pcall(require, 'base16-colorscheme')
+      
+      local c = (has_base16 and base16.colorscheme) or {}
 
-      -- Hardcoded solid bright color that cuts through wallpaper transparency
-      local bright_comment = "#e0e6ed"
+      -- Use active accent hue dynamically for comments, fallback to soft gray
+      local theme_comment = (has_matugen and matugen.colors and matugen.colors.primary) or c.base0A or "#949494"
 
       local comment_opts = { 
-        fg = bright_comment, 
+        fg = theme_comment, 
         bg = "NONE",
         italic = true, 
         bold = true,
@@ -135,10 +130,9 @@
       end
     end
 
-    require('matugen').setup()
     apply_custom_highlights()
 
-    vim.api.nvim_create_autocmd({"ColorScheme", "BufEnter"}, {
+    vim.api.nvim_create_autocmd({"ColorScheme", "BufEnter", "FocusGained"}, {
       callback = apply_custom_highlights,
     })
   '';
