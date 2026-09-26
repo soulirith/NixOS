@@ -101,7 +101,6 @@
     return M
   '';
 
-
   # Browser MIME association
   xdg.mimeApps = {
     enable = true;
