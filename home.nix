@@ -15,7 +15,7 @@
     XDG_CURRENT_DESKTOP = "X-Cinnamon";
   };
 
-  # Noctalia
+   # Noctalia
   programs.noctalia = {
     enable = true;
     settings = {
@@ -94,7 +94,7 @@
       matugen.setup()
     end
   '';
-
+ 
 
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
