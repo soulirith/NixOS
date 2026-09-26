@@ -30,8 +30,76 @@
         enabled = true;
         default.path = "/home/soulirith/Pictures/fuji-sunset.jpg";
       };
+
+      # Custom Neovim template mapping
+      templates = {
+        neovim = {
+          input_path = "~/.config/noctalia/templates/neovim.lua.template";
+          output_path = "~/.config/nvim/lua/matugen.lua";
+        };
+      };
     };
   };
+
+  # Custom Noctalia Neovim template with enforced transparency
+  xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
+    local M = {}
+
+    function M.setup()
+      require('base16-colorscheme').setup({
+        base00 = '{{colors.surface.default.hex}}',
+        base01 = '{{colors.surface_container_low.default.hex}}',
+        base02 = '{{colors.surface_container.default.hex}}',
+        base03 = '{{colors.outline.default.hex}}',
+        base04 = '{{colors.outline_variant.default.hex}}',
+        base05 = '{{colors.on_surface.default.hex}}',
+        base06 = '{{colors.on_surface.default.hex}}',
+        base07 = '{{colors.on_surface.default.hex}}',
+        base08 = '{{colors.error.default.hex}}',
+        base09 = '{{colors.tertiary.default.hex}}',
+        base0A = '{{colors.primary.default.hex}}',
+        base0B = '{{colors.secondary.default.hex}}',
+        base0C = '{{colors.secondary_container.default.hex}}',
+        base0D = '{{colors.primary_container.default.hex}}',
+        base0E = '{{colors.tertiary_container.default.hex}}',
+        base0F = '{{colors.error_container.default.hex}}',
+      })
+
+      -- Nuke background colors across all main groups for transparency
+      local transparent_groups = {
+        "Normal", "NormalNC", "SignColumn", "NormalFloat", 
+        "FloatBorder", "LineNr", "CursorLineNr", "EndOfBuffer",
+        "TelescopeNormal", "TelescopeBorder", "TelescopePromptNormal",
+        "TelescopePromptBorder", "MiniPickNormal", "MiniPickBorder"
+      }
+      for _, group in ipairs(transparent_groups) do
+        vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
+      end
+
+      -- High contrast comment highlights
+      local comment_groups = { "Comment", "@comment", "@comment.documentation", "@comment.line", "@comment.block", "NixComment" }
+      for _, group in ipairs(comment_groups) do
+        vim.api.nvim_set_hl(0, group, { fg = "{{colors.primary.default.hex}}", bg = "NONE", italic = true, bold = true })
+      end
+    end
+
+    if _G.__matugen_signal then
+      _G.__matugen_signal:stop()
+      _G.__matugen_signal:close()
+    end
+
+    local signal = vim.uv.new_signal()
+    _G.__matugen_signal = signal
+    signal:start(
+      'sigusr1',
+      vim.schedule_wrap(function()
+        package.loaded['matugen'] = nil
+        require('matugen').setup()
+      end)
+    )
+
+    return M
+  '';
 
   # Browser MIME association
   xdg.mimeApps = {
@@ -54,7 +122,7 @@
     vimAlias = true;
   };
 
-  #Inline Neovim config
+  # Inline Neovim config
   xdg.configFile."nvim/init.lua".text = ''
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
@@ -79,65 +147,13 @@
       { "RRethy/base16-nvim" },
     })
 
-    local function apply_custom_highlights()
-      -- Try loading Noctalia's native matugen file
-      local has_matugen, matugen = pcall(require, 'matugen')
-      local has_base16, base16 = pcall(require, 'base16-colorscheme')
-      
-      local c = (has_base16 and base16.colorscheme) or {}
-
-      -- Use active accent hue dynamically for comments, fallback to soft gray
-      local theme_comment = (has_matugen and matugen.colors and matugen.colors.primary) or c.base0A or "#949494"
-
-      local comment_opts = { 
-        fg = theme_comment, 
-        bg = "NONE",
-        italic = true, 
-        bold = true,
-        default = false
-      }
-
-      local comment_groups = {
-        "Comment",
-        "@comment",
-        "@comment.documentation",
-        "@comment.line",
-        "@comment.block",
-        "NixComment",
-      }
-
-      for _, group in ipairs(comment_groups) do
-        vim.api.nvim_set_hl(0, group, comment_opts)
-      end
-
-      if c.base05 then
-        vim.api.nvim_set_hl(0, "Normal", { fg = c.base05, bg = "NONE" })
-        vim.api.nvim_set_hl(0, "@punctuation.special", { fg = c.base0D, bold = true })
-        vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = c.base0D })
-        vim.api.nvim_set_hl(0, "@punctuation.delimiter", { fg = c.base05 })
-        vim.api.nvim_set_hl(0, "@string", { fg = c.base0B })
-        vim.api.nvim_set_hl(0, "@keyword", { fg = c.base0E, bold = true })
-        vim.api.nvim_set_hl(0, "@function", { fg = c.base0D })
-        vim.api.nvim_set_hl(0, "@variable", { fg = c.base05 })
-        vim.api.nvim_set_hl(0, "@type", { fg = c.base0A })
-        vim.api.nvim_set_hl(0, "@constant", { fg = c.base09 })
-        vim.api.nvim_set_hl(0, "@number", { fg = c.base09 })
-        vim.api.nvim_set_hl(0, "@boolean", { fg = c.base09 })
-        vim.api.nvim_set_hl(0, "@operator", { fg = c.base05 })
-        vim.api.nvim_set_hl(0, "@property", { fg = c.base05 })
-        vim.api.nvim_set_hl(0, "LineNr", { fg = c.base04, bold = true })
-        vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.base0A, bold = true })
-      end
+    -- Load Noctalia matugen config on boot
+    local has_matugen, matugen = pcall(require, "matugen")
+    if has_matugen and matugen.setup then
+      matugen.setup()
     end
-
-    apply_custom_highlights()
-
-    vim.api.nvim_create_autocmd({"ColorScheme", "BufEnter", "FocusGained"}, {
-      callback = apply_custom_highlights,
-    })
   '';
- 
- 
+
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
