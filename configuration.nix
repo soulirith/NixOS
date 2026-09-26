@@ -17,8 +17,24 @@
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = false;
 
+  # Thermal and Power Management
+  services.power-profiles-daemon.enable = false;
+  services.thermald.enable = true;
+  services.auto-cpufreq = {
+    enable = true;
+    settings = {
+      charger = {
+        governor = "performance";
+        turbo = "auto";
+      };
+      battery = {
+        governor = "powersave";
+        turbo = "never";
+      };
+    };
+  };
+
   # Services
-  services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
   services.fstrim.enable = true;
   services.gvfs.enable = true;
@@ -97,22 +113,22 @@
     XCURSOR_SIZE = "24";
   };
 
-  # SDDM fallback and noctlaia greeter
+  # SDDM fallback and noctalia greeter
   services.displayManager.sddm.enable = false;
   services.displayManager.sddm.wayland.enable = false;
 
   # Noctalia greeter
   services.displayManager.noctalia-greeter = {
-  enable = true;
-  settings = {
-    cursor.size = 24;
-    keyboard.layout = "us";
-  };
-  cursorTheme = {
+    enable = true;
+    settings = {
+      cursor.size = 24;
+      keyboard.layout = "us";
+    };
+    cursorTheme = {
       package = pkgs.catppuccin-cursors.mochaDark;
       name = "catppuccin-mocha-dark-cursors";
+    };
   };
-};
 
   # Fonts (CJK + emoji fallback)
   fonts.packages = with pkgs; [
@@ -138,6 +154,7 @@
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
+    dynamicBoost.enable = true;
 
     powerManagement = {
       enable = true;
@@ -151,6 +168,15 @@
       amdgpuBusId = "PCI:5:0:0";
     };
   };
+
+  # System-wide packages
+  environment.systemPackages = with pkgs; [
+    catppuccin-cursors.mochaDark
+    git
+    lm_sensors
+    nvtopPackages.full
+    ryzenadj
+  ];
 
   # Nix
   nix.settings = {
@@ -178,14 +204,7 @@
   nixpkgs.config = {
     allowUnfree = true;
     allowUnsupportedSystem = true;
-    #permittedInsecurePackages = [ "pnpm-10.29.2" ];
   };
-
-  # Cursor must be system-wide for the greeter
-  environment.systemPackages = with pkgs; [
-    catppuccin-cursors.mochaDark
-    git
-  ];
 
   system.stateVersion = "26.05";
 }
