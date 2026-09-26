@@ -30,6 +30,14 @@
         enabled = true;
         default.path = "/home/soulirith/Pictures/fuji-sunset.jpg";
       };
+
+      # Custom Neovim template mapping
+      templates = {
+        neovim = {
+          input_path = "~/.config/noctalia/templates/neovim.lua.template";
+          output_path = "~/.config/nvim/lua/noctalia-colors.lua";
+        };
+      };
     };
   };
 
@@ -81,40 +89,58 @@
 
     local function apply_custom_highlights()
       local ok, base16 = pcall(require, 'base16-colorscheme')
-      if not (ok and base16.colorscheme) then return end
-      local c = base16.colorscheme
+      local c = (ok and base16.colorscheme) or {}
 
-      local groups = {
-        Normal                    = { fg = c.base05, bg = "NONE" },
+      -- Hardcoded solid bright color that cuts through wallpaper transparency
+      local bright_comment = "#e0e6ed"
 
-        Comment                   = { fg = c.base0A, italic = true, bold = true },
-        ["@comment"]              = { fg = c.base0A, italic = true, bold = true },
-
-        ["@punctuation.special"]  = { fg = c.base0D, bold = true },
-        ["@punctuation.bracket"]  = { fg = c.base0D },
-        ["@punctuation.delimiter"]= { fg = c.base05 },
-        ["@string"]               = { fg = c.base0B },
-        ["@keyword"]              = { fg = c.base0E, bold = true },
-        ["@function"]             = { fg = c.base0D },
-        ["@variable"]             = { fg = c.base05 },
-        ["@type"]                 = { fg = c.base0A },
-        ["@constant"]             = { fg = c.base09 },
-        ["@number"]               = { fg = c.base09 },
-        ["@boolean"]              = { fg = c.base09 },
-        ["@operator"]             = { fg = c.base05 },
-        ["@property"]             = { fg = c.base05 },
-
-        LineNr                    = { fg = c.base04, bold = true },
-        CursorLineNr              = { fg = c.base0A, bold = true },
+      local comment_opts = { 
+        fg = bright_comment, 
+        bg = "NONE",
+        italic = true, 
+        bold = true,
+        default = false
       }
 
-      for group, opts in pairs(groups) do
-        vim.api.nvim_set_hl(0, group, opts)
+      local comment_groups = {
+        "Comment",
+        "@comment",
+        "@comment.documentation",
+        "@comment.line",
+        "@comment.block",
+        "NixComment",
+      }
+
+      for _, group in ipairs(comment_groups) do
+        vim.api.nvim_set_hl(0, group, comment_opts)
+      end
+
+      if c.base05 then
+        vim.api.nvim_set_hl(0, "Normal", { fg = c.base05, bg = "NONE" })
+        vim.api.nvim_set_hl(0, "@punctuation.special", { fg = c.base0D, bold = true })
+        vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = c.base0D })
+        vim.api.nvim_set_hl(0, "@punctuation.delimiter", { fg = c.base05 })
+        vim.api.nvim_set_hl(0, "@string", { fg = c.base0B })
+        vim.api.nvim_set_hl(0, "@keyword", { fg = c.base0E, bold = true })
+        vim.api.nvim_set_hl(0, "@function", { fg = c.base0D })
+        vim.api.nvim_set_hl(0, "@variable", { fg = c.base05 })
+        vim.api.nvim_set_hl(0, "@type", { fg = c.base0A })
+        vim.api.nvim_set_hl(0, "@constant", { fg = c.base09 })
+        vim.api.nvim_set_hl(0, "@number", { fg = c.base09 })
+        vim.api.nvim_set_hl(0, "@boolean", { fg = c.base09 })
+        vim.api.nvim_set_hl(0, "@operator", { fg = c.base05 })
+        vim.api.nvim_set_hl(0, "@property", { fg = c.base05 })
+        vim.api.nvim_set_hl(0, "LineNr", { fg = c.base04, bold = true })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.base0A, bold = true })
       end
     end
 
     require('matugen').setup()
     apply_custom_highlights()
+
+    vim.api.nvim_create_autocmd({"ColorScheme", "BufEnter"}, {
+      callback = apply_custom_highlights,
+    })
   '';
 
   # GTK 3.0
@@ -259,5 +285,6 @@
     vesktop xwayland-satellite starship mpvpaper keepassxc bottles yt-dlp
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
   ];
+
   programs.home-manager.enable = true;
 }
