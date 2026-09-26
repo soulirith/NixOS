@@ -64,7 +64,7 @@
     vimAlias = true;
   };
 
-      # Inline Neovim config
+       # Inline Neovim config
   xdg.configFile."nvim/init.lua".text = ''
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
@@ -95,6 +95,7 @@
       matugen.setup()
     end
   '';
+
 
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
