@@ -64,7 +64,7 @@
     vimAlias = true;
   };
 
-    # Inline Neovim config
+      # Inline Neovim config
   xdg.configFile."nvim/init.lua".text = ''
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
