@@ -42,7 +42,7 @@
   };
 
   # Custom Noctalia Neovim template with enforced transparency
-    xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
+   xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
     local M = {}
 
     function M.setup()
@@ -100,6 +100,7 @@
 
     return M
   '';
+
 
   # Browser MIME association
   xdg.mimeApps = {
