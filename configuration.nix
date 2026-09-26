@@ -41,6 +41,18 @@
   services.flatpak.enable = true;
   services.dbus.enable = true;
 
+  # Apply CPU temperature limit on boot
+  systemd.services.ryzenadj-limit = {
+    description = "Set Ryzen CPU thermal limit to 90C";
+    after = [ "multi-user.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=90";
+    };
+  };
+
+
   # Locale
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
