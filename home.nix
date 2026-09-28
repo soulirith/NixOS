@@ -11,11 +11,10 @@
 
   # Environment Variables
   home.sessionVariables = {
-    # Helps Nemo handle Wayland structures and layouts correctly outside of Cinnamon
     XDG_CURRENT_DESKTOP = "X-Cinnamon";
   };
 
-   # Noctalia
+  # Noctalia
   programs.noctalia = {
     enable = true;
     settings = {
@@ -31,7 +30,6 @@
         default.path = "/home/soulirith/Pictures/fuji-sunset.jpg";
       };
 
-     # Custom Neovim template mapping
       templates = {
         neovim = {
           input_path = "~/.config/noctalia/templates/neovim.lua.template";
@@ -41,8 +39,8 @@
     };
   };
 
- # Custom noctalia template for nvim
- xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
+  # Custom noctalia template for nvim (bright comments + glass transparency)
+  xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
     local M = {}
 
     function M.setup()
@@ -100,9 +98,9 @@
     )
 
     return M
-  '';  
+  '';
 
-  # Browser MIME association
+  # Browser MIME associations (Ensures Nemo is default directory handler)
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -115,15 +113,15 @@
     };
   };
 
-  # Neovim replaces nano
+  # Neovim configuration
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
   };
-  # Inline Neovim config
-   xdg.configFile."nvim/init.lua".text = ''
+
+  xdg.configFile."nvim/init.lua".text = ''
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
       vim.fn.system({
@@ -134,7 +132,6 @@
     end
     vim.opt.rtp:prepend(lazypath)
 
-    -- Settings
     vim.opt.number = true
     vim.opt.relativenumber = false
     vim.opt.expandtab = true
@@ -147,13 +144,11 @@
       { "RRethy/base16-nvim" },
     })
 
-    -- Load Noctalia matugen config on boot
     local has_matugen, matugen = pcall(require, "matugen")
     if has_matugen and matugen.setup then
       matugen.setup()
     end
   '';
- 
 
   # GTK 3.0
   xdg.configFile."gtk-3.0/settings.ini".text = ''
@@ -196,8 +191,7 @@
       alias upd='(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
       eval "$(starship init zsh)"
     '';
-  };
-
+};
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
@@ -260,15 +254,11 @@
     settings = {
       logo = {
         source = "NixOS_small";
-        padding = {
-          top = 1;
-        };
+        padding = { top = 1; };
       };
       display = {
         separator = "  ";
-        key = {
-          type = "icon";
-        };
+        key = { type = "icon"; };
       };
       modules = [
         { type = "os"; }
@@ -296,6 +286,7 @@
     heroic prismlauncher mangohud vinegar smartmontools easyeffects
     vesktop xwayland-satellite starship mpvpaper keepassxc bottles yt-dlp
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
+    xdg-desktop-portal-xapp
   ];
 
   programs.home-manager.enable = true;

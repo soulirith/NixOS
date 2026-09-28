@@ -52,7 +52,6 @@
     };
   };
 
-
   # Locale
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -72,7 +71,7 @@
     pulse.enable = true;
   };
 
-  # XDG Portal
+  # XDG Portal (Forcing XApp file chooser for Nemo file picker dialogs)
   xdg.portal = {
     enable = true;
     extraPortals = [
@@ -125,10 +124,6 @@
     XCURSOR_SIZE = "24";
   };
 
-  # SDDM fallback and noctalia greeter
-  services.displayManager.sddm.enable = false;
-  services.displayManager.sddm.wayland.enable = false;
-
   # Noctalia greeter
   services.displayManager.noctalia-greeter = {
     enable = true;
@@ -142,7 +137,7 @@
     };
   };
 
-  # Fonts (CJK + emoji fallback)
+  # Fonts
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
@@ -159,15 +154,13 @@
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
 
-  # NVIDIA. Prime offload: iGPU default, `nvidia-offload <cmd>` for dGPU.
+  # NVIDIA
   services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
     dynamicBoost.enable = true;
-
     powerManagement = {
       enable = true;
       finegrained = true;
@@ -181,16 +174,15 @@
     };
   };
 
-  # System-wide packages
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.mochaDark
     git
     lm_sensors
     nvtopPackages.full
     ryzenadj
+    xdg-desktop-portal-xapp
   ];
 
-  # Nix
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
@@ -213,10 +205,11 @@
     options = "--delete-older-than 7d";
   };
 
-  nixpkgs.config = {
+    nixpkgs.config = {
     allowUnfree = true;
     allowUnsupportedSystem = true;
   };
 
   system.stateVersion = "26.05";
 }
+
