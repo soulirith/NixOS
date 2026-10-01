@@ -5,7 +5,6 @@
   home.stateVersion = "26.05";
 
   imports = [
-    inputs.noctalia.homeModules.default
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
