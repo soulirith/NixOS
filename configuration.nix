@@ -43,12 +43,12 @@
 
   # Apply CPU temperature limit on boot
   systemd.services.ryzenadj-limit = {
-    description = "Set Ryzen CPU thermal limit to 90C";
+    description = "Set Ryzen CPU thermal limit to 85C";
     after = [ "multi-user.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=90";
+      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=85";
     };
   };
 
