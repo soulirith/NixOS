@@ -285,7 +285,7 @@
     heroic prismlauncher mangohud vinegar smartmontools easyeffects
     vesktop xwayland-satellite starship mpvpaper keepassxc bottles yt-dlp
     nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
-    xdg-desktop-portal-xapp sonixd
+    xdg-desktop-portal-xapp sonixd coreutils systemd
   ];
 
   programs.home-manager.enable = true;
