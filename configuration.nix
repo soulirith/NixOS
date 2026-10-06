@@ -103,6 +103,12 @@
     group = "root";
   };
 
+    # Block GTA V BattlEye servers
+  networking.extraHosts = ''
+    0.0.0.0 test-s1.battleye.com
+    0.0.0.0 paradiseenhanced-s1.battleye.com
+  '';
+
   # User
   users.users."soulirith" = {
     isNormalUser = true;
