@@ -4,9 +4,7 @@
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
-  imports = [
-    # inputs.stylix.homeManagerModules.stylix
-  ];
+  imports = [];
 
   stylix = {
     enable = true;
@@ -64,22 +62,10 @@
         panel.transparency_mode = "glass";
         greeter_sync.auto_sync = true;
       };
-
-      wallpaper = {
-        enabled = true;
-        default.path = lib.mkForce "/home/soulirith/Pictures/fuji-sunset.jpg";
-      };
-
-      templates = {
-        neovim = {
-          input_path = "~/.config/noctalia/templates/neovim.lua.template";
-          output_path = "~/.config/nvim/lua/matugen.lua";
-        };
-      };
     };
   };
 
-   # Browser MIME associations (Ensures Nemo is default directory handler)
+  # Browser MIME associations
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -98,16 +84,12 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-    base16-nvim
-  ];
-      extraConfig = ''
+    extraConfig = ''
       set clipboard+=unnamedplus
-      colorscheme base16-default-dark
     '';
   };
 
-# GTK configurations
+  # GTK configurations
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-icon-theme-name=Papirus-Dark
@@ -116,26 +98,27 @@
 
   # Zsh Configuration Block
   programs.zsh = {
-  enable = true;
-  enableCompletion = true;
-  autosuggestion.enable = true;
-  syntaxHighlighting.enable = true;
-  autosuggestion.highlight = "fg=#8899aa";
-  shellAliases = {
-    ls = "eza --icons=always --group-directories-first";
-    ll = "eza -la --icons=always --group-directories-first";
-    gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
-    rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
-    clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.highlight = "fg=#8899aa";
+    shellAliases = {
+      ls = "eza --icons=always --group-directories-first";
+      ll = "eza -la --icons=always --group-directories-first";
+      gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
+      rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
+      clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
+    };
+
+    initContent = ''
+      fastfetch
+      alias reb="(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"rebuild: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
+      alias upd="(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"flake update: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
+      eval "$(starship init zsh)"
+    '';
   };
 
-  initContent = ''
-    fastfetch
-    alias reb="(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"rebuild: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
-    alias upd="(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"flake update: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
-    eval "$(starship init zsh)"
-  '';
-};
   # CLI Utilities Integration
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
