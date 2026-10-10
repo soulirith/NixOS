@@ -71,7 +71,7 @@
     pulse.enable = true;
   };
 
-  # XDG Portal (Forcing XApp file chooser for Nemo file picker dialogs)
+  # XDG Portal
   xdg.portal = {
     enable = true;
     extraPortals = [
@@ -103,7 +103,7 @@
     group = "root";
   };
 
-    # Block GTA V BattlEye servers
+  # Block GTA V BattlEye servers
   networking.extraHosts = ''
     0.0.0.0 test-s1.battleye.com
     0.0.0.0 paradiseenhanced-s1.battleye.com
@@ -124,6 +124,7 @@
   programs.dconf.enable = true;
   programs.steam.enable = true;
   programs.gamemode.enable = true;
+  
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
@@ -160,7 +161,7 @@
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
 
-  # NVIDIA
+  # NVIDIA Configuration
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -180,6 +181,7 @@
     };
   };
 
+  # System packages
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.mochaDark
     git
@@ -187,6 +189,14 @@
     nvtopPackages.full
     ryzenadj
     xdg-desktop-portal-xapp
+    
+    (writeShellScriptBin "nvidia-offload" ''
+      export __NV_PRIME_RENDER_OFFLOAD=1
+      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      export __VK_LAYER_NV_optimus=NVIDIA_only
+      exec "$@"
+    '')
   ];
 
   nix.settings = {
@@ -211,11 +221,11 @@
     options = "--delete-older-than 7d";
   };
 
-    nixpkgs.config = {
+  nixpkgs.config = {
     allowUnfree = true;
     allowUnsupportedSystem = true;
   };
 
   system.stateVersion = "26.05";
-}
+} 
 

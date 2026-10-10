@@ -1,12 +1,52 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 {
   home.username = "soulirith";
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
   imports = [
-    inputs.spicetify-nix.homeManagerModules.default
+    # inputs.stylix.homeManagerModules.stylix
   ];
+
+  stylix = {
+    enable = true;
+    image = ./Pictures/Wallpaper/wallhaven-yqk2q7.jpg;
+    polarity = "dark";
+    
+    cursor = {
+      name = "catppuccin-mocha-dark-cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
+      size = 24;
+    };
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+      sizes = {
+        applications = 11;
+        terminal = 12;
+        desktop = 11;
+        popups = 12;
+      };
+    };
+    
+    targets.btop.enable = false;
+    targets.cava.enable = false;
+    targets.gtk.enable = false;
+    targets.kitty.enable = false;
+    targets.qt.enable = false;
+    targets.starship.enable = false;
+  };
 
   # Environment Variables
   home.sessionVariables = {
@@ -26,7 +66,7 @@
 
       wallpaper = {
         enabled = true;
-        default.path = "/home/soulirith/Pictures/fuji-sunset.jpg";
+        default.path = lib.mkForce "/home/soulirith/Pictures/fuji-sunset.jpg";
       };
 
       templates = {
@@ -149,74 +189,38 @@
     end
   '';
 
-  # GTK 3.0
+  # GTK configurations
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
-    gtk-theme-name=adw-gtk3-dark
     gtk-icon-theme-name=Papirus-Dark
-    gtk-cursor-theme-name=catppuccin-mocha-dark-cursors
-    gtk-cursor-theme-size=24
     gtk-application-prefer-dark-theme=1
   '';
 
-  # Cursor
-  home.pointerCursor = {
-    enable = true;
-    name = "catppuccin-mocha-dark-cursors";
-    package = pkgs.catppuccin-cursors.mochaDark;
-    size = 24;
-    gtk.enable = true;
-    x11.enable = true;
+  # Zsh Configuration Block
+  programs.zsh = {
+  enable = true;
+  enableCompletion = true;
+  autosuggestion.enable = true;
+  syntaxHighlighting.enable = true;
+  autosuggestion.highlight = "fg=#8899aa";
+  shellAliases = {
+    ls = "eza --icons=always --group-directories-first";
+    ll = "eza -la --icons=always --group-directories-first";
+    gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
+    rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
+    clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
   };
 
-  # Zsh
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    autosuggestion.highlight = "fg=#8899aa";
-    shellAliases = {
-      ls = "eza --icons=always --group-directories-first";
-      ll = "eza -la --icons=always --group-directories-first";
-      gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
-      rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
-      clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
-    };
-
-    initContent = ''
-      fastfetch
-      alias reb='(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "rebuild: $(date +%Y-%m-%d\ %H:%M)") && git push)'
-      alias upd='(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m "flake update: $(date +%Y-%m-%d\ %H:%M)") && git push)'
-      eval "$(starship init zsh)"
-    '';
+  initContent = ''
+    fastfetch
+    alias reb="(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"rebuild: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
+    alias upd="(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"flake update: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
+    eval "$(starship init zsh)"
+  '';
 };
+  # CLI Utilities Integration
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
-
-  # Spicetify
-  programs.spicetify = let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  in {
-    enable = true;
-    enabledExtensions = with spicePkgs.extensions; [
-      adblock
-      hidePodcasts
-    ];
-    theme = {
-      name = "Hazy";
-      src = pkgs.fetchFromGitHub {
-        owner = "Astromations";
-        repo = "Hazy";
-        rev = "main";
-        hash = "sha256-K0EUIsYXrt0Nr8rPuj+V4IF6vyDJ3ZX+WUulo9nP+Lk=";
-      };
-      injectCss = true;
-      replaceColors = true;
-      overwriteAssets = true;
-      injectThemeJs = true;
-    };
-  };
 
   # MPV
   programs.mpv = {
@@ -232,18 +236,14 @@
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
     no_display=0
-
     position=top-left
     font_size=14
-
     fps
     fps_color_change
     frame_timing
-
     gpu_color=ff9e7d
     background_alpha=0
     text_outline
-
     toggle_hud=Shift_R+F12
   '';
 
@@ -279,13 +279,13 @@
   # Home packages
   home.packages = with pkgs; [
     librewolf google-chrome wl-clipboard
-    kitty git wget eza zoxide pciutils
+    kitty git wget eza pciutils
     nemo ffmpegthumbnailer unimatrix btop pipes
     zed-editor nodejs_22 gpu-screen-recorder
     heroic prismlauncher mangohud vinegar smartmontools easyeffects
-    vesktop xwayland-satellite starship mpvpaper keepassxc bottles yt-dlp
-    nerd-fonts.jetbrains-mono adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
-    xdg-desktop-portal-xapp sonixd coreutils systemd
+    vesktop xwayland-satellite starship mpvpaper keepassxc yt-dlp
+    adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
+    xdg-desktop-portal-xapp sonixd 
   ];
 
   programs.home-manager.enable = true;
