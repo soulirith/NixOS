@@ -84,8 +84,12 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    plugins = with pkgs.vimPlugins; [
+    base16-nvim
+  ];
     extraConfig = ''
       set clipboard+=unnamedplus
+      colorscheme base16-default-dark
     '';
   };
 
