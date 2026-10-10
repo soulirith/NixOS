@@ -46,6 +46,7 @@
     targets.kitty.enable = false;
     targets.qt.enable = false;
     targets.starship.enable = false;
+    targets.neovim.enable = true;
   };
 
   # Environment Variables
