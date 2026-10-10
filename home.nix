@@ -79,7 +79,8 @@
   };
 
   # Custom noctalia template for nvim (bright comments + glass transparency)
-  xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
+ /*
+ xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
     local M = {}
 
     function M.setup()
@@ -137,8 +138,8 @@
     )
 
     return M
-  '';
-
+    '';
+*/
   # Browser MIME associations (Ensures Nemo is default directory handler)
   xdg.mimeApps = {
     enable = true;
@@ -158,9 +159,12 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+      extraConfig = ''
+      set clipboard+=unnamedplus
+    '';
   };
-
-  xdg.configFile."nvim/init.lua".text = ''
+/*
+xdg.configFile."nvim/init.lua".text = ''
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
       vim.fn.system({
@@ -188,7 +192,7 @@
       matugen.setup()
     end
   '';
-
+  */
   # GTK configurations
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
