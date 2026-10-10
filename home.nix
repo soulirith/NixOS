@@ -1,16 +1,16 @@
 { config, pkgs, inputs, lib, ... }:
+
 {
   home.username = "soulirith";
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
-  imports = [];
-
+  # System Theming (Stylix)
   stylix = {
     enable = true;
     image = ./Pictures/Wallpaper/wallhaven-yqk2q7.jpg;
     polarity = "dark";
-    
+
     cursor = {
       name = "catppuccin-mocha-dark-cursors";
       package = pkgs.catppuccin-cursors.mochaDark;
@@ -37,14 +37,16 @@
         popups = 12;
       };
     };
-    
-    targets.btop.enable = false;
-    targets.cava.enable = false;
-    targets.gtk.enable = false;
-    targets.kitty.enable = false;
-    targets.qt.enable = false;
-    targets.starship.enable = false;
-    targets.neovim.enable = true;
+
+    targets = {
+      btop.enable = false;
+      cava.enable = false;
+      gtk.enable = false;
+      kitty.enable = false;
+      qt.enable = false;
+      starship.enable = false;
+      neovim.enable = true;
+    };
   };
 
   # Environment Variables
@@ -52,7 +54,7 @@
     XDG_CURRENT_DESKTOP = "X-Cinnamon";
   };
 
-  # Noctalia
+  # Noctalia Desktop Shell Configuration
   programs.noctalia = {
     enable = true;
     settings = {
@@ -65,7 +67,7 @@
     };
   };
 
-  # Browser MIME associations
+  # File / URL Type Associations
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -78,35 +80,38 @@
     };
   };
 
-  # Neovim configuration
+  # Neovim Editor Configuration
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
-    base16-nvim
-  ];
+      base16-nvim
+    ];
     extraConfig = ''
       set clipboard+=unnamedplus
       colorscheme base16-default-dark
     '';
   };
 
-  # GTK configurations
+  # Direct GTK Styling Rules
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-icon-theme-name=Papirus-Dark
     gtk-application-prefer-dark-theme=1
   '';
 
-  # Zsh Configuration Block
+  # Shell Configuration (Zsh)
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+      highlight = "fg=#8899aa";
+    };
     syntaxHighlighting.enable = true;
-    autosuggestion.highlight = "fg=#8899aa";
+
     shellAliases = {
       ls = "eza --icons=always --group-directories-first";
       ll = "eza -la --icons=always --group-directories-first";
@@ -123,11 +128,11 @@
     '';
   };
 
-  # CLI Utilities Integration
+  # CLI Helpers Integration
   programs.fzf = { enable = true; enableZshIntegration = true; };
   programs.zoxide = { enable = true; enableZshIntegration = true; };
 
-  # MPV
+  # Media Players
   programs.mpv = {
     enable = true;
     config = {
@@ -137,7 +142,7 @@
     };
   };
 
-  # MangoHUD
+  # Gaming Overlay (MangoHUD)
   xdg.configFile."MangoHud/MangoHud.conf".text = ''
     legacy_layout=0
     no_display=0
@@ -152,7 +157,7 @@
     toggle_hud=Shift_R+F12
   '';
 
-  # Fastfetch
+  # System Information Utility
   programs.fastfetch = {
     enable = true;
     settings = {
@@ -181,16 +186,43 @@
     };
   };
 
-  # Home packages
+  # User Home Packages
   home.packages = with pkgs; [
-    librewolf google-chrome wl-clipboard
-    kitty git wget eza pciutils
-    nemo ffmpegthumbnailer unimatrix btop pipes
-    zed-editor nodejs_22 gpu-screen-recorder
-    heroic prismlauncher mangohud vinegar smartmontools easyeffects
-    vesktop xwayland-satellite starship mpvpaper keepassxc yt-dlp
-    adw-gtk3 papirus-icon-theme motrix-next file-roller nemo-fileroller
-    xdg-desktop-portal-xapp sonixd 
+    librewolf
+    google-chrome
+    wl-clipboard
+    kitty
+    git
+    wget
+    eza
+    pciutils
+    nemo
+    ffmpegthumbnailer
+    unimatrix
+    btop
+    pipes
+    zed-editor
+    nodejs_22
+    gpu-screen-recorder
+    heroic
+    prismlauncher
+    mangohud
+    vinegar
+    smartmontools
+    easyeffects
+    vesktop
+    xwayland-satellite
+    starship
+    mpvpaper
+    keepassxc
+    yt-dlp
+    adw-gtk3
+    papirus-icon-theme
+    motrix-next
+    file-roller
+    nemo-fileroller
+    xdg-desktop-portal-xapp
+    sonixd
   ];
 
   programs.home-manager.enable = true;

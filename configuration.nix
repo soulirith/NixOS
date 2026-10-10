@@ -1,23 +1,40 @@
 { config, inputs, pkgs, ... }:
+
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  # Boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages;
-  boot.tmp.cleanOnBoot = true;
-  boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "psi=1" "nvme_core.default_ps_max_latency_us=0" ];
+  # Boot & Kernel Configuration
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages;
+    tmp.cleanOnBoot = true;
+    blacklistedKernelModules = [ "nouveau" ];
+    kernelParams = [
+      "nvidia_drm.modeset=1"
+      "nvidia_drm.fbdev=1"
+      "psi=1"
+      "nvme_core.default_ps_max_latency_us=0"
+    ];
+  };
 
-  # Networking
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
+  # Networking & Hostname & GTA 5 
+  networking = {
+    hostName = "nixos";
+    networkmanager.enable = true;
+    extraHosts = ''
+      0.0.0.0 test-s1.battleye.com
+      0.0.0.0 paradiseenhanced-s1.battleye.com
+    '';
+  };
+
   hardware.bluetooth.enable = false;
 
-  # Thermal and Power Management
+  # Power Management & Lid Handling
   services.power-profiles-daemon.enable = false;
   services.thermald.enable = true;
   services.auto-cpufreq = {
@@ -34,14 +51,20 @@
     };
   };
 
-  # Services
+  # Ignore physical lid switch events so Niri / Noctalia handles lock-and-suspend
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore";
+  };
+
+  # System Services
   services.upower.enable = true;
   services.fstrim.enable = true;
   services.gvfs.enable = true;
   services.flatpak.enable = true;
   services.dbus.enable = true;
 
-  # Apply CPU temperature limit on boot
+  # Thermal Limit Service (CPU)
   systemd.services.ryzenadj-limit = {
     description = "Set Ryzen CPU thermal limit to 85C";
     after = [ "multi-user.target" ];
@@ -52,7 +75,7 @@
     };
   };
 
-  # Locale
+  # Localization & Keyboard
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
   services.xserver.xkb = {
@@ -61,7 +84,7 @@
     options = "grp:alt_shift_toggle";
   };
 
-  # Audio
+  # Audio (PipeWire)
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -71,7 +94,7 @@
     pulse.enable = true;
   };
 
-  # XDG Portal
+  # Desktop Integration Portals
   xdg.portal = {
     enable = true;
     extraPortals = [
@@ -85,7 +108,7 @@
     };
   };
 
-  # doas replaces sudo
+  # Security & Privilege Escalation (doas)
   security.sudo.enable = false;
   security.doas = {
     enable = true;
@@ -103,35 +126,29 @@
     group = "root";
   };
 
-  # Block GTA V BattlEye servers
-  networking.extraHosts = ''
-    0.0.0.0 test-s1.battleye.com
-    0.0.0.0 paradiseenhanced-s1.battleye.com
-  '';
-
-  # User
-  users.users."soulirith" = {
+  # User Account
+  users.users.soulirith = {
     isNormalUser = true;
     description = "soulirith";
     extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" ];
     shell = pkgs.zsh;
   };
 
-  # Session
+  # Desktop Environment & Program Flags
   programs.niri.enable = true;
   programs.xwayland.enable = true;
   programs.zsh.enable = true;
   programs.dconf.enable = true;
   programs.steam.enable = true;
   programs.gamemode.enable = true;
-  
+
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
     XCURSOR_SIZE = "24";
   };
 
-  # Noctalia greeter
+  # Display Manager / Noctalia Greeter
   services.displayManager.noctalia-greeter = {
     enable = true;
     settings = {
@@ -144,14 +161,14 @@
     };
   };
 
-  # Fonts
+  # Typography
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];
 
-  # Memory
+  # Memory & OOM Management
   zramSwap = {
     enable = true;
     algorithm = "zstd";
@@ -161,7 +178,7 @@
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
 
-  # NVIDIA Configuration
+  # Graphics & GPU Offloading (NVIDIA / AMD)
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -175,13 +192,16 @@
     open = false;
     nvidiaSettings = true;
     prime = {
-      offload = { enable = true; enableOffloadCmd = true; };
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
       nvidiaBusId = "PCI:1:0:0";
       amdgpuBusId = "PCI:5:0:0";
     };
   };
 
-  # System packages
+  # System Tools
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.mochaDark
     git
@@ -189,7 +209,7 @@
     nvtopPackages.full
     ryzenadj
     xdg-desktop-portal-xapp
-    
+
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -199,26 +219,28 @@
     '')
   ];
 
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    auto-optimise-store = true;
-    max-jobs = "auto";
-    cores = 0;
-    substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-      "https://noctalia.cachix.org"
-    ];
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
-  };
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
+  # Nix Package Manager & Cache Configuration
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+      max-jobs = "auto";
+      cores = 0;
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://noctalia.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   nixpkgs.config = {
@@ -227,5 +249,4 @@
   };
 
   system.stateVersion = "26.05";
-} 
-
+}
