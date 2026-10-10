@@ -79,69 +79,7 @@
     };
   };
 
-  # Custom noctalia template for nvim (bright comments + glass transparency)
- /*
- xdg.configFile."noctalia/templates/neovim.lua.template".text = ''
-    local M = {}
-
-    function M.setup()
-      require('base16-colorscheme').setup({
-        base00 = '{{colors.surface.default.hex}}',
-        base01 = '{{colors.surface_container_low.default.hex}}',
-        base02 = '{{colors.surface_container.default.hex}}',
-        base03 = '{{colors.primary.default.hex}}',
-        base04 = '{{colors.outline_variant.default.hex}}',
-        base05 = '{{colors.on_surface.default.hex}}',
-        base06 = '{{colors.on_surface.default.hex}}',
-        base07 = '{{colors.on_surface.default.hex}}',
-        base08 = '{{colors.error.default.hex}}',
-        base09 = '{{colors.tertiary.default.hex}}',
-        base0A = '{{colors.primary.default.hex}}',
-        base0B = '{{colors.secondary.default.hex}}',
-        base0C = '{{colors.secondary_container.default.hex}}',
-        base0D = '{{colors.primary_container.default.hex}}',
-        base0E = '{{colors.tertiary_container.default.hex}}',
-        base0F = '{{colors.error_container.default.hex}}',
-      })
-
-      local transparent_groups = {
-        "Normal", "NormalNC", "SignColumn", "NormalFloat", 
-        "FloatBorder", "LineNr", "CursorLineNr", "EndOfBuffer",
-        "TelescopeNormal", "TelescopeBorder", "TelescopePromptNormal",
-        "TelescopePromptBorder", "MiniPickNormal", "MiniPickBorder"
-      }
-      for _, group in ipairs(transparent_groups) do
-        vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
-      end
-
-      local comment_groups = { "Comment", "@comment", "@comment.documentation", "@comment.line", "@comment.block", "NixComment" }
-      for _, group in ipairs(comment_groups) do
-        vim.api.nvim_set_hl(0, group, { fg = '{{colors.primary.default.hex}}', bg = "NONE", italic = true, bold = true })
-      end
-    end
-
-    if _G.__matugen_signal then
-      _G.__matugen_signal:stop()
-      _G.__matugen_signal:close()
-    end
-
-    local signal = vim.uv.new_signal()
-    _G.__matugen_signal = signal
-    signal:start(
-      'sigusr1',
-      vim.schedule_wrap(function()
-        package.loaded['matugen'] = nil
-        local has_m, m = pcall(require, 'matugen')
-        if has_m and type(m) == 'table' and m.setup then
-          m.setup()
-        end
-      end)
-    )
-
-    return M
-    '';
-*/
-  # Browser MIME associations (Ensures Nemo is default directory handler)
+   # Browser MIME associations (Ensures Nemo is default directory handler)
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -160,41 +98,16 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    plugins = with pkgs.vimPlugins; [
+    base16-nvim
+  ];
       extraConfig = ''
       set clipboard+=unnamedplus
+      colorscheme base16-default-dark
     '';
   };
-/*
-xdg.configFile."nvim/init.lua".text = ''
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-    if not vim.loop.fs_stat(lazypath) then
-      vim.fn.system({
-        "git", "clone", "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", lazypath,
-      })
-    end
-    vim.opt.rtp:prepend(lazypath)
 
-    vim.opt.number = true
-    vim.opt.relativenumber = false
-    vim.opt.expandtab = true
-    vim.opt.shiftwidth = 2
-    vim.opt.tabstop = 2
-    vim.opt.laststatus = 0
-    vim.opt.clipboard = "unnamedplus"
-
-    require("lazy").setup({
-      { "RRethy/base16-nvim" },
-    })
-
-    local has_matugen, matugen = pcall(require, "matugen")
-    if has_matugen and matugen.setup then
-      matugen.setup()
-    end
-  '';
-  */
-  # GTK configurations
+# GTK configurations
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-icon-theme-name=Papirus-Dark
