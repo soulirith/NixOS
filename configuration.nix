@@ -22,7 +22,7 @@
     ];
   };
 
-  # Networking & Hostname & GTA 5 
+  # Networking & Hostname
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -52,9 +52,9 @@
   };
 
   # Ignore physical lid switch events so Niri / Noctalia handles lock-and-suspend
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
   };
 
   # System Services
