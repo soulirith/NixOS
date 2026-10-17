@@ -27,14 +27,17 @@
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
+            useGlobalPkgs = false;
+            useUserPackages = false;
             backupFileExtension = "bak";
             extraSpecialArgs = { inherit inputs; };
             sharedModules = [
               stylix.homeModules.stylix
             ];
-            users.soulirith = import ./home.nix;
+            users.soulirith = {
+              imports = [ ./home.nix ];
+              nixpkgs.config.allowUnfree = true;
+            };
           };
         }
       ];

@@ -27,8 +27,9 @@
     hostName = "nixos";
     networkmanager.enable = true;
     extraHosts = ''
-      0.0.0.0 test-s1.battleye.com
-      0.0.0.0 paradiseenhanced-s1.battleye.com
+      0.0.0.0 ://battleye.com
+      0.0.0.0 ://battleye.com
+      0.0.0.0 ://battleye.com
     '';
   };
 
@@ -227,9 +228,9 @@
       max-jobs = "auto";
       cores = 0;
       substituters = [
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-        "https://noctalia.cachix.org"
+        "https://nixos.org"
+        "https://cachix.org"
+        "https://cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="

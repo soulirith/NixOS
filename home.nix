@@ -142,20 +142,11 @@
     };
   };
 
-  # Gaming Overlay (MangoHUD)
-  xdg.configFile."MangoHud/MangoHud.conf".text = ''
-    legacy_layout=0
-    no_display=0
-    position=top-left
-    font_size=14
-    fps
-    fps_color_change
-    frame_timing
-    gpu_color=ff9e7d
-    background_alpha=0
-    text_outline
-    toggle_hud=Shift_R+F12
-  '';
+  # Gaming Overlay
+  programs.mangohud = {
+    enable = true;
+    enableSessionWide = true;
+     };
 
   # System Information Utility
   programs.fastfetch = {
@@ -206,7 +197,6 @@
     gpu-screen-recorder
     heroic
     prismlauncher
-    mangohud
     vinegar
     smartmontools
     easyeffects
@@ -218,7 +208,7 @@
     yt-dlp
     adw-gtk3
     papirus-icon-theme
-    motrix-next
+    rayburst
     file-roller
     nemo-fileroller
     xdg-desktop-portal-xapp
@@ -227,3 +217,4 @@
 
   programs.home-manager.enable = true;
 }
+
