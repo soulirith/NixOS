@@ -195,7 +195,7 @@
     zed-editor
     nodejs_22
     gpu-screen-recorder
-    heroic
+    lutris
     prismlauncher
     vinegar
     smartmontools
