@@ -142,11 +142,11 @@
     };
   };
 
-  # Gaming Overlay
+  # Gaming Overlay - Disabled session-wide to stop container hooks from causing driver state drops
   programs.mangohud = {
     enable = false;
-    enableSessionWide = true;
-     };
+    enableSessionWide = false;
+  };
 
   # System Information Utility
   programs.fastfetch = {

@@ -27,9 +27,9 @@
     hostName = "nixos";
     networkmanager.enable = true;
     extraHosts = ''
-      0.0.0.0 paradise-s1.battleye.com
-      0.0.0.0 test-s1.battleye.com
-      0.0.0.0 paradiseenhanced-s1.battleye.com
+      0.0.0.0 ://battleye.com
+      0.0.0.0 ://battleye.com
+      0.0.0.0 ://battleye.com
     '';
   };
 
@@ -44,10 +44,13 @@
       charger = {
         governor = "performance";
         turbo = "auto";
+        # Instructs the system firmware to keep voltage lanes open for the GPU
+        platform_profile = "performance";
       };
       battery = {
-        governor = "powersave";
-        turbo = "never";
+        governor = "performance"; # Prioritize performance even if unplugged
+        turbo = "auto";
+        platform_profile = "performance";
       };
     };
   };
@@ -66,13 +69,14 @@
   services.dbus.enable = true;
 
   # Thermal Limit Service (CPU)
+  # Lowered to 75C to prevent your single core from running hot and making your fans loud
   systemd.services.ryzenadj-limit = {
-    description = "Set Ryzen CPU thermal limit to 85C";
+    description = "Set Ryzen CPU thermal limit to 75C for quiet acoustics";
     after = [ "multi-user.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=85";
+      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75";
     };
   };
 
@@ -187,7 +191,7 @@
     modesetting.enable = true;
     dynamicBoost.enable = true;
     powerManagement = {
-      enable = false;
+      enable = false; # Keeps GPU out of aggressive power-saving sleep loops
       finegrained = false;
     };
     open = false;
@@ -211,11 +215,12 @@
     ryzenadj
     xdg-desktop-portal-xapp
 
+    # Fixed script: Removed the strict optimus layer that caused driver fallback loops
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
+      export __GL_MAX_ERRORS_TO_REPORT=1
       exec "$@"
     '')
   ];
@@ -229,7 +234,6 @@
       cores = 0;
       substituters = [
         "https://nixos.org"
-        "https://cachix.org"
         "https://cachix.org"
       ];
       trusted-public-keys = [
