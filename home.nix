@@ -213,6 +213,7 @@
     nemo-fileroller
     xdg-desktop-portal-xapp
     sonixd
+    obsidian
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
