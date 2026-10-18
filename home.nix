@@ -144,7 +144,7 @@
 
   # Gaming Overlay
   programs.mangohud = {
-    enable = true;
+    enable = false;
     enableSessionWide = true;
      };
 
