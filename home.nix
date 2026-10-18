@@ -197,7 +197,7 @@
     gpu-screen-recorder
     lutris
     prismlauncher
-    vinegar
+   
     smartmontools
     easyeffects
     vesktop
