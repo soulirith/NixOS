@@ -44,11 +44,10 @@
       charger = {
         governor = "performance";
         turbo = "auto";
-        # Instructs the system firmware to keep voltage lanes open for the GPU
         platform_profile = "performance";
       };
       battery = {
-        governor = "performance"; # Prioritize performance even if unplugged
+        governor = "performance";
         turbo = "auto";
         platform_profile = "performance";
       };
@@ -69,7 +68,6 @@
   services.dbus.enable = true;
 
   # Thermal Limit Service (CPU)
-  # Lowered to 75C to prevent your single core from running hot and making your fans loud
   systemd.services.ryzenadj-limit = {
     description = "Set Ryzen CPU thermal limit to 75C for quiet acoustics";
     after = [ "multi-user.target" ];
@@ -146,6 +144,7 @@
   programs.dconf.enable = true;
   programs.steam.enable = true;
   programs.gamemode.enable = true;
+  programs.gpu-screen-recorder.enable = true;
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -226,21 +225,23 @@
   ];
 
   # Nix Package Manager & Cache Configuration
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      max-jobs = "auto";
-      cores = 0;
-      substituters = [
-        "https://nixos.org"
-        "https://cachix.org"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      ];
-    };
+nix = {
+  settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
+    max-jobs = "auto";
+    cores = 0;
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+      "https://noctalia.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
+  };
+
     gc = {
       automatic = true;
       dates = "weekly";
