@@ -20,10 +20,10 @@
 
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        ./configuration.nix
+ 	{ nixpkgs.hostPlatform = "x86_64-linux"; }
+ 	./configuration.nix
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
         {
