@@ -122,8 +122,8 @@
 
     initContent = ''
       fastfetch
-      alias reb="(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"rebuild: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
-      alias upd="(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake . && (git diff --cached --quiet || git commit -m \"flake update: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
+      alias reb="(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake .#nixos && (git diff --cached --quiet || git commit -m \"rebuild: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
+      alias upd="(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake .#nixos && (git diff --cached --quiet || git commit -m \"flake update: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
       eval "$(starship init zsh)"
     '';
   };
@@ -142,7 +142,6 @@
     };
   };
 
-  # Gaming Overlay - Disabled session-wide to stop container hooks from causing driver state drops
   programs.mangohud = {
     enable = false;
     enableSessionWide = false;
@@ -194,7 +193,6 @@
     pipes
     zed-editor
     nodejs_22
-    gpu-screen-recorder-ui
     lutris
     prismlauncher
     vinegar 

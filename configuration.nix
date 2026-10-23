@@ -33,7 +33,7 @@
     '';
   };
 
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth.enable = true;
 
   # Power Management & Lid Handling
   services.power-profiles-daemon.enable = false;
@@ -122,12 +122,6 @@
     }];
   };
 
-  security.wrappers.gsr-kms-server = {
-    source = "${pkgs.gpu-screen-recorder}/bin/gsr-kms-server";
-    capabilities = "cap_sys_admin+ep";
-    owner = "root";
-    group = "root";
-  };
 
   # User Account
   users.users.soulirith = {
@@ -145,6 +139,7 @@
   programs.steam.enable = true;
   programs.gamemode.enable = true;
   programs.gpu-screen-recorder.enable = true;
+  programs.gpu-screen-recorder.ui.enable = true;
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -187,8 +182,7 @@
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    modesetting.enable = true;
-    dynamicBoost.enable = true;
+    modesetting.enable = true; 
     powerManagement = {
       enable = false; # Keeps GPU out of aggressive power-saving sleep loops
       finegrained = false;
@@ -214,7 +208,6 @@
     ryzenadj
     xdg-desktop-portal-xapp
 
-    # Fixed script: Removed the strict optimus layer that caused driver fallback loops
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -231,6 +224,12 @@ nix = {
     auto-optimise-store = true;
     max-jobs = "auto";
     cores = 0;
+     substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+      "https://noctalia.cachix.org"
+    ];
+
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
