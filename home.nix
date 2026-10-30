@@ -198,7 +198,6 @@ xdg.mimeApps = {
     nodejs_22
     lutris
     prismlauncher
-    vinegar 
     smartmontools
     easyeffects
     vesktop
@@ -216,7 +215,7 @@ xdg.mimeApps = {
     sonixd
     obsidian
     steam-run
-    inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
+    inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
   ];
 
   programs.home-manager.enable = true;
