@@ -77,8 +77,9 @@ xdg.mimeApps = {
       "x-scheme-handler/unknown" = "google-chrome.desktop";
       "text/html" = "google-chrome.desktop";
       "x-scheme-handler/roblox-studio" = [ "steam.desktop" ];
-      "x-scheme-handler/roblox-player" = [ "steam.desktop" ];
+      "x-scheme-handler/roblox-studio-auth" = [ "steam.desktop" ];
       "x-scheme-handler/roblox-auth" = [ "steam.desktop" ];
+      "x-scheme-handler/roblox-player" = [ "steam.desktop" ];
     };
   };
 
