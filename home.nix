@@ -212,6 +212,7 @@
     xdg-desktop-portal-xapp
     sonixd
     obsidian
+    steam-run
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
