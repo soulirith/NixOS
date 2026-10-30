@@ -67,7 +67,7 @@
     };
   };
 
-xdg.mimeApps = {
+  xdg.mimeApps = {
     enable = true;
     defaultApplications = {
       "inode/directory" = [ "nemo.desktop" ];
@@ -214,10 +214,9 @@ xdg.mimeApps = {
     xdg-desktop-portal-xapp
     sonixd
     obsidian
-    steam-run
+    steam-run 
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
   ];
 
   programs.home-manager.enable = true;
 }
-
