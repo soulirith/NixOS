@@ -70,20 +70,20 @@
 xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = "nemo.desktop";
-      "x-scheme-handler/http" = "google-chrome.desktop";
-      "x-scheme-handler/https" = "google-chrome.desktop";
-      "x-scheme-handler/about" = "google-chrome.desktop";
-      "x-scheme-handler/unknown" = "google-chrome.desktop";
-      "text/html" = "google-chrome.desktop";
-      "x-scheme-handler/roblox-studio" = [ "steam.desktop" ];
-      "x-scheme-handler/roblox-studio-auth" = [ "steam.desktop" ];
-      "x-scheme-handler/roblox-auth" = [ "steam.desktop" ];
-      "x-scheme-handler/roblox-player" = [ "steam.desktop" ];
+      "inode/directory" = [ "nemo.desktop" ];
+      "x-scheme-handler/http" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/https" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/about" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/unknown" = [ "google-chrome.desktop" ];
+      "text/html" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/roblox-studio" = [ "tuxblox-studio-handler.desktop" ];
+      "x-scheme-handler/roblox-studio-auth" = [ "tuxblox-studio-handler.desktop" ];
+      "x-scheme-handler/roblox-auth" = [ "tuxblox-studio-handler.desktop" ];
+      "x-scheme-handler/roblox-player" = [ "tuxblox-player-handler.desktop" ];
+      "x-scheme-handler/roblox" = [ "tuxblox-player-handler.desktop" ];
     };
   };
 
-  # Neovim Editor Configuration
   programs.neovim = {
     enable = true;
     defaultEditor = true;
