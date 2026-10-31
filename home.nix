@@ -214,7 +214,8 @@
     xdg-desktop-portal-xapp
     sonixd
     obsidian
-    steam-run 
+    steam-run
+    vinegar
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
   ];
 
