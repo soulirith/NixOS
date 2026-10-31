@@ -2,8 +2,14 @@
   description = "NixOS & Home Manager Flake Configuration";
 
   nixConfig = {
-    extra-substituters = "https://noctalia.cachix.org";
-    extra-trusted-public-keys = "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=";
+    extra-substituters = [
+      "https://cachix.org"
+      "https://cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "blender-bin.cachix.org-1:7I8KioTz8idw59f23vNidOInV9GfFsc6pP0uC95W8M0="
+    ];
   };
 
   inputs = {
@@ -25,9 +31,14 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    blender-bin = {
+      url = "github:edolstra/nix-warez?dir=blender";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, claude-desktop, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, stylix, claude-desktop, blender-bin, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
@@ -55,3 +66,4 @@
     };
   };
 }
+
