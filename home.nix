@@ -94,7 +94,6 @@
     ];
     extraConfig = ''
       set clipboard+=unnamedplus
-      colorscheme base16-default-dark
     '';
   };
 
