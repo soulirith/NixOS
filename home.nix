@@ -109,7 +109,7 @@
     enableSessionWide = false;
   };
 
-  # Fastfetch Configuration
+# Fastfetch Configuration
   programs.fastfetch = {
     enable = true;
     settings = {
@@ -123,11 +123,7 @@
         };
       };
       display = {
-        separator = " 󰁔 ";
-        color = {
-          keys = "blue";
-          title = "magenta";
-        };
+        separator = "  ";
         key = {
           width = 13;
         };
@@ -149,13 +145,11 @@
         { type = "memory"; key = "󰍛 Memory"; }
         { type = "disk"; key = "󰋊 Disk"; }
         { type = "battery"; key = "󰁹 Battery"; }
-        "break"
-        "colors"
       ];
     };
   };
 
-  # Single Unified Home Packages Definition
+  # Packages
   home.packages = with pkgs; [
     librewolf
     google-chrome
