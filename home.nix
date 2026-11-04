@@ -39,11 +39,11 @@
     };
 
     targets = {
-      btop.enable = false;
+      btop.enable = true;
       cava.enable = false;
-      gtk.enable = false;
+      gtk.enable = true;
       kitty.enable = false;
-      qt.enable = false;
+      qt.enable = true;
       starship.enable = false;
       neovim.enable = true;
     };
@@ -94,6 +94,7 @@
     ];
     extraConfig = ''
       set clipboard+=unnamedplus
+      set termguicolors
     '';
   };
 
