@@ -5,50 +5,6 @@
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
-  # System Theming (Stylix)
-  stylix = {
-    enable = true;
-    image = ./Pictures/Wallpaper/wallhaven-yqk2q7.jpg;
-    polarity = "dark";
-
-    cursor = {
-      name = "catppuccin-mocha-dark-cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
-      size = 24;
-    };
-
-    fonts = {
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
-      };
-      sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
-      };
-      serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
-      };
-      sizes = {
-        applications = 11;
-        terminal = 12;
-        desktop = 11;
-        popups = 12;
-      };
-    };
-
-    targets = {
-      btop.enable = true;
-      cava.enable = false;
-      gtk.enable = true;
-      kitty.enable = true;
-      qt.enable = true;
-      starship.enable = false;
-      neovim.enable = true;
-    };
-  };
-
   # Environment Variables
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "X-Cinnamon";
