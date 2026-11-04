@@ -42,7 +42,7 @@
       btop.enable = true;
       cava.enable = false;
       gtk.enable = true;
-      kitty.enable = false;
+      kitty.enable = true;
       qt.enable = true;
       starship.enable = false;
       neovim.enable = true;
