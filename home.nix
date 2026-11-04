@@ -113,15 +113,11 @@
   programs.fastfetch = {
     enable = true;
     settings = {
-      logo = {
-        type = "auto";
-        source = "nixos_small";
         padding = {
           top = 1;
           left = 2;
           right = 2;
         };
-      };
       display = {
         separator = " ";
       };
