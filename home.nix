@@ -123,28 +123,23 @@
         };
       };
       display = {
-        separator = "  ";
-        key = {
-          width = 13;
-        };
+        separator = " ";
       };
       modules = [
         "title"
         "separator"
-        { type = "os"; key = "󰍹 OS"; }
-        { type = "kernel"; key = "󰒋 Kernel"; }
-        { type = "uptime"; key = "󰅐 Uptime"; }
-        { type = "packages"; key = "󰏖 Packages"; }
-        "break"
-        { type = "wm"; key = "󱂬 Window Mgr"; }
-        { type = "shell"; key = "󰞷 Shell"; }
-        { type = "terminal"; key = "󰆍 Terminal"; }
-        "break"
-        { type = "cpu"; key = "󰻠 Processor"; }
-        { type = "gpu"; key = "󰢮 Graphics"; }
-        { type = "memory"; key = "󰍛 Memory"; }
-        { type = "disk"; key = "󰋊 Disk"; }
-        { type = "battery"; key = "󰁹 Battery"; }
+        { type = "os"; key = "󰍹"; }
+        { type = "kernel"; key = "󰒋"; }
+        { type = "uptime"; key = "󰅐"; }
+        { type = "packages"; key = "󰏖"; }
+        { type = "wm"; key = "󱂬"; }
+        { type = "shell"; key = "󰞷"; }
+        { type = "terminal"; key = "󰆍"; }
+        { type = "cpu"; key = "󰻠"; }
+        { type = "gpu"; key = "󰢮"; }
+        { type = "memory"; key = "󰍛"; }
+        { type = "disk"; key = "󰋊"; }
+        { type = "battery"; key = "󰁹"; }
       ];
     };
   };
