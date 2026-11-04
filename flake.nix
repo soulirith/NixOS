@@ -1,17 +1,6 @@
 {
   description = "NixOS & Home Manager Flake Configuration";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://cachix.org"
-      "https://cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      "blender-bin.cachix.org-1:7I8KioTz8idw59f23vNidOInV9GfFsc6pP0uC95W8M0="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     
@@ -66,4 +55,3 @@
     };
   };
 }
-

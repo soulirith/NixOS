@@ -27,9 +27,7 @@
     hostName = "nixos";
     networkmanager.enable = true;
     extraHosts = ''
-      0.0.0.0 ://battleye.com
-      0.0.0.0 ://battleye.com
-      0.0.0.0 ://battleye.com
+      0.0.0.0 battleye.com
     '';
   };
 
@@ -54,7 +52,6 @@
     };
   };
 
-  # Ignore physical lid switch events so Niri / Noctalia handles lock-and-suspend
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
     HandleLidSwitchExternalPower = "ignore";
@@ -66,6 +63,12 @@
   services.gvfs.enable = true;
   services.flatpak.enable = true;
   services.dbus.enable = true;
+
+# Ollama Local AI Service with CUDA Acceleration for GTX 1650
+services.ollama = {
+ enable = true;
+ package = pkgs.ollama-vulkan;
+};
 
   # Thermal Limit Service (CPU)
   systemd.services.ryzenadj-limit = {
@@ -122,12 +125,11 @@
     }];
   };
 
-
   # User Account
   users.users.soulirith = {
     isNormalUser = true;
     description = "soulirith";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "ollama" ];
     shell = pkgs.zsh;
   };
 
@@ -147,7 +149,6 @@
     XCURSOR_SIZE = "24";
   };
 
-  # Display Manager / Noctalia Greeter
   services.displayManager.noctalia-greeter = {
     enable = true;
     settings = {
@@ -160,14 +161,12 @@
     };
   };
 
-  # Typography
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];
 
-  # Memory & OOM Management
   zramSwap = {
     enable = true;
     algorithm = "zstd";
@@ -177,14 +176,14 @@
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
 
-  # Graphics & GPU Offloading (NVIDIA / AMD)
+  # Graphics & GPU Offloading
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true; 
     powerManagement = {
-      enable = false; # Keeps GPU out of aggressive power-saving sleep loops
+      enable = false;
       finegrained = false;
     };
     open = false;
@@ -199,7 +198,6 @@
     };
   };
 
-  # System Tools
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.mochaDark
     git
@@ -207,6 +205,7 @@
     nvtopPackages.full
     ryzenadj
     xdg-desktop-portal-xapp
+    cudaPackages.cudatoolkit
 
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
@@ -217,24 +216,25 @@
     '')
   ];
 
-  # Nix Package Manager & Cache Configuration
-nix = {
-  settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    auto-optimise-store = true;
-    max-jobs = "auto";
-    cores = 0;
-     substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-      "https://noctalia.cachix.org"
-    ];
-
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
-  };
+  # Nix Package Manager & Cache Configuration (Centralized & Trusted)
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+      max-jobs = "auto";
+      cores = 0;
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://noctalia.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
+      trusted-users = [ "root" "soulirith" ];
+    };
 
     gc = {
       automatic = true;
@@ -250,4 +250,3 @@ nix = {
 
   system.stateVersion = "26.05";
 }
-
