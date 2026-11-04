@@ -115,7 +115,7 @@
     settings = {
       logo = {
         type = "auto";
-        source = "nixos";
+        source = "nixos_small";
         padding = {
           top = 1;
           left = 2;
