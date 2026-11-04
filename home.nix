@@ -10,6 +10,9 @@
     XDG_CURRENT_DESKTOP = "X-Cinnamon";
   };
 
+  # Fonts Configuration
+  fonts.fontconfig.enable = true;
+
   # Noctalia Desktop Shell Configuration
   programs.noctalia = {
     enable = true;
@@ -106,36 +109,53 @@
     enableSessionWide = false;
   };
 
-  # System Information Utility
+  # Fastfetch Configuration
   programs.fastfetch = {
     enable = true;
     settings = {
       logo = {
-        source = "NixOS_small";
-        padding = { top = 1; };
+        type = "auto";
+        source = "nixos_small";
+        padding = {
+          top = 1;
+          left = 2;
+          right = 2;
+        };
       };
       display = {
-        separator = "  ";
-        key = { type = "icon"; };
+        separator = " 󰁔 ";
+        color = {
+          keys = "blue";
+          title = "magenta";
+        };
+        key = {
+          width = 13;
+        };
       };
       modules = [
-        { type = "os"; }
-        { type = "kernel"; }
-        { type = "wm"; }
-        { type = "shell"; }
-        { type = "terminal"; }
-        { type = "cpu"; }
-        { type = "gpu"; }
-        { type = "memory"; }
-        { type = "disk"; }
-        { type = "packages"; }
-        { type = "battery"; }
-        { type = "uptime"; }
+        "title"
+        "separator"
+        { type = "os"; key = "󰍹 OS"; }
+        { type = "kernel"; key = "󰒋 Kernel"; }
+        { type = "uptime"; key = "󰅐 Uptime"; }
+        { type = "packages"; key = "󰏖 Packages"; }
+        "break"
+        { type = "wm"; key = "󱂬 Window Mgr"; }
+        { type = "shell"; key = "󰞷 Shell"; }
+        { type = "terminal"; key = "󰆍 Terminal"; }
+        "break"
+        { type = "cpu"; key = "󰻠 Processor"; }
+        { type = "gpu"; key = "󰢮 Graphics"; }
+        { type = "memory"; key = "󰍛 Memory"; }
+        { type = "disk"; key = "󰋊 Disk"; }
+        { type = "battery"; key = "󰁹 Battery"; }
+        "break"
+        "colors"
       ];
     };
   };
 
-  # User Home Packages
+  # Single Unified Home Packages Definition
   home.packages = with pkgs; [
     librewolf
     google-chrome
@@ -172,6 +192,8 @@
     obsidian
     steam-run
     vinegar
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
     inputs.blender-bin.packages.${pkgs.system}.default
   ];
