@@ -70,17 +70,6 @@
     package = pkgs.ollama-vulkan;
   };
 
-  # Thermal Limit Service (CPU)
-  systemd.services.ryzenadj-limit = {
-    description = "Set Ryzen CPU thermal limit to 75C for quiet acoustics";
-    after = [ "multi-user.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75";
-    };
-  };
-
   # Localization & Keyboard
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -220,6 +209,7 @@
     ryzenadj
     linuxPackages.cpupower
 
+	# Thermal settings
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -230,18 +220,19 @@
 
 (writeShellScriptBin "mode-quiet" ''
       echo "Activating Quiet Profile..."
-      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=65 --fast-limit=15000 --slow-limit=12000
+      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=55 --fast-limit=10000 --slow-limit=8000
       doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g powersave
       doas sh -c "echo 0 > /sys/devices/system/cpu/cpufreq/boost"
-      echo "System locked to silent baseline (65°C Cap | No Boost | 15W TDP)."
+      echo "System locked to silent baseline (55°C Cap | No Boost | 10W TDP)."
     '')
+
 
     (writeShellScriptBin "mode-perf" ''
       echo "Activating Performance Profile..."
       doas sh -c "echo 1 > /sys/devices/system/cpu/cpufreq/boost"
       doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g performance
-      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=85 --fast-limit=45000 --slow-limit=35000
-      echo "Full performance unlocked (85°C Cap | Boost Enabled | 45W TDP)."
+      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75 --fast-limit=35000 --slow-limit=25000
+      echo "Max performance unlocked (75°C Quiet Cap | Boost Enabled)."
     '')
   ];
 
