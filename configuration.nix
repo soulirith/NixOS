@@ -118,7 +118,7 @@
   security.sudo.enable = false;
     security.doas = {
     enable = true;
-    extraRules = [
+   extraRules = [
       {
         users = [ "soulirith" ];
         keepEnv = true;
@@ -136,7 +136,7 @@
       }
     ];
   };
-
+ 
   # User Account
   users.users.soulirith = {
     isNormalUser = true;
@@ -228,7 +228,7 @@
       exec "$@"
     '')
 
-    (writeShellScriptBin "mode-quiet" ''
+(writeShellScriptBin "mode-quiet" ''
       echo "Activating Quiet Profile..."
       doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=65 --fast-limit=15000 --slow-limit=12000
       doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g powersave
