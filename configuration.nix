@@ -28,7 +28,7 @@
     networkmanager.enable = true;
     extraHosts = ''
       0.0.0.0 battleye.com
-    '';
+    ''     ;
   };
 
   hardware.bluetooth.enable = true;
@@ -64,11 +64,11 @@
   services.flatpak.enable = true;
   services.dbus.enable = true;
 
-# Ollama Local AI Service with CUDA Acceleration for GTX 1650
-services.ollama = {
- enable = true;
- package = pkgs.ollama-vulkan;
-};
+  # Ollama Local AI Service with CUDA Acceleration for GTX 1650
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-vulkan;
+  };
 
   # Thermal Limit Service (CPU)
   systemd.services.ryzenadj-limit = {
@@ -118,11 +118,23 @@ services.ollama = {
   security.sudo.enable = false;
   security.doas = {
     enable = true;
-    extraRules = [{
-      users = [ "soulirith" ];
-      keepEnv = true;
-      persist = true;
-    }];
+    extraRules = [
+      {
+        users = [ "soulirith" ];
+        keepEnv = true;
+        persist = true;
+      }
+      {
+        users = [ "soulirith" ];
+        cmd = "${pkgs.ryzenadj}/bin/ryzenadj";
+        noPass = true;
+      }
+      {
+        users = [ "soulirith" ];
+        cmd = "${pkgs.linuxPackages.cpupower}/bin/cpupower";
+        noPass = true;
+      }
+    ];
   };
 
   # User Account
@@ -203,9 +215,10 @@ services.ollama = {
     git
     lm_sensors
     nvtopPackages.full
-    ryzenadj
     xdg-desktop-portal-xapp
     cudaPackages.cudatoolkit
+    ryzenadj
+    linuxPackages.cpupower
 
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
@@ -213,6 +226,22 @@ services.ollama = {
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
       export __GL_MAX_ERRORS_TO_REPORT=1
       exec "$@"
+    '')
+
+    (writeShellScriptBin "mode-quiet" ''
+      echo "Activating Quiet Profile..."
+      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=65 --fast-limit=15000 --slow-limit=12000
+      doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g powersave
+      doas sh -c "echo 0 > /sys/devices/system/cpu/cpufreq/boost"
+      echo "System locked to silent baseline (65°C Cap | No Boost | 15W TDP)."
+    '')
+
+    (writeShellScriptBin "mode-perf" ''
+      echo "Activating Performance Profile..."
+      doas sh -c "echo 1 > /sys/devices/system/cpu/cpufreq/boost"
+      doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g performance
+      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=85 --fast-limit=45000 --slow-limit=35000
+      echo "Full performance unlocked (85°C Cap | Boost Enabled | 45W TDP)."
     '')
   ];
 

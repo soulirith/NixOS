@@ -39,10 +39,13 @@
     };
   };
 
+  # Force Nemo to ALWAYS handle all directory and folder opening actions
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
       "inode/directory" = [ "nemo.desktop" ];
+      "application/x-directory" = [ "nemo.desktop" ];
+      "folder" = [ "nemo.desktop" ];
       "x-scheme-handler/http" = [ "google-chrome.desktop" ];
       "x-scheme-handler/https" = [ "google-chrome.desktop" ];
       "x-scheme-handler/about" = [ "google-chrome.desktop" ];
@@ -56,6 +59,7 @@
     };
   };
 
+  # nvim
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -71,7 +75,7 @@
   };
 
   # Direct GTK Styling Rules
-xdg.configFile."gtk-3.0/settings.ini".text = ''
+  xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-icon-theme-name=Papirus-Dark
     gtk-theme-name=adw-gtk3-dark
@@ -94,6 +98,8 @@ xdg.configFile."gtk-3.0/settings.ini".text = ''
       gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
       rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
       clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
+      quiet = "mode-quiet";
+      perf = "mode-perf";
     };
 
     initContent = ''
@@ -118,12 +124,7 @@ xdg.configFile."gtk-3.0/settings.ini".text = ''
     };
   };
 
-  programs.mangohud = {
-    enable = false;
-    enableSessionWide = false;
-  };
-
-# Fastfetch Configuration
+  # Fastfetch Configuration
   programs.fastfetch = {
     enable = true;
     settings = {
