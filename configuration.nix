@@ -116,7 +116,7 @@
 
   # Security & Privilege Escalation (doas)
   security.sudo.enable = false;
-  security.doas = {
+    security.doas = {
     enable = true;
     extraRules = [
       {
@@ -245,7 +245,7 @@
     '')
   ];
 
-  # Nix Package Manager & Cache Configuration (Centralized & Trusted)
+  # Nix Package Manager & Cache Configuration
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
