@@ -8,6 +8,7 @@
   # Environment Variables
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "X-Cinnamon";
+    GTK_THEME = "adw-gtk3-dark";
   };
 
   # Fonts Configuration
