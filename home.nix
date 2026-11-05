@@ -58,9 +58,10 @@
   };
 
   # Direct GTK Styling Rules
-  xdg.configFile."gtk-3.0/settings.ini".text = ''
+xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-icon-theme-name=Papirus-Dark
+    gtk-theme-name=adw-gtk3-dark
     gtk-application-prefer-dark-theme=1
   '';
 
