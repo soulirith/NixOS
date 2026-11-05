@@ -5,12 +5,6 @@
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
-  # Environment Variables
-  home.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "X-Cinnamon";
-    GTK_THEME = "adw-gtk3-dark";
-  };
-
   # Fonts Configuration
   fonts.fontconfig.enable = true;
 
@@ -24,6 +18,24 @@
         panel.transparency_mode = "glass";
         greeter_sync.auto_sync = true;
       };
+    };
+  };
+
+  # Native GTK & Icon Theme Configuration
+  gtk = {
+    enable = true;
+    font.name = "JetBrainsMono Nerd Font 10";
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = "catppuccin-mocha-dark-cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
     };
   };
 
