@@ -140,7 +140,9 @@ services.logind.settings.Login = {
     NIXOS_OZONE_WL = "1";
     XCURSOR_THEME = "Catppuccin-Mocha-Dark-Cursors";
     XCURSOR_SIZE = "24";
-  };
+    HYPRCURSOR_THEME = "catppuccin-mocha-dark-cursors";
+    HYPRCURSOR_SIZE = "24";
+};
 
   services.displayManager.noctalia-greeter = {
     enable = true;
