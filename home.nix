@@ -5,8 +5,17 @@
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
-  # Fonts Configuration
+# Fonts Configuration
   fonts.fontconfig.enable = true;
+
+  # Explicit Cursor Configuration for GTK & Wayland
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    name = "Catppuccin-Mocha-Dark-Cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = 24;
+  };
 
   # Noctalia Desktop Shell Configuration
   programs.noctalia = {
@@ -24,7 +33,10 @@
   # Native GTK & Icon Theme Configuration
   gtk = {
     enable = true;
-    font.name = "JetBrainsMono Nerd Font 10";
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 10;
+    };
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
@@ -34,8 +46,9 @@
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = "catppuccin-mocha-dark-cursors";
+      name = "Catppuccin-Mocha-Dark-Cursors";
       package = pkgs.catppuccin-cursors.mochaDark;
+      size = 24;
     };
   };
 
@@ -79,6 +92,8 @@
     [Settings]
     gtk-icon-theme-name=Papirus-Dark
     gtk-theme-name=adw-gtk3-dark
+    gtk-cursor-theme-name=Catppuccin-Mocha-Dark-Cursors
+    gtk-cursor-theme-size=24
     gtk-application-prefer-dark-theme=1
   '';
 
@@ -196,9 +211,7 @@
     obsidian
     steam-run
     vinegar
-    jetbrains-mono
     vscodium
-    nerd-fonts.jetbrains-mono
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
     inputs.blender-bin.packages.${pkgs.system}.default
   ];

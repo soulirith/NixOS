@@ -28,36 +28,23 @@
     networkmanager.enable = true;
     extraHosts = ''
       0.0.0.0 battleye.com
-    ''     ;
+    '';
   };
 
   hardware.bluetooth.enable = true;
 
   services.mysql = {
-  enable = true;
-  package = pkgs.mariadb;
-};
-
-  # Power Management & Lid Handling
-  services.power-profiles-daemon.enable = false;
-  services.thermald.enable = true;
-  services.auto-cpufreq = {
     enable = true;
-    settings = {
-      charger = {
-        governor = "performance";
-        turbo = "auto";
-        platform_profile = "performance";
-      };
-      battery = {
-        governor = "performance";
-        turbo = "auto";
-        platform_profile = "performance";
-      };
-    };
+    package = pkgs.mariadb;
   };
 
-  services.logind.settings.Login = {
+  # Power Management & Thermal Handling
+  services.power-profiles-daemon.enable = false;
+  services.thermald.enable = false; # Disabled: thermald is Intel-only
+  
+  # Logind Handling
+services.logind.settings.Login = {
+    HandlePowerKey = "suspend";
     HandleLidSwitch = "ignore";
     HandleLidSwitchExternalPower = "ignore";
   };
@@ -69,9 +56,9 @@
   services.flatpak.enable = true;
   services.dbus.enable = true;
 
-  # Ollama Local AI Service with CUDA Acceleration for GTX 1650
+  # Ollama Service (Disabled auto-start so GPU can sleep; run `doas systemctl start ollama` when needed)
   services.ollama = {
-    enable = true;
+    enable = false;
     package = pkgs.ollama-vulkan;
   };
 
@@ -110,9 +97,9 @@
 
   # Security & Privilege Escalation (doas)
   security.sudo.enable = false;
-    security.doas = {
+  security.doas = {
     enable = true;
-   extraRules = [
+    extraRules = [
       {
         users = [ "soulirith" ];
         keepEnv = true;
@@ -130,7 +117,7 @@
       }
     ];
   };
- 
+
   # User Account
   users.users.soulirith = {
     isNormalUser = true;
@@ -151,7 +138,7 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
+    XCURSOR_THEME = "Catppuccin-Mocha-Dark-Cursors";
     XCURSOR_SIZE = "24";
   };
 
@@ -163,7 +150,7 @@
     };
     cursorTheme = {
       package = pkgs.catppuccin-cursors.mochaDark;
-      name = "catppuccin-mocha-dark-cursors";
+      name = "Catppuccin-Mocha-Dark-Cursors";
     };
   };
 
@@ -171,6 +158,8 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
   ];
 
   zramSwap = {
@@ -182,7 +171,7 @@
   systemd.oomd.enable = true;
   systemd.oomd.enableRootSlice = true;
 
-  # Graphics & GPU Offloading
+  # Graphics & GPU Offloading (PRIME Dynamic Power Management)
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -190,7 +179,7 @@
     modesetting.enable = true; 
     powerManagement = {
       enable = true;
-      finegrained = true;
+      finegrained = true; # Autosuspend GPU when unneeded
     };
     open = false;
     nvidiaSettings = true;
@@ -214,7 +203,6 @@
     ryzenadj
     linuxPackages.cpupower
 
-	# Thermal settings
     (writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -223,7 +211,7 @@
       exec "$@"
     '')
 
-(writeShellScriptBin "mode-quiet" ''
+    (writeShellScriptBin "mode-quiet" ''
       echo "Activating Quiet Profile..."
       doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=55 --fast-limit=10000 --slow-limit=8000
       doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g powersave
@@ -231,17 +219,16 @@
       echo "System locked to silent baseline (55°C Cap | No Boost | 10W TDP)."
     '')
 
-
     (writeShellScriptBin "mode-perf" ''
       echo "Activating Performance Profile..."
       doas sh -c "echo 1 > /sys/devices/system/cpu/cpufreq/boost"
       doas ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g performance
-      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75 --fast-limit=35000 --slow-limit=25000
-      echo "Max performance unlocked (75°C Quiet Cap | Boost Enabled)."
+      doas ${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75 --fast-limit=45000 --slow-limit=35000
+      echo "Max performance unlocked (75°C Quiet Cap | Boost Enabled | 45W TDP)."
     '')
   ];
 
-  # Nix Package Manager & Cache Configuration
+  # Nix Package Manager Settings
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
