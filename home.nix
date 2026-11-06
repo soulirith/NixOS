@@ -11,27 +11,13 @@
   # Explicit Cursor Configuration for GTK & Wayland
 home.pointerCursor = {
     enable = true;
-    gtk.enable = true;
-    x11.enable = true;
-    name = "Catppuccin-Mocha-Dark-Cursors";
+    name = "catppuccin-mocha-dark-cursors";
     package = pkgs.catppuccin-cursors.mochaDark;
     size = 24;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
-  # Noctalia Desktop Shell Configuration
-  programs.noctalia = {
-    enable = true;
-    settings = {
-      shell = {
-        polkit_agent = true;
-        password_style = "random";
-        panel.transparency_mode = "glass";
-        greeter_sync.auto_sync = true;
-      };
-    };
-  };
-
-  # Native GTK & Icon Theme Configuration
   gtk = {
     enable = true;
     font = {
@@ -47,11 +33,25 @@ home.pointerCursor = {
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = "Catppuccin-Mocha-Dark-Cursors";
+      name = "catppuccin-mocha-dark-cursors";
       package = pkgs.catppuccin-cursors.mochaDark;
       size = 24;
     };
   };
+
+  # Noctalia Desktop Shell Configuration
+  programs.noctalia = {
+    enable = true;
+    settings = {
+      shell = {
+        polkit_agent = true;
+        password_style = "random";
+        panel.transparency_mode = "glass";
+        greeter_sync.auto_sync = true;
+      };
+    };
+  };
+
 
   # Force Nemo to ALWAYS handle all directory and folder opening actions
   xdg.mimeApps = {
