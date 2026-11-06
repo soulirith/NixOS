@@ -33,6 +33,11 @@
 
   hardware.bluetooth.enable = true;
 
+  services.mysql = {
+  enable = true;
+  package = pkgs.mariadb;
+};
+
   # Power Management & Lid Handling
   services.power-profiles-daemon.enable = false;
   services.thermald.enable = true;
