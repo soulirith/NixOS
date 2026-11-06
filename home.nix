@@ -9,7 +9,8 @@
   fonts.fontconfig.enable = true;
 
   # Explicit Cursor Configuration for GTK & Wayland
-  home.pointerCursor = {
+home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     x11.enable = true;
     name = "Catppuccin-Mocha-Dark-Cursors";
