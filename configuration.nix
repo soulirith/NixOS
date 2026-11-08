@@ -19,6 +19,7 @@
       "nvidia_drm.fbdev=1"
       "psi=1"
       "nvme_core.default_ps_max_latency_us=0"
+      "iomem=relaxed"
     ];
   };
 
