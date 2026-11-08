@@ -212,6 +212,7 @@ home.pointerCursor = {
     steam-run
     vinegar
     vscodium
+    spotube
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
     inputs.blender-bin.packages.${pkgs.system}.default
   ];
