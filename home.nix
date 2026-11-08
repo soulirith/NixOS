@@ -204,7 +204,6 @@ home.pointerCursor = {
     yt-dlp
     adw-gtk3
     papirus-icon-theme
-    rayburst
     file-roller
     nemo-fileroller
     xdg-desktop-portal-xapp

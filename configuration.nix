@@ -20,6 +20,7 @@
       "psi=1"
       "nvme_core.default_ps_max_latency_us=0"
       "iomem=relaxed"
+      "pcie_port_pm=force"
     ];
   };
 
