@@ -207,7 +207,6 @@ home.pointerCursor = {
     file-roller
     nemo-fileroller
     xdg-desktop-portal-xapp
-    sonixd
     obsidian
     steam-run
     vinegar
