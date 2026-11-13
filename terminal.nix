@@ -1,19 +1,30 @@
 { pkgs, ... }:
 
 {
+  # Install Macchina for user
+  home.packages = with pkgs; [
+    macchina
+  ];
 
-  # Declarative Macchina Configuration & Catppuccin Mocha Theme
+  # Declarative Macchina Configuration (Full Eye-Candy Dashboard)
   xdg.configFile."macchina/macchina.toml".text = ''
     theme = "Catppuccin"
 
     show = [
       "Distribution",
+      "Host",
       "WindowManager",
       "Kernel",
+      "Packages",
       "Shell",
       "Terminal",
+      "Resolution",
       "Processor",
+      "GPU",
       "Memory",
+      "DiskSpace",
+      "LocalIP",
+      "Battery",
       "Uptime"
     ]
 
@@ -24,14 +35,15 @@
     physical_cores = true
   '';
 
+  # Declarative Catppuccin Mocha Eye-Candy Theme
   xdg.configFile."macchina/themes/Catppuccin.toml".text = ''
     spacing = 2
     padding = 1
     hide_ascii = false
-    prefer_small_ascii = true
+    prefer_small_ascii = false
     key_color = "#cba6f7"
     separator = "│"
-    separator_color = "#45475a"
+    separator_color = "#585b70"
 
     [palette]
     type = "Dark"
@@ -40,13 +52,13 @@
 
     [bar]
     glyph = "━"
-    symbol_open = ""
-    symbol_close = ""
+    symbol_open = "["
+    symbol_close = "]"
     visible = true
     hide_delimiters = true
 
     [box]
-    title = " soulirith@nixos "
+    title = "    soulirith@nixos "
     border = "rounded"
     visible = true
 
@@ -63,14 +75,21 @@
     separator_color = false
 
     [keys]
-    distro = "   OS     "
-    window_manager = "   WM     "
-    kernel = "   Kernel "
-    shell = " Shell  "
-    terminal = " Term   "
-    processor = "   CPU    "
-    memory = "   RAM    "
-    uptime = "   Uptime "
+    distro = "   OS      "
+    host = "   Host    "
+    window_manager = "   WM      "
+    kernel = "   Kernel  "
+    packages = "   Pkgs    "
+    shell = " Shell   "
+    terminal = " Term    "
+    resolution = "   Display "
+    processor = "   CPU     "
+    gpu = "   GPU     "
+    memory = "   RAM     "
+    disk_space = "   Disk    "
+    local_ip = "   IP      "
+    battery = "   Battery "
+    uptime = "   Uptime  "
   '';
 
   # Shell Configuration (Fish)
@@ -79,7 +98,7 @@
 
     interactiveShellInit = ''
       set fish_greeting
-      if test "$TERM" = "foot"
+      if string match -q "foot*" "$TERM"
         macchina
       end
     '';
@@ -173,3 +192,4 @@
     enableFishIntegration = true;
   };
 }
+
