@@ -60,7 +60,7 @@
 
   # Ollama Service (Disabled auto-start so GPU can sleep; run `doas systemctl start ollama` when needed)
   services.ollama = {
-    enable = false;
+    enable = true;
     package = pkgs.ollama-vulkan;
   };
 
