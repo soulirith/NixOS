@@ -1,12 +1,87 @@
 { pkgs, ... }:
 
 {
+
+  # Declarative Macchina Configuration & Catppuccin Mocha Theme
+  xdg.configFile."macchina/macchina.toml".text = ''
+    theme = "Catppuccin"
+
+    show = [
+      "Distribution",
+      "WindowManager",
+      "Kernel",
+      "Shell",
+      "Terminal",
+      "Processor",
+      "Memory",
+      "Uptime"
+    ]
+
+    long_uptime = false
+    long_shell = false
+    long_kernel = false
+    current_shell = true
+    physical_cores = true
+  '';
+
+  xdg.configFile."macchina/themes/Catppuccin.toml".text = ''
+    spacing = 2
+    padding = 1
+    hide_ascii = false
+    prefer_small_ascii = true
+    key_color = "#cba6f7"
+    separator = "│"
+    separator_color = "#45475a"
+
+    [palette]
+    type = "Dark"
+    visible = true
+    glyph = "● "
+
+    [bar]
+    glyph = "━"
+    symbol_open = ""
+    symbol_close = ""
+    visible = true
+    hide_delimiters = true
+
+    [box]
+    title = " soulirith@nixos "
+    border = "rounded"
+    visible = true
+
+    [box.inner_margin]
+    x = 2
+    y = 1
+
+    [custom_ascii]
+    color = "#89b4fa"
+    path = ""
+
+    [randomize]
+    key_color = false
+    separator_color = false
+
+    [keys]
+    distro = "   OS     "
+    window_manager = "   WM     "
+    kernel = "   Kernel "
+    shell = " Shell  "
+    terminal = " Term   "
+    processor = "   CPU    "
+    memory = "   RAM    "
+    uptime = "   Uptime "
+  '';
+
   # Shell Configuration (Fish)
   programs.fish = {
     enable = true;
 
     interactiveShellInit = ''
       set fish_greeting
+      if test "$TERM" = "foot"
+        macchina
+      end
     '';
 
     shellAliases = {
@@ -98,4 +173,3 @@
     enableFishIntegration = true;
   };
 }
-
