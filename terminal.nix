@@ -51,7 +51,7 @@
     [box]
     title = ""
     border = "rounded"
-    visible = true
+    visible = false
 
     [box.inner_margin]
     x = 2
