@@ -16,6 +16,8 @@
 
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
+
     blender-bin = {
       url = "github:edolstra/nix-warez?dir=blender";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,3 +48,4 @@
     };
   };
 }
+
