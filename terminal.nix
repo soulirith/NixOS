@@ -1,83 +1,17 @@
 { pkgs, ... }:
 
 {
-  # Install Macchina
+  # Install Rustfetch from Nixpkgs
   home.packages = with pkgs; [
-    macchina
+    rustfetch
   ];
 
-  # Declarative Macchina Configuration
-  xdg.configFile."macchina/macchina.toml".text = ''
-    theme = "Catppuccin"
-
-    show = [
-      "Host",
-      "Distribution",
-      "Kernel",
-      "Packages",
-      "Shell",
-      "Terminal",
-      "Resolution",
-      "Processor",
-      "Memory",
-      "Battery",
-      "Uptime"
-    ]
-
-    long_uptime = false
-    long_shell = false
-    long_kernel = false
-    current_shell = true
-    physical_cores = true
-  '';
-
-  # Declarative Catppuccin Mocha Theme (Logo-Free Standalone Card)
-  xdg.configFile."macchina/themes/Catppuccin.toml".text = ''
-    spacing = 2
-    padding = 1
-    hide_ascii = true
-    prefer_small_ascii = false
-    key_color = "#cba6f7"
-    separator = "│"
-    separator_color = "#585b70"
-
-    [palette]
-    type = "Dark"
-    visible = false
-    glyph = "● "
-
-    [bar]
-    glyph = "━"
-    symbol_open = "["
-    symbol_close = "]"
-    visible = false
-    hide_delimiters = true
-
-    [box]
-    title = ""
-    border = "rounded"
-    visible = true
-
-    [box.inner_margin]
-    x = 2
-    y = 1
-
-    [randomize]
-    key_color = false
-    separator_color = false
-
-    [keys]
-    host = " User   "
-    distro = " OS     "
-    kernel = " Kernel "
-    packages = " Pkgs   "
-    shell = " Shell  "
-    terminal = " Term   "
-    resolution = " Screen "
-    processor = " CPU    "
-    memory = " RAM    "
-    battery = " Power  "
-    uptime = " Uptime "
+  # Ensure ~/.config/rustfetch/config.toml exists without blocking rustfetch's auto-generator
+  home.activation.initRustfetchConfig = ''
+    if [ ! -f "$HOME/.config/rustfetch/config.toml" ]; then
+      mkdir -p "$HOME/.config/rustfetch"
+      ${pkgs.rustfetch}/bin/rustfetch --reset-config >/dev/null 2>&1 || true
+    fi
   '';
 
   # Shell Configuration (Fish)
@@ -87,7 +21,7 @@
     interactiveShellInit = ''
       set fish_greeting
       if string match -q "foot*" "$TERM"
-        macchina
+        rustfetch
       end
     '';
 
@@ -99,9 +33,31 @@
       clean = "cd /etc/nixos; and doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system; and doas nix-store --gc";
       quiet = "mode-quiet";
       perf = "mode-perf";
+
+      # Quick pinned config jumps
+      nconf = "doas -E nvim /etc/nixos/configuration.nix";
+      nhome = "doas -E nvim /etc/nixos/home.nix";
+      nterm = "doas -E nvim /etc/nixos/terminal.nix";
+      nnvim = "doas -E nvim /etc/nixos/neovim.nix";
+      nflake = "doas -E nvim /etc/nixos/flake.nix";
+      nrfetch = "nvim ~/.config/rustfetch/config.toml";
     };
 
     functions = {
+      nixcfg = ''
+        set -l files \
+          "/etc/nixos/configuration.nix" \
+          "/etc/nixos/home.nix" \
+          "/etc/nixos/terminal.nix" \
+          "/etc/nixos/neovim.nix" \
+          "/etc/nixos/flake.nix"
+
+        set -l choice (printf "%s\n" $files | fzf --height=30% --reverse --border --prompt="Nix Config > ")
+        if test -n "$choice"
+          doas -E nvim "$choice"
+        end
+      '';
+
       reb = ''
         cd /etc/nixos
         and git add -A
@@ -175,6 +131,7 @@
     enable = true;
     enableFishIntegration = true;
   };
+
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;

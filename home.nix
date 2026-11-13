@@ -116,7 +116,6 @@
     lutris
     prismlauncher
     smartmontools
-    easyeffects
     vesktop
     xwayland-satellite
     mpvpaper

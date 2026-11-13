@@ -16,7 +16,6 @@
       neo-tree-nvim
       nui-nvim
       nvim-autopairs
-      gitsigns-nvim
       (nvim-treesitter.withPlugins (p: [
         p.nix
         p.lua
@@ -36,7 +35,7 @@
       set mouse=a
       set number
       set cursorline
-      set signcolumn=yes
+      set signcolumn=no
       set expandtab
       set shiftwidth=2
       set tabstop=2
@@ -102,6 +101,11 @@
             b = { bg = "NONE", fg = accent2 },
             c = { bg = "NONE", fg = text_fg },
           },
+          replace = {
+            a = { bg = accent, fg = dark_fg, gui = "bold" },
+            b = { bg = "NONE", fg = accent },
+            c = { bg = "NONE", fg = text_fg },
+          },
           command = {
             a = { bg = accent, fg = dark_fg, gui = "bold" },
             b = { bg = "NONE", fg = accent },
@@ -148,8 +152,7 @@
         end,
       })
 
-      -- Git gutter signs & auto-closing brackets
-      require('gitsigns').setup()
+      -- Auto-closing brackets
       require('nvim-autopairs').setup({})
 
       -- Visual file sidebar (<Space>e)
