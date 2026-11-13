@@ -1,24 +1,20 @@
 { pkgs, ... }:
 
 {
-  # Declarative Macchina Configuration (Full Eye-Candy Dashboard)
+  # Declarative Macchina Configuration
   xdg.configFile."macchina/macchina.toml".text = ''
     theme = "Catppuccin"
 
     show = [
-      "Distribution",
       "Host",
-      "WindowManager",
+      "Distribution",
       "Kernel",
       "Packages",
       "Shell",
       "Terminal",
       "Resolution",
       "Processor",
-      "GPU",
       "Memory",
-      "DiskSpace",
-      "LocalIP",
       "Battery",
       "Uptime"
     ]
@@ -30,11 +26,11 @@
     physical_cores = true
   '';
 
-  # Declarative Catppuccin Mocha Eye-Candy Theme
+  # Declarative Catppuccin Mocha Theme (Logo-Free Standalone Card)
   xdg.configFile."macchina/themes/Catppuccin.toml".text = ''
     spacing = 2
     padding = 1
-    hide_ascii = false
+    hide_ascii = true
     prefer_small_ascii = false
     key_color = "#cba6f7"
     separator = "│"
@@ -42,18 +38,18 @@
 
     [palette]
     type = "Dark"
-    visible = true
+    visible = false
     glyph = "● "
 
     [bar]
     glyph = "━"
     symbol_open = "["
     symbol_close = "]"
-    visible = true
+    visible = false
     hide_delimiters = true
 
     [box]
-    title = "    soulirith@nixos "
+    title = ""
     border = "rounded"
     visible = true
 
@@ -66,21 +62,17 @@
     separator_color = false
 
     [keys]
-    distro = "   OS      "
-    host = "   Host    "
-    window_manager = "   WM      "
-    kernel = "   Kernel  "
-    packages = "   Pkgs    "
-    shell = " Shell   "
-    terminal = " Term    "
-    resolution = "   Display "
-    processor = "   CPU     "
-    gpu = "   GPU     "
-    memory = "   RAM     "
-    disk_space = "   Disk    "
-    local_ip = "   IP      "
-    battery = "   Battery "
-    uptime = "   Uptime  "
+    host = " User   "
+    distro = " OS     "
+    kernel = " Kernel "
+    packages = " Pkgs   "
+    shell = " Shell  "
+    terminal = " Term   "
+    resolution = " Screen "
+    processor = " CPU    "
+    memory = " RAM    "
+    battery = " Power  "
+    uptime = " Uptime "
   '';
 
   # Shell Configuration (Fish)
