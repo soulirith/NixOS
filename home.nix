@@ -3,6 +3,7 @@
 {
   imports = [
     ./terminal.nix
+    ./neovim.nix
   ];
 
   home.username = "soulirith";
@@ -76,21 +77,6 @@
     };
   };
 
-  # Neovim
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      base16-nvim
-    ];
-    extraConfig = ''
-      set clipboard+=unnamedplus
-      set termguicolors
-    '';
-  };
-
   # Direct GTK Styling Rules
   xdg.configFile."gtk-3.0/settings.ini".text = ''
     [Settings]
@@ -146,7 +132,6 @@
     vinegar
     vscodium
     spotube
-    macchina
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
     inputs.blender-bin.packages.${pkgs.system}.default
   ];

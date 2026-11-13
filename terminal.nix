@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  # Install Macchina
+  home.packages = with pkgs; [
+    macchina
+  ];
+
   # Declarative Macchina Configuration
   xdg.configFile."macchina/macchina.toml".text = ''
     theme = "Catppuccin"
@@ -51,7 +56,7 @@
     [box]
     title = ""
     border = "rounded"
-    visible = false
+    visible = true
 
     [box.inner_margin]
     x = 2
