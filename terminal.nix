@@ -6,7 +6,7 @@
     rustfetch
   ];
 
-  # Declarative Rustfetch Configuration (force = true overwrites any existing file automatically)
+  # Declarative Rustfetch Configuration
   xdg.configFile."rustfetch/config.toml" = {
     force = true;
     text = ''
@@ -41,7 +41,35 @@
     interactiveShellInit = ''
       set fish_greeting
       if string match -q "foot*" "$TERM"
-        rustfetch | expand -t 2
+        rustfetch | awk '
+          { lines[NR] = $0 }
+          END {
+            for (i = 1; i <= 7; i++) {
+              match(lines[i], /(soulirith@|---|OS:|Kernel:|CPU:|Screen:|RAM:)/)
+              logo[i] = substr(lines[i], 1, RSTART - 1)
+              sub(/ +$/, "", logo[i])
+              info[i] = substr(lines[i], RSTART)
+            }
+            for (i = 8; i <= NR; i++) {
+              sub(/^ +/, "", lines[i])
+              info[i] = lines[i]
+            }
+
+            for (i = 1; i <= NR; i++) {
+              sub(/^OS:/,          "  OS      ", info[i])
+              sub(/^Kernel:/,      "  Kernel  ", info[i])
+              sub(/^CPU:/,         "  CPU     ", info[i])
+              sub(/^Screen:/,      "  Screen  ", info[i])
+              sub(/^RAM:/,         "\356\277\205  RAM     ", info[i])
+              sub(/^Uptime:/,      "  Uptime  ", info[i])
+              sub(/^Battery:/,     "  Power   ", info[i])
+              sub(/^Disk \(\/\):/, "  Disk    ", info[i])
+
+              l = (i >= 3 && i <= 9) ? logo[i - 2] : ""
+              printf "%s\033[23G%s\n", l, info[i]
+            }
+          }
+        '
       end
     '';
 
