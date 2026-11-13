@@ -15,8 +15,9 @@
       plenary-nvim
       neo-tree-nvim
       nui-nvim
-      which-key-nvim
       nvim-autopairs
+      gitsigns-nvim
+      indent-blankline-nvim
       (nvim-treesitter.withPlugins (p: [
         p.nix
         p.lua
@@ -52,26 +53,46 @@
 
       vim.g.mapleader = " "
 
-      -- Function to apply Noctalia Matugen colors + clean glass transparency
+      -- Apply Noctalia Matugen colors + full glass transparency + dynamic system highlight
       local function apply_theme()
         local ok, matugen = pcall(require, 'matugen')
         if ok then
           matugen.setup()
         end
 
-        -- Make main editor background transparent so Foot's 0.35 glass shows through
         local transparent_groups = {
           "Normal", "NormalNC", "SignColumn", "LineNr", "EndOfBuffer",
-          "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeEndOfBuffer"
+          "CursorLine", "CursorLineNr", "StatusLine", "StatusLineNC",
+          "WinSeparator", "VertSplit", "Folded", "FoldColumn",
+          "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeEndOfBuffer",
+          "NeoTreeStatusLine", "NeoTreeStatusLineNC", "NeoTreeWinSeparator"
         }
         for _, group in ipairs(transparent_groups) do
           vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
+        end
+
+        -- Pull Noctalia's dynamic system accent color for Visual selection & search
+        local accent_hl = vim.api.nvim_get_hl(0, { name = "TelescopePromptTitle" })
+        if accent_hl and accent_hl.bg then
+          vim.api.nvim_set_hl(0, "Visual", {
+            bg = accent_hl.bg,
+            fg = accent_hl.fg or "#191e24",
+            bold = true,
+          })
+          vim.api.nvim_set_hl(0, "Search", {
+            bg = accent_hl.bg,
+            fg = accent_hl.fg or "#191e24",
+          })
+          vim.api.nvim_set_hl(0, "IncSearch", {
+            bg = accent_hl.bg,
+            fg = accent_hl.fg or "#191e24",
+          })
         end
       end
 
       apply_theme()
 
-      -- Re-apply transparency automatically if Noctalia reloads matugen on SIGUSR1
+      -- Re-apply transparency & accent highlight when Noctalia updates matugen on SIGUSR1
       vim.api.nvim_create_autocmd("Signal", {
         pattern = "SIGUSR1",
         callback = function()
@@ -79,14 +100,19 @@
         end,
       })
 
-      -- Enable Treesitter highlighting automatically
+      -- Enable Treesitter syntax highlighting
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           pcall(vim.treesitter.start)
         end,
       })
 
-      -- Auto-close brackets and quotes
+      -- Subtle indent guides & Git gutter signs
+      require('ibl').setup({
+        indent = { char = "│" },
+        scope = { enabled = false },
+      })
+      require('gitsigns').setup()
       require('nvim-autopairs').setup({})
 
       -- Sleek rounded statusline synced to Noctalia
@@ -98,32 +124,31 @@
         },
       })
 
-      -- Visual file sidebar (Space + e)
+      -- Visual file sidebar (<Space>e)
       require('neo-tree').setup({
         close_if_last_window = true,
         window = { width = 28 },
       })
 
-      -- Shortcut cheat-sheet popup when you press Space
-      local wk = require('which-key')
-      wk.setup({ delay = 300 })
-
-      -- Normal, intuitive shortcuts (Zero Nano pain points)
       local map = vim.keymap.set
-      map({ "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>", { desc = "Save file" })
-      map({ "n", "i", "v" }, "<C-q>", "<Esc>:q<CR>", { desc = "Quit" })
-      map({ "n", "i" }, "<C-z>", "<Esc>ui", { desc = "Undo" })
-      map("n", "<C-a>", "ggVG", { desc = "Select all" })
-      map("v", "<C-c>", '"+y', { desc = "Copy selection" })
-      map("n", "<Esc>", ":nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
 
-      -- Leader shortcuts (Press Space to see this menu!)
+      -- Keep clipboard intact when deleting or pasting over selections
+      map({ "n", "v" }, "d", '"_d')
+      map({ "n", "v" }, "D", '"_D')
+      map({ "n", "v" }, "c", '"_c')
+      map({ "n", "v" }, "C", '"_C')
+      map({ "n", "v" }, "x", '"_x')
+      map("v", "p", '"_dP')
+
+      -- Quality-of-life shortcuts
+      map({ "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>")
+      map("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
+
+      -- Leader shortcuts
       local builtin = require('telescope.builtin')
-      map("n", "<leader>e", ":Neotree toggle<CR>", { silent = true, desc = "Toggle file tree" })
-      map("n", "<leader>f", builtin.find_files, { desc = "Find files" })
-      map("n", "<leader>g", builtin.live_grep, { desc = "Search text in files" })
-      map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
-      map("n", "<leader>q", ":q<CR>", { desc = "Quit" })
+      map("n", "<leader>e", ":Neotree toggle<CR>", { silent = true })
+      map("n", "<leader>f", builtin.find_files)
+      map("n", "<leader>g", builtin.live_grep)
     '';
   };
 }
