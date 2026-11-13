@@ -1,11 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Install Macchina for user
-  home.packages = with pkgs; [
-    macchina
-  ];
-
   # Declarative Macchina Configuration (Full Eye-Candy Dashboard)
   xdg.configFile."macchina/macchina.toml".text = ''
     theme = "Catppuccin"
@@ -65,10 +60,6 @@
     [box.inner_margin]
     x = 2
     y = 1
-
-    [custom_ascii]
-    color = "#89b4fa"
-    path = ""
 
     [randomize]
     key_color = false
