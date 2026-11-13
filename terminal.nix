@@ -43,7 +43,7 @@
     };
   };
 
-  # Terminal Configuration (Foot - matched to your Kitty config)
+  # Terminal Configuration (Foot - matched to your Kitty config & Foot 1.26+)
   programs.foot = {
     enable = true;
     server.enable = true;
@@ -55,11 +55,11 @@
       };
       cursor = {
         style = "beam";
-        beam-thickness = "1.5px";
+        beam-thickness = "1.5";
         blink = "yes";
         blink-rate = 500;
       };
-      colors = {
+      colors-dark = {
         alpha = "0.35";
         background = "1e1e2e";
         foreground = "cdd6f4";
@@ -93,7 +93,6 @@
     enable = true;
     enableFishIntegration = true;
   };
-
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
