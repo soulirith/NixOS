@@ -17,7 +17,6 @@
       nui-nvim
       nvim-autopairs
       gitsigns-nvim
-      indent-blankline-nvim
       (nvim-treesitter.withPlugins (p: [
         p.nix
         p.lua
@@ -53,13 +52,13 @@
 
       vim.g.mapleader = " "
 
-      -- Apply Noctalia Matugen colors + full glass transparency + dynamic system highlight
       local function apply_theme()
         local ok, matugen = pcall(require, 'matugen')
         if ok then
           matugen.setup()
         end
 
+        -- Clear all solid backgrounds so Foot's glass transparency is spotless
         local transparent_groups = {
           "Normal", "NormalNC", "SignColumn", "LineNr", "EndOfBuffer",
           "CursorLine", "CursorLineNr", "StatusLine", "StatusLineNC",
@@ -71,28 +70,70 @@
           vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
         end
 
-        -- Pull Noctalia's dynamic system accent color for Visual selection & search
-        local accent_hl = vim.api.nvim_get_hl(0, { name = "TelescopePromptTitle" })
-        if accent_hl and accent_hl.bg then
-          vim.api.nvim_set_hl(0, "Visual", {
-            bg = accent_hl.bg,
-            fg = accent_hl.fg or "#191e24",
-            bold = true,
-          })
-          vim.api.nvim_set_hl(0, "Search", {
-            bg = accent_hl.bg,
-            fg = accent_hl.fg or "#191e24",
-          })
-          vim.api.nvim_set_hl(0, "IncSearch", {
-            bg = accent_hl.bg,
-            fg = accent_hl.fg or "#191e24",
-          })
-        end
+        -- Pull Noctalia's live accent & surface colors from Matugen
+        local primary_hl = vim.api.nvim_get_hl(0, { name = "TelescopePromptTitle" })
+        local secondary_hl = vim.api.nvim_get_hl(0, { name = "TelescopePreviewTitle" })
+        local fg_hl = vim.api.nvim_get_hl(0, { name = "Normal" })
+
+        local accent = primary_hl.bg and string.format("#%06x", primary_hl.bg) or "#679ee4"
+        local accent2 = secondary_hl.bg and string.format("#%06x", secondary_hl.bg) or "#655cd6"
+        local dark_fg = primary_hl.fg and string.format("#%06x", primary_hl.fg) or "#191e24"
+        local text_fg = fg_hl.fg and string.format("#%06x", fg_hl.fg) or "#f2f2f3"
+
+        -- Apply Noctalia accent to Visual selection & Search
+        vim.api.nvim_set_hl(0, "Visual", { bg = accent, fg = dark_fg, bold = true })
+        vim.api.nvim_set_hl(0, "Search", { bg = accent, fg = dark_fg })
+        vim.api.nvim_set_hl(0, "IncSearch", { bg = accent2, fg = dark_fg })
+
+        -- Clean, transparent Lualine theme (no muddy tint, no extra icons)
+        local noctalia_lualine = {
+          normal = {
+            a = { bg = accent, fg = dark_fg, gui = "bold" },
+            b = { bg = "NONE", fg = accent },
+            c = { bg = "NONE", fg = text_fg },
+          },
+          insert = {
+            a = { bg = accent2, fg = dark_fg, gui = "bold" },
+            b = { bg = "NONE", fg = accent2 },
+            c = { bg = "NONE", fg = text_fg },
+          },
+          visual = {
+            a = { bg = accent2, fg = dark_fg, gui = "bold" },
+            b = { bg = "NONE", fg = accent2 },
+            c = { bg = "NONE", fg = text_fg },
+          },
+          command = {
+            a = { bg = accent, fg = dark_fg, gui = "bold" },
+            b = { bg = "NONE", fg = accent },
+            c = { bg = "NONE", fg = text_fg },
+          },
+          inactive = {
+            a = { bg = "NONE", fg = text_fg },
+            b = { bg = "NONE", fg = text_fg },
+            c = { bg = "NONE", fg = text_fg },
+          },
+        }
+
+        require('lualine').setup({
+          options = {
+            theme = noctalia_lualine,
+            component_separators = "",
+            section_separators = { left = '', right = '' },
+          },
+          sections = {
+            lualine_a = { 'mode' },
+            lualine_b = { 'branch', 'diff' },
+            lualine_c = { 'filename' },
+            lualine_x = {},
+            lualine_y = { 'progress' },
+            lualine_z = { 'location' },
+          },
+        })
       end
 
       apply_theme()
 
-      -- Re-apply transparency & accent highlight when Noctalia updates matugen on SIGUSR1
+      -- Re-apply theme & Lualine live whenever Noctalia changes wallpaper (SIGUSR1)
       vim.api.nvim_create_autocmd("Signal", {
         pattern = "SIGUSR1",
         callback = function()
@@ -107,22 +148,9 @@
         end,
       })
 
-      -- Subtle indent guides & Git gutter signs
-      require('ibl').setup({
-        indent = { char = "│" },
-        scope = { enabled = false },
-      })
+      -- Git gutter signs & auto-closing brackets
       require('gitsigns').setup()
       require('nvim-autopairs').setup({})
-
-      -- Sleek rounded statusline synced to Noctalia
-      require('lualine').setup({
-        options = {
-          theme = 'base16',
-          component_separators = '|',
-          section_separators = { left = '', right = '' },
-        },
-      })
 
       -- Visual file sidebar (<Space>e)
       require('neo-tree').setup({
