@@ -1,15 +1,19 @@
-{config, pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
+  imports = [
+    ./terminal.nix
+  ];
+
   home.username = "soulirith";
   home.homeDirectory = "/home/soulirith";
   home.stateVersion = "26.05";
 
-# Fonts Configuration
+  # Fonts Configuration
   fonts.fontconfig.enable = true;
 
   # Explicit Cursor Configuration for GTK & Wayland
-home.pointerCursor = {
+  home.pointerCursor = {
     enable = true;
     name = "catppuccin-mocha-dark-cursors";
     package = pkgs.catppuccin-cursors.mochaDark;
@@ -52,7 +56,6 @@ home.pointerCursor = {
     };
   };
 
-
   # Force Nemo to ALWAYS handle all directory and folder opening actions
   xdg.mimeApps = {
     enable = true;
@@ -73,7 +76,7 @@ home.pointerCursor = {
     };
   };
 
-  # nvim
+  # Neovim
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -98,38 +101,6 @@ home.pointerCursor = {
     gtk-application-prefer-dark-theme=1
   '';
 
-  # Shell Configuration (Zsh)
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion = {
-      enable = true;
-      highlight = "fg=#8899aa";
-    };
-    syntaxHighlighting.enable = true;
-
-    shellAliases = {
-      ls = "eza --icons=always --group-directories-first";
-      ll = "eza -la --icons=always --group-directories-first";
-      gens = "doas nix-env --list-generations --profile /nix/var/nix/profiles/system";
-      rollback = "doas nixos-rebuild switch --flake /etc/nixos#nixos --rollback";
-      clean = "(cd /etc/nixos && doas nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && doas nix-store --gc)";
-      quiet = "mode-quiet";
-      perf = "mode-perf";
-    };
-
-    initContent = ''
-      fastfetch
-      alias reb="(cd /etc/nixos && git add -A && doas nixos-rebuild switch --flake .#nixos && (git diff --cached --quiet || git commit -m \"rebuild: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
-      alias upd="(cd /etc/nixos && nix flake update && git add -A && doas nixos-rebuild switch --flake .#nixos && (git diff --cached --quiet || git commit -m \"flake update: \$(date +%Y-%m-%d\ %H:%M)\") && git push)"
-      eval "$(starship init zsh)"
-    '';
-  };
-
-  # CLI Helpers Integration
-  programs.fzf = { enable = true; enableZshIntegration = true; };
-  programs.zoxide = { enable = true; enableZshIntegration = true; };
-
   # Media Players
   programs.mpv = {
     enable = true;
@@ -140,47 +111,11 @@ home.pointerCursor = {
     };
   };
 
-  # Fastfetch Configuration
-  programs.fastfetch = {
-    enable = true;
-    settings = {
-      logo = {
-        type = "auto";
-        source = "nixos_small";
-        padding = {
-          top = 1;
-          left = 2;
-          right = 2;
-        };
-      };
-      display = {
-        separator = " ";
-      };
-      modules = [
-        "title"
-        "separator"
-        { type = "os"; key = "󰍹"; }
-        { type = "kernel"; key = "󰒋"; }
-        { type = "uptime"; key = "󰅐"; }
-        { type = "packages"; key = "󰏖"; }
-        { type = "wm"; key = "󱂬"; }
-        { type = "shell"; key = "󰞷"; }
-        { type = "terminal"; key = "󰆍"; }
-        { type = "cpu"; key = "󰻠"; }
-        { type = "gpu"; key = "󰢮"; }
-        { type = "memory"; key = "󰍛"; }
-        { type = "disk"; key = "󰋊"; }
-        { type = "battery"; key = "󰁹"; }
-      ];
-    };
-  };
-
   # Packages
   home.packages = with pkgs; [
     librewolf
     google-chrome
     wl-clipboard
-    kitty
     git
     wget
     eza
@@ -198,7 +133,6 @@ home.pointerCursor = {
     easyeffects
     vesktop
     xwayland-satellite
-    starship
     mpvpaper
     keepassxc
     yt-dlp
@@ -219,3 +153,4 @@ home.pointerCursor = {
 
   programs.home-manager.enable = true;
 }
+
