@@ -3,10 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.umbriel.nixosModules.default
   ];
-
-  programs.umbriel.enable = true;
 
   # Boot & Kernel Configuration
   boot = {
@@ -128,13 +125,13 @@
     isNormalUser = true;
     description = "soulirith";
     extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "ollama" ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   # Desktop Environment & Program Flags
   programs.niri.enable = true;
   programs.xwayland.enable = true;
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
   programs.dconf.enable = true;
   programs.steam.enable = true;
   programs.gamemode.enable = true;
