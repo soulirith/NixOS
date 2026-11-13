@@ -1,18 +1,38 @@
 { pkgs, ... }:
 
 {
-  # Install Rustfetch from Nixpkgs
+  # Install Rustfetch
   home.packages = with pkgs; [
     rustfetch
   ];
 
-  # Ensure ~/.config/rustfetch/config.toml exists without blocking rustfetch's auto-generator
-  home.activation.initRustfetchConfig = ''
-    if [ ! -f "$HOME/.config/rustfetch/config.toml" ]; then
-      mkdir -p "$HOME/.config/rustfetch"
-      ${pkgs.rustfetch}/bin/rustfetch --reset-config >/dev/null 2>&1 || true
-    fi
-  '';
+  # Declarative Rustfetch Configuration (force = true overwrites any existing file automatically)
+  xdg.configFile."rustfetch/config.toml" = {
+    force = true;
+    text = ''
+      [display]
+      identifier = true
+      os = true
+      kernel = true
+      uptime = true
+
+      cpu = true
+          cpu_frequency = false
+
+      gpu = false
+      screen = true
+          resolution = true
+          refresh_rate = true
+
+      ram = true
+      swap = false
+
+      disk = true
+
+      battery = true
+      power_draw = false
+    '';
+  };
 
   # Shell Configuration (Fish)
   programs.fish = {
@@ -21,7 +41,7 @@
     interactiveShellInit = ''
       set fish_greeting
       if string match -q "foot*" "$TERM"
-        rustfetch
+        rustfetch | expand -t 2
       end
     '';
 
@@ -40,7 +60,6 @@
       nterm = "doas -E nvim /etc/nixos/terminal.nix";
       nnvim = "doas -E nvim /etc/nixos/neovim.nix";
       nflake = "doas -E nvim /etc/nixos/flake.nix";
-      nrfetch = "nvim ~/.config/rustfetch/config.toml";
     };
 
     functions = {
@@ -81,7 +100,7 @@
     };
   };
 
-  # Terminal Configuration (Foot - matched to your Kitty config & Foot 1.26+)
+  # Terminal Configuration (Foot)
   programs.foot = {
     enable = true;
     server.enable = true;
