@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 {
   imports = [
@@ -42,7 +42,7 @@
 
   # Power Management & Thermal Handling
   services.power-profiles-daemon.enable = false;
-  services.thermald.enable = false; # Disabled: thermald is Intel-only
+  services.thermald.enable = false;
   
   # Logind Handling
   services.logind.settings.Login = {
@@ -58,14 +58,16 @@
   services.flatpak.enable = true;
   services.dbus.enable = true;
 
-  # Ollama Service (Disabled auto-start so GPU can sleep; run `doas systemctl start ollama` when needed)
+  # Ollama Service (Lazy-start so dGPU stays asleep until needed)
   services.ollama = {
     enable = true;
     package = pkgs.ollama-vulkan;
     environmentVariables = {
-    OLLAMA_CONTEXT_LENGTH = "32768";
+      OLLAMA_CONTEXT_LENGTH = "32768";
+    };
   };
-};
+  systemd.services.ollama.wantedBy = lib.mkForce [ ];
+
   # Localization & Keyboard
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -117,6 +119,12 @@
       {
         users = [ "soulirith" ];
         cmd = "${pkgs.linuxPackages.cpupower}/bin/cpupower";
+        noPass = true;
+      }
+      {
+        users = [ "soulirith" ];
+        cmd = "/run/current-system/sw/bin/nixos-rebuild";
+        args = [ "test" "--flake" "/etc/nixos#nixos" ];
         noPass = true;
       }
     ];
@@ -185,7 +193,7 @@
     modesetting.enable = true; 
     powerManagement = {
       enable = true;
-      finegrained = true; # Autosuspend GPU when unneeded
+      finegrained = true;
     };
     open = false;
     nvidiaSettings = true;

@@ -4,6 +4,7 @@
   imports = [
     ./terminal.nix
     ./neovim.nix
+    ./agents.nix
   ];
 
   home.username = "soulirith";
@@ -132,7 +133,6 @@
     vscodium
     spotube
     claude-code
-    opencode
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
     inputs.blender-bin.packages.${pkgs.system}.default
   ];
