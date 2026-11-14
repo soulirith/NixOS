@@ -10,6 +10,7 @@
     force = true;
     text = builtins.toJSON {
       "$schema" = "https://opencode.ai/config.json";
+      theme = "transparent-mocha";
       model = "ollama/qwen3-coder:30b";
       small_model = "ollama/qwen3-coder:30b";
       provider = {
@@ -40,6 +41,31 @@
           "doas nixos-rebuild test*" = "allow";
           "*" = "ask";
         };
+      };
+    };
+  };
+
+  # Declarative Transparent Catppuccin Mocha Theme
+  xdg.configFile."opencode/themes/transparent-mocha.json" = {
+    force = true;
+    text = builtins.toJSON {
+      "$schema" = "https://opencode.ai/theme.json";
+      theme = {
+        primary = "#89b4fa";
+        secondary = "#cba6f7";
+        accent = "#f5c2e7";
+        error = "#f38ba8";
+        warning = "#f9e2af";
+        success = "#a6e3a1";
+        info = "#94e2d5";
+        text = "#cdd6f4";
+        textMuted = "#a6adc8";
+        background = "none";
+        backgroundPanel = "#181825";
+        backgroundElement = "#313244";
+        border = "#45475a";
+        borderActive = "#89b4fa";
+        borderSubtle = "#313244";
       };
     };
   };
