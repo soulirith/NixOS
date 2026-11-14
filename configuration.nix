@@ -62,8 +62,10 @@
   services.ollama = {
     enable = true;
     package = pkgs.ollama-vulkan;
+    environmentVariables = {
+    OLLAMA_CONTEXT_LENGTH = "32768";
   };
-
+};
   # Localization & Keyboard
   time.timeZone = "Europe/Riga";
   i18n.defaultLocale = "en_US.UTF-8";
