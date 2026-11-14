@@ -60,16 +60,15 @@
         info = "#94e2d5";
         text = "#cdd6f4";
         textMuted = "#a6adc8";
-        background = "transparent"; # Changed from "none" to "transparent"
-        backgroundPanel = "#181825";
+        background = "transparent";
+        backgroundPanel = "transparent"; # Added transparency to the panel box
         backgroundElement = "#313244";
         border = "#45475a";
         borderActive = "#89b4fa";
         borderSubtle = "#313244";
       };
     };
-  };
-
+  }; 
   # Fish Aliases
   programs.fish.shellAliases = {
     agent = "ollama launch opencode --model qwen3-coder:30b";
