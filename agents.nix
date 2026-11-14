@@ -60,7 +60,7 @@
         info = "#94e2d5";
         text = "#cdd6f4";
         textMuted = "#a6adc8";
-        background = "none";
+        background = "transparent"; # Changed from "none" to "transparent"
         backgroundPanel = "#181825";
         backgroundElement = "#313244";
         border = "#45475a";
