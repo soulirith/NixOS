@@ -133,6 +133,7 @@
     vscodium
     spotube
     motrix
+    unrar
     claude-code
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-fhs
     inputs.blender-bin.packages.${pkgs.system}.default
