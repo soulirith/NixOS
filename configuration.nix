@@ -24,6 +24,20 @@
     ];
   };
 
+  # 2. Enable CUPS and include Canon PIXMA & legacy drivers
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cnijfilter2      # Official Canon driver for PIXMA (TR, TS, MG, MX, G, iP, etc.)
+      gutenprint       # Open-source fallback covering hundreds of older Canon PIXMA models
+      gutenprintBin    # Additional binary data for Gutenprint
+      cups-filters     # Standard filters for PDF/PostScript conversion
+    ];
+  };
+
+  # 3. Enable Scanner support (sane-pixma backend is built into standard SANE)
+  hardware.sane.enable = true;
+
   # Networking & Hostname
   networking = {
     hostName = "nixos";
@@ -134,7 +148,7 @@
   users.users.soulirith = {
     isNormalUser = true;
     description = "soulirith";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "ollama" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "ollama" "lp" "scanner" ];
     shell = pkgs.fish;
   };
 
