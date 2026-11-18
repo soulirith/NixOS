@@ -16,6 +16,8 @@
 
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
+    horizon-nix.url = "github:forge-sa/horizon-nix";
+
     blender-bin = {
       url = "github:edolstra/nix-warez?dir=blender";
       inputs.nixpkgs.follows = "nixpkgs";
