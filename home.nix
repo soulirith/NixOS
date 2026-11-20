@@ -104,7 +104,7 @@
     google-chrome
     wl-clipboard
     git
-    wget
+    peazip
     eza
     pciutils
     nemo
@@ -124,8 +124,6 @@
     yt-dlp
     adw-gtk3
     papirus-icon-theme
-    file-roller
-    nemo-fileroller
     xdg-desktop-portal-xapp
     obsidian
     steam-run
