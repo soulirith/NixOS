@@ -45,7 +45,11 @@
     '';
   };
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = false;
+
+  services.gnome.gnome-keyring.enable = true;
+
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   services.mysql = {
     enable = true;

@@ -144,7 +144,7 @@
         blink = "yes";
         blink-rate = 500;
       };
-      colors-dark = {
+      colors = {
         alpha = "0.85";
         background = "1e1e2e";
         foreground = "cdd6f4";
