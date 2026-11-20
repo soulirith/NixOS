@@ -1,9 +1,10 @@
 { pkgs, ... }:
 
 {
-  # Install Rustfetch
+  # Install Rustfetch & Foot
   home.packages = with pkgs; [
     rustfetch
+    foot
   ];
 
   # Declarative Rustfetch Configuration
@@ -129,43 +130,38 @@
   };
 
   # Terminal Configuration (Foot)
-  programs.foot = {
-    enable = true;
-    server.enable = true;
-    settings = {
-      main = {
-        shell = "${pkgs.fish}/bin/fish";
-        font = "JetBrainsMono Nerd Font:size=12";
-        pad = "12x12";
-      };
-      cursor = {
-        style = "beam";
-        beam-thickness = "1.5";
-        blink = "yes";
-        blink-rate = 500;
-      };
-      colors = {
-        alpha = "0.85";
-        background = "1e1e2e";
-        foreground = "cdd6f4";
-        regular0 = "45475a";
-        regular1 = "f38ba8";
-        regular2 = "a6e3a1";
-        regular3 = "f9e2af";
-        regular4 = "89b4fa";
-        regular5 = "f5c2e7";
-        regular6 = "94e2d5";
-        regular7 = "bac2de";
-        bright0 = "585b70";
-        bright1 = "f38ba8";
-        bright2 = "a6e3a1";
-        bright3 = "f9e2af";
-        bright4 = "89b4fa";
-        bright5 = "f5c2e7";
-        bright6 = "94e2d5";
-        bright7 = "a6adc8";
-      };
+  systemd.user.services.foot-server = {
+    Unit = {
+      Description = "Foot terminal server";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
     };
+    Service = {
+      ExecStart = "${pkgs.foot}/bin/foot --server";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
+  xdg.configFile."foot/foot.ini" = {
+    force = true;
+    text = ''
+      [main]
+      shell=${pkgs.fish}/bin/fish
+      font=JetBrainsMono Nerd Font:size=12
+      pad=12x12
+
+      [cursor]
+      style=beam
+      beam-thickness=1.5
+      blink=yes
+      blink-rate=500
+
+      [colors-dark]
+      alpha=0.40
+    '';
   };
 
   # Prompt & CLI Helpers
